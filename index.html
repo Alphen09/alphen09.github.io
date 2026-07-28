@@ -1,14 +1,54 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Alberto NFT Marketplace</title>
-
-<link rel="stylesheet" href="index.css">
-
-<script src="https://sdk.minepi.com/pi-sdk.js"></script>
-
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Alberto NFT Marketplace</title>
+  <script src="https://sdk.minepi.com/pi-sdk.js"></script>
+  <style>
+    body { font-family: Arial; background: #0a0a0a; color: white; text-align: center; padding: 20px; }
+    .btn { background: #6f42c1; color: white; border: none; padding: 15px 30px; border-radius: 10px; font-size: 18px; cursor: pointer; margin: 10px; }
+    .nft { background: #1a1a1a; padding: 15px; border-radius: 15px; margin: 20px auto; max-width: 300px; }
+    .nft img { width: 100%; border-radius: 10px; }
+  </style>
 </head>
-
 <body>
+  <h1>🐉 Alberto NFT Marketplace</h1>
+  <button class="btn" id="loginBtn">Login with Pi</button>
+  <div id="userInfo"></div>
+
+  <h2>Featured NFTs</h2>
+  <div class="nft">
+    <img src="https://via.placeholder.com/300x300.png?text=Dragon+NFT" alt="Dragon NFT">
+    <h3>Dragon Genesis #001</h3>
+    <p>Price: 10 π</p>
+    <button class="btn" onclick="buy(10)">Buy with Pi</button>
+  </div>
+
+<script>
+  Pi.init({ version: "2.0", sandbox: true }); // palitan natin to false pag live na
+
+  document.getElementById("loginBtn").onclick = async function() {
+    const scopes = ['username', 'payments'];
+    const auth = await Pi.authenticate(scopes, onIncompletePaymentFound);
+    document.getElementById("userInfo").innerHTML = "Welcome, " + auth.user.username + "!";
+  }
+
+  function buy(amount) {
+    const paymentData = {
+      amount: amount,
+      memo: "Buy Dragon NFT #001",
+      metadata: { nftId: "001" }
+    };
+    Pi.createPayment(paymentData, {
+      onReadyForServerApproval: function(paymentId) { alert("Payment ID: " + paymentId) },
+      onReadyForServerCompletion: function(paymentId, txid) { alert("Payment Complete!") },
+      onCancel: function(paymentId) { alert("Cancelled") },
+      onError: function(error) { alert("Error: " + error) }
+    });
+  }
+
+  function onIncompletePaymentFound(payment) { console.log(payment); }
+</script>
+</body>
+</html>

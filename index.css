@@ -1,0 +1,181 @@
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Arial,sans-serif;
+}
+
+body{
+background:#120022;
+color:white;
+}
+
+.hero{
+background:linear-gradient(180deg,#4b0082,#22003d);
+text-align:center;
+padding:40px 20px;
+}
+
+.hero-logo{
+width:300px;
+max-width:90%;
+border-radius:20px;
+margin-bottom:20px;
+box-shadow:0 0 25px gold;
+}
+
+.hero h1{
+font-size:48px;
+color:#FFD700;
+margin-bottom:15px;
+}
+
+.tagline{
+font-size:24px;
+color:white;
+margin-bottom:10px;
+}
+
+.subtitle{
+font-size:18px;
+color:#dddddd;
+margin-bottom:25px;
+}
+
+#loginBtn{
+background:#FFD700;
+color:#000;
+padding:15px 40px;
+border:none;
+border-radius:12px;
+font-size:20px;
+font-weight:bold;
+cursor:pointer;
+transition:.3s;
+}
+
+#loginBtn:hover{
+background:white;
+transform:scale(1.05);
+}
+
+.navbar{
+display:flex;
+justify-content:center;
+flex-wrap:wrap;
+gap:20px;
+background:#2b0050;
+padding:15px;
+}
+
+.navbar a{
+color:white;
+text-decoration:none;
+font-size:18px;
+font-weight:bold;
+}
+
+.navbar a:hover{
+color:#FFD700;
+}
+
+.featured{
+padding:40px 20px;
+text-align:center;
+}
+
+.featured h2{
+font-size:38px;
+color:#FFD700;
+margin-bottom:10px;
+}
+
+.grid{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+gap:25px;
+margin-top:30px;
+}
+
+.card{
+background:#250040;
+border-radius:18px;
+overflow:hidden;
+box-shadow:0 0 20px rgba(255,215,0,.25);
+transition:.3s;
+padding-bottom:20px;
+}
+
+.card:hover{
+transform:translateY(-10px);
+box-shadow:0 0 30px gold;
+}
+
+.card img{
+width:100%;
+height:320px;
+object-fit:cover;
+display:block;
+}
+
+.card h3{
+margin-top:15px;
+font-size:24px;
+color:#FFD700;
+}
+
+.card p{
+margin:10px;
+color:#ddd;
+}
+
+.card button{
+background:#FFD700;
+color:black;
+border:none;
+padding:12px 25px;
+border-radius:10px;
+font-weight:bold;
+cursor:pointer;
+transition:.3s;
+}
+
+.card button:hover{
+background:white;
+}
+
+.museum{
+text-align:center;
+padding:60px 20px;
+background:#1b0033;
+}
+
+.museum h2{
+font-size:36px;
+color:#FFD700;
+margin-bottom:20px;
+}
+
+.museum p{
+font-size:18px;
+margin-bottom:25px;
+}
+
+.museum button{
+background:#FFD700;
+color:black;
+padding:15px 35px;
+border:none;
+border-radius:12px;
+font-size:20px;
+font-weight:bold;
+cursor:pointer;
+}
+
+footer{
+background:#0d0018;
+text-align:center;
+padding:30px;
+margin-top:40px;
+color:#bbb;
+}

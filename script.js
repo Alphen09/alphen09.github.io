@@ -19,13 +19,11 @@ async function loginPi() {
 
         const auth = await Pi.authenticate(["username"]);
 
-        alert("Welcome " + auth.user.username);
+        // Save Pi username
+        localStorage.setItem("piUser", auth.user.username);
 
-        const loginBtn = document.getElementById("loginBtn");
-
-        if (loginBtn) {
-            loginBtn.innerHTML = "👤 " + auth.user.username;
-        }
+        // Redirect to Marketplace
+        window.location.href = "marketplace.html";
 
     } catch (err) {
 

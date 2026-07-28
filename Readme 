@@ -1,0 +1,11 @@
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Pi Domain Verification</title>
+    </head>
+    <body>
+        <h1>Pi Verification Page</h1>
+        <p>Key: <a href="validation-key.txt">validation-key.txt</a></p>
+    </body>
+    </html>

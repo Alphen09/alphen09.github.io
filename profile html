@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Profile | Alberto NFT Marketplace</title>
+
+<link rel="stylesheet" href="index.css">
+
+</head>
+
+<body>
+
+<header class="hero">
+
+<img src="images/alberto-banner.png"
+class="hero-logo"
+alt="Profile">
+
+<h1>👤 My Profile</h1>
+
+<p class="tagline">
+Manage Your Pi Account & NFT Collection
+</p>
+
+<button id="loginBtn">
+Login with Pi
+</button>
+
+</header>
+
+<nav class="navbar">
+
+<a href="index.html">🏠 Home</a>
+
+<a href="museum.html">🏛 Museum</a>
+
+<a href="marketplace.html">🛒 Marketplace</a>
+
+<a href="profile.html">👤 Profile</a>
+
+</nav>
+
+<section class="featured">
+
+<h2>👤 Account Information</h2>
+
+<div class="grid">
+
+<div class="card">
+<h3>Pi Username</h3>
+<p>Not Connected</p>
+</div>
+
+<div class="card">
+<h3>Wallet Status</h3>
+<p>Not Connected</p>
+</div>
+
+<div class="card">
+<h3>Total NFTs</h3>
+<p>0 NFT</p>
+</div>
+
+<div class="card">
+<h3>Creator</h3>
+<p>Alberto Digital Art Work Studio</p>
+</div>
+
+</div>
+
+</section>
+
+<section class="featured">
+
+<h2>🎨 My NFT Collection</h2>
+
+<div class="grid">
+
+<div class="card">
+<h3>Owned NFTs</h3>
+<p>0 Items</p>
+<button>View</button>
+</div>
+
+<div class="card">
+<h3>Favorites</h3>
+<p>0 Items</p>
+<button>View</button>
+</div>
+
+<div class="card">
+<h3>Listed for Sale</h3>
+<p>0 Items</p>
+<button>Manage</button>
+</div>
+
+<div class="card">
+<h3>Purchase History</h3>
+<p>Coming Soon</p>
+<button>View</button>
+</div>
+
+</div>
+
+</section>
+
+<section class="featured">
+
+<h2>⚙️ Account Settings</h2>
+
+<div class="grid">
+
+<div class="card">
+<h3>Security</h3>
+<p>Manage Login & Wallet</p>
+</div>
+
+<div class="card">
+<h3>Notifications</h3>
+<p>Marketplace Updates</p>
+</div>
+
+<div class="card">
+<h3>Support</h3>
+<p>Contact Alberto Studio</p>
+</div>
+
+<div class="card">
+<h3>About</h3>
+<p>Powered by Pi Network</p>
+</div>
+
+</div>
+
+</section>
+
+<footer>
+
+<p>
+© 2026 Alberto Digital Art Work Studio
+</p>
+
+<p>
+Powered by Pi Network
+</p>
+
+</footer>
+
+<script src="script.js"></script>
+
+</body>
+
+</html>

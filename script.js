@@ -23,7 +23,7 @@ async function loginPi() {
         localStorage.setItem("piUser", auth.user.username);
 
         // Redirect to Marketplace
-        window.location.href = "marketplace.html";
+        window.location.href = "./marketplace.html";
 
     } catch (err) {
 

@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Alberto NFT Marketplace</title>
+
+<link rel="stylesheet" href="css/marketplace.css">
+
+<script src="https://sdk.minepi.com/pi-sdk.js"></script>
+</head>
+
+<body>
+
+<header class="header">
+    <h1>🐉 Alberto NFT Marketplace</h1>
+
+    <input
+        type="text"
+        class="search"
+        placeholder="Search NFTs...">
+</header>
+
+<main class="market-grid">
+
+<div class="card">
+
+<img src="images/satoshi-devil-wing.jpg">
+
+<h2>Satoshi Devil Wings +30</h2>
+
+<p>500 Pi</p>
+
+<button
+class="buy-btn"
+data-price="1"
+data-nft="Satoshi Devil Wings +30">
+
+Buy with Pi
+
+</button>
+
+</div>
+
+<div class="card">
+
+<img src="images/satoshi-archangel.jpg">
+
+<h2>Satoshi Archangel Wings +30</h2>
+
+<p>800 Pi</p>
+
+<button
+class="buy-btn"
+data-price="2"
+data-nft="Satoshi Archangel Wings +30">
+
+Buy with Pi
+
+</button>
+
+</div>
+
+</main>
+
+<script src="js/marketplace.js"></script>
+
+</body>
+</html>

@@ -1,125 +1,142 @@
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-    font-family:Arial,sans-serif;
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
 }
 
-body{
-    background:#120022;
-    color:#fff;
+body {
+    background: #120022;
+    color: #fff;
+    overflow-x: hidden;
 }
 
-/* Header */
+/* HEADER */
 
-.header{
-    background:linear-gradient(135deg,#3b0066,#6a00b8);
-    padding:20px;
-    text-align:center;
-    border-bottom:2px solid #FFD700;
+.header {
+    background: linear-gradient(135deg, #3b0066, #6a00b8);
+    padding: 20px 15px;
+    text-align: center;
+    border-bottom: 2px solid #FFD700;
 }
 
-.header h1{
-    color:#FFD700;
-    font-size:30px;
-    margin-bottom:15px;
+.header h1 {
+    color: #FFD700;
+    font-size: 30px;
+    margin-bottom: 15px;
 }
 
-.search{
-    width:100%;
-    max-width:450px;
-    padding:12px;
-    border:none;
-    border-radius:10px;
-    font-size:16px;
-    outline:none;
+#pi-user {
+    color: #fff;
+    margin-bottom: 12px;
+    font-size: 16px;
 }
 
-/* Marketplace Grid */
-
-.market-grid{
-    display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
-    gap:25px;
-    padding:25px;
-    max-width:1300px;
-    margin:auto;
+.search {
+    width: 100%;
+    max-width: 450px;
+    padding: 12px;
+    border: none;
+    border-radius: 10px;
+    font-size: 16px;
+    outline: none;
 }
 
-/* Card */
+/* MARKETPLACE GRID */
 
-.card{
-    background:#24003d;
-    border-radius:18px;
-    overflow:hidden;
-    text-align:center;
-    box-shadow:0 0 15px rgba(255,215,0,.25);
-    transition:.3s;
+.market-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 25px;
+    padding: 25px;
+    max-width: 1300px;
+    margin: 0 auto;
 }
 
-.card:hover{
-    transform:translateY(-6px);
-    box-shadow:0 0 25px gold;
+/* NFT CARD */
+
+.card {
+    background: #24003d;
+    border-radius: 18px;
+    overflow: hidden;
+    text-align: center;
+    box-shadow: 0 0 15px rgba(255, 215, 0, 0.25);
+    transition: 0.3s;
 }
 
-.card img{
-    width:100%;
-    height:220px;
-    object-fit:contain;
-    background:#180028;
-    padding:20px;
-    display:block;
+.card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 0 25px gold;
 }
 
+/* NFT IMAGE */
 
-.card h2{
-    color:#FFD700;
-    font-size:22px;
-    margin-top:15px;
+.card img {
+    width: 100%;
+    height: 180px;
+    object-fit: contain;
+    object-position: center;
+    background: #180028;
+    padding: 5px;
+    display: block;
 }
 
-.card p{
-    color:#ddd;
-    margin:10px 0;
-    font-size:18px;
+/* NFT TITLE */
+
+.card h2 {
+    color: #FFD700;
+    font-size: 21px;
+    margin: 15px 10px 10px;
 }
 
-.buy-btn{
-    background:#FFD700;
-    color:#000;
-    border:none;
-    padding:12px 30px;
-    border-radius:10px;
-    font-weight:bold;
-    cursor:pointer;
-    margin-bottom:20px;
+/* NFT INFO */
+
+.card p {
+    color: #ddd;
+    margin: 8px 0;
+    font-size: 16px;
 }
 
-.buy-btn:hover{
-    background:#fff;
+/* BUY BUTTON */
+
+.buy-btn {
+    background: #FFD700;
+    color: #000;
+    border: none;
+    padding: 12px 30px;
+    border-radius: 10px;
+    font-weight: bold;
+    cursor: pointer;
+    margin: 15px 0 20px;
+    font-size: 16px;
 }
 
-/* Mobile */
-
-@media (max-width:768px){
-
-.header h1{
-    font-size:24px;
+.buy-btn:hover {
+    background: #fff;
 }
 
-.market-grid{
-    grid-template-columns:1fr;
-    padding:15px;
-}
+/* MOBILE */
 
-.card{
-    max-width:380px;
-    margin:auto;
-}
+@media (max-width: 768px) {
 
-.card img{
-    height:180px;
-}
+    .header h1 {
+        font-size: 24px;
+    }
 
+    .market-grid {
+        grid-template-columns: 1fr;
+        padding: 15px;
+    }
+
+    .card {
+        max-width: 380px;
+        width: 100%;
+        margin: 0 auto;
+    }
+
+    .card img {
+        height: 150px;
+        padding: 5px;
+    }
 
 }

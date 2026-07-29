@@ -1,38 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Alberto NFT Marketplace</title>
+
+<link rel="stylesheet" href="css/marketplace.css">
+
+<script src="https://sdk.minepi.com/pi-sdk.js"></script>
+
+</head>
+
+<body>
+
+<header class="header">
+
+<h1>🐉 Alberto NFT Marketplace</h1>
+
+<input
+type="text"
+class="search"
+placeholder="Search NFTs...">
+
+</header>
+
+<main class="market-grid">
+
 <div class="card">
-    <img src="satoshi-devil-wing.png" alt="Satoshi Devil Wings">
-    <p>Collection: Satoshi Wings</p>
-    <p>Price: 500 Pi</p>
-    <button class="buy-btn" data-price="500" data-nft="Satoshi Devil Wings +30">
-        Buy with Pi
-    </button>
+
+<img src="images/satoshi-devil-wing.png" alt="Satoshi Devil Wings">
+
+<h2>Satoshi Devil Wings +30</h2>
+
+<p>500 Pi</p>
+
+<button
+class="buy-btn"
+data-price="1"
+data-nft="Satoshi Devil Wings +30">
+Buy with Pi
+</button>
+
 </div>
 
 <div class="card">
-    <img src="satoshi-archangel-wing.png" alt="Satoshi Archangel Wings">
-    <h3>Satoshi Archangel Wings +30</h3>
-    <p>Collection: Satoshi Wings</p>
-    <p>Price: 800 Pi</p>
-    <button class="buy-btn" data-price="800" data-nft="Satoshi Archangel Wings +30">
-        Buy with Pi
-    </button>
+
+<img src="images/satoshi-archangel.png" alt="Satoshi Archangel Wings">
+
+<h2>Satoshi Archangel Wings +30</h2>
+
+<p>800 Pi</p>
+
+<button
+class="buy-btn"
+data-price="2"
+data-nft="Satoshi Archangel Wings +30">
+Buy with Pi
+</button>
+
 </div>
 
-<div class="card">
-    <img src="satoshi-dark-angel-wing.png" alt="Satoshi Dark Angel Wings">
-    <h3>Satoshi Dark Angel Wings +30</h3>
-    <p>Collection: Satoshi Wings</p>
-    <p>Price: 1200 Pi</p>
-    <button class="buy-btn" data-price="1200" data-nft="Satoshi Dark Angel Wings +30">
-        Buy with Pi
-    </button>
-</div>
+</main>
 
-<div class="card">
-    <img src="satoshi-astral-bike-rw3.png" alt="Satoshi Astral Bike RW3">
-    <h3>Satoshi Astral Bike RW3</h3>
-    <p>Collection: RW3 Mounts</p>
-    <p>Price: 2000 Pi</p>
-    <button class="buy-btn" data-price="2000" data-nft="Satoshi Astral Bike RW3">
-        Buy with Pi
-    </button>
-</div>
+<script src="js/marketplace.js"></script>
+
+</body>
+</html>

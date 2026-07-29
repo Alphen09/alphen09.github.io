@@ -81,4 +81,4 @@ document.addEventListener("DOMContentLoaded", function () {
 
     });
 
-});
+});alert("Marketplace JavaScript Loaded!");

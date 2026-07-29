@@ -1,32 +1,15 @@
-server.js
-const express = require("express");
-
-const app = express();
-
-app.use(express.json());
-
-app.post("/approve", (req, res) => {
-    console.log("Approve:", req.body);
-
-    res.json({
-        success: true
-    });
-});
-
-app.post("/complete", (req, res) => {
-    console.log("Complete:", req.body);
-
-    res.json({
-        success: true
-    });
-});
-
-app.get("/", (req, res) => {
-    res.send("Alberto NFT Marketplace Backend Running");
-});
-
-const PORT = process.env.PORT || 3000;
-
-app.listen(PORT, () => {
-    console.log("Server running on port " + PORT);
-});
+{
+  "name": "alberto-nft-backend",
+  "version": "1.0.0",
+  "description": "Backend for Alberto NFT Marketplace",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "axios": "^1.7.2",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2"
+  }
+}

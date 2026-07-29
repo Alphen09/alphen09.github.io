@@ -1,35 +1,52 @@
 // Alberto NFT Marketplace V2
+// Pi Sandbox Marketplace
 
-document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener("DOMContentLoaded", function () {
 
-    // Welcome Pi User
+    console.log("Alberto NFT Marketplace Loaded");
+
+    // ==============================
+    // SHOW PI USERNAME
+    // ==============================
+
     const username = localStorage.getItem("piUser");
+    const userBox = document.getElementById("pi-user");
 
-    if (username) {
-        const userBox = document.getElementById("pi-user");
-
-        if (userBox) {
-            userBox.innerHTML = "👤 Welcome, " + username;
-        }
+    if (username && userBox) {
+        userBox.textContent = "👤 Welcome, " + username;
     }
 
-    // Search NFT
-    const search = document.getElementById("searchNFT");
 
-    if (search) {
+    // ==============================
+    // NFT SEARCH
+    // ==============================
 
-        search.addEventListener("keyup", function () {
+    const searchBox = document.getElementById("searchNFT");
+    const cards = document.querySelectorAll(".card");
 
-            let value = this.value.toLowerCase();
+    if (searchBox) {
 
-            let cards = document.querySelectorAll(".card");
+        searchBox.addEventListener("input", function () {
 
-            cards.forEach(card => {
+            const searchValue = this.value.toLowerCase().trim();
 
-                let title = card.querySelector("h3").innerText.toLowerCase();
+            cards.forEach(function (card) {
 
-                if (title.includes(value)) {
-                    card.style.display = "block";
+                const title = card
+                    .querySelector("h2")
+                    .textContent
+                    .toLowerCase();
+
+                const collection = card
+                    .querySelector("p")
+                    .textContent
+                    .toLowerCase();
+
+                if (
+                    title.includes(searchValue) ||
+                    collection.includes(searchValue)
+                ) {
+                    card.style.display = "";
                 } else {
                     card.style.display = "none";
                 }
@@ -40,21 +57,24 @@ document.addEventListener("DOMContentLoaded", () => {
 
     }
 
-    // Buy Button (Temporary)
 
-    const buttons = document.querySelectorAll(".buy-btn");
+    // ==============================
+    // BUY BUTTONS
+    // ==============================
 
-    buttons.forEach(button => {
+    const buyButtons = document.querySelectorAll(".buy-btn");
 
-        button.addEventListener("click", () => {
+    buyButtons.forEach(function (button) {
 
-            let nft = button.dataset.nft;
-            let price = button.dataset.price;
+        button.addEventListener("click", function () {
+
+            const nftName = this.dataset.nft;
+            const price = this.dataset.price;
 
             alert(
-                "NFT : " + nft +
-                "\nPrice : " + price + " Pi" +
-                "\n\nNext Step:\nPi Sandbox Payment"
+                "NFT: " + nftName +
+                "\nPrice: " + price + " Pi" +
+                "\n\nPi Sandbox payment integration is being prepared."
             );
 
         });

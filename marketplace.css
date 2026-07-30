@@ -1,142 +1,138 @@
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: Arial, sans-serif;
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial,sans-serif;
 }
 
-body {
-    background: #120022;
-    color: #fff;
-    overflow-x: hidden;
+body{
+    background:#120022;
+    color:#ffffff;
 }
 
 /* HEADER */
 
-.header {
-    background: linear-gradient(135deg, #3b0066, #6a00b8);
-    padding: 20px 15px;
-    text-align: center;
-    border-bottom: 2px solid #FFD700;
+.header{
+    background:linear-gradient(135deg,#3b0066,#6a00b8);
+    padding:25px;
+    text-align:center;
+    border-bottom:2px solid #FFD700;
 }
 
-.header h1 {
-    color: #FFD700;
-    font-size: 30px;
-    margin-bottom: 15px;
+.header h1{
+    color:#FFD700;
+    margin-bottom:10px;
+    font-size:32px;
 }
 
-#pi-user {
-    color: #fff;
-    margin-bottom: 12px;
-    font-size: 16px;
+#pi-user{
+    margin-bottom:15px;
+    color:#ffffff;
+    font-weight:bold;
 }
 
-.search {
-    width: 100%;
-    max-width: 450px;
-    padding: 12px;
-    border: none;
-    border-radius: 10px;
-    font-size: 16px;
-    outline: none;
+.search{
+    width:100%;
+    max-width:450px;
+    padding:12px;
+    border:none;
+    border-radius:10px;
+    font-size:16px;
 }
 
-/* MARKETPLACE GRID */
+/* MARKETPLACE */
 
-.market-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 25px;
-    padding: 25px;
-    max-width: 1300px;
-    margin: 0 auto;
+.market-grid{
+    max-width:1300px;
+    margin:30px auto;
+    padding:20px;
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+    gap:25px;
 }
 
-/* NFT CARD */
+/* CARD */
 
-.card {
-    background: #24003d;
-    border-radius: 18px;
-    overflow: hidden;
-    text-align: center;
-    box-shadow: 0 0 15px rgba(255, 215, 0, 0.25);
-    transition: 0.3s;
+.card{
+    background:#24003d;
+    border-radius:18px;
+    padding:20px;
+    text-align:center;
+    border:1px solid rgba(255,215,0,.25);
+    transition:.3s;
 }
 
-.card:hover {
-    transform: translateY(-6px);
-    box-shadow: 0 0 25px gold;
+.card:hover{
+    transform:translateY(-8px);
+    box-shadow:0 0 20px rgba(255,215,0,.5);
 }
 
-/* NFT IMAGE */
+/* IMAGE */
 
 .card img{
-    width: 100%;
-    height: 180px;
-    object-fit: contain;
-    object-position: center;
-    background: #180028;
-    padding: 10px;
-    display: block;
+    width:100%;
+    max-width:180px;
+    height:180px;
+    display:block;
+    margin:0 auto 15px;
+    object-fit:contain;
+    object-position:center;
 }
 
-/* NFT TITLE */
+/* TEXT */
 
-.card h2 {
-    color: #FFD700;
-    font-size: 21px;
-    margin: 15px 10px 10px;
+.card h2{
+    color:#FFD700;
+    font-size:22px;
+    margin-bottom:10px;
 }
 
-/* NFT INFO */
-
-.card p {
-    color: #ddd;
-    margin: 8px 0;
-    font-size: 16px;
+.collection{
+    color:#cccccc;
+    margin-bottom:8px;
 }
 
-/* BUY BUTTON */
-
-.buy-btn {
-    background: #FFD700;
-    color: #000;
-    border: none;
-    padding: 12px 30px;
-    border-radius: 10px;
-    font-weight: bold;
-    cursor: pointer;
-    margin: 15px 0 20px;
-    font-size: 16px;
+.price{
+    color:#FFD700;
+    font-size:20px;
+    font-weight:bold;
+    margin-bottom:18px;
 }
 
-.buy-btn:hover {
-    background: #fff;
+/* BUTTON */
+
+.buy-btn{
+    width:100%;
+    padding:14px;
+    border:none;
+    border-radius:10px;
+    background:#FFD700;
+    color:#000;
+    font-size:16px;
+    font-weight:bold;
+    cursor:pointer;
+    transition:.3s;
+}
+
+.buy-btn:hover{
+    background:#ffffff;
 }
 
 /* MOBILE */
 
-@media (max-width: 768px) {
+@media(max-width:768px){
 
-    .header h1 {
-        font-size: 24px;
-    }
+.header h1{
+    font-size:26px;
+}
 
-    .market-grid {
-        grid-template-columns: 1fr;
-        padding: 15px;
-    }
+.market-grid{
+    grid-template-columns:1fr;
+}
 
-    .card {
-        max-width: 380px;
-        width: 100%;
-        margin: 0 auto;
-    }
-
-    .card img {
-        height: 150px;
-        padding: 5px;
-    }
+.card img{
+    max-width:160px;
+    height:160px;
+}
 
 }

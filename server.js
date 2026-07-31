@@ -33,7 +33,42 @@ app.post("/complete-payment", (req, res) => {
         message: "Payment Completed"
     });
 });
+app.post("/mint", (req, res) => {
 
+    const {
+        nftName,
+        description,
+        collection,
+        category,
+        royalty,
+        price
+    } = req.body;
+
+    console.log("New NFT Minted");
+
+    console.log({
+        nftName,
+        description,
+        collection,
+        category,
+        royalty,
+        price
+    });
+
+    res.json({
+        success: true,
+        message: "NFT minted successfully!",
+        nft: {
+            nftName,
+            description,
+            collection,
+            category,
+            royalty,
+            price
+        }
+    });
+
+});
 const PORT = process.env.PORT || 3000;
 
 app.listen(PORT, () => {

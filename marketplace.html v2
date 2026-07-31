@@ -1,70 +1,302 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Alberto NFT Marketplace</title>
+    <title>Alberto NFT Marketplace</title>
 
-<link rel="stylesheet" href="css/marketplace.css">
+    <link rel="stylesheet" href="marketplace.css">
 
-<script src="https://sdk.minepi.com/pi-sdk.js"></script>
+    <script src="https://sdk.minepi.com/pi-sdk.js"></script>
 </head>
 
 <body>
 
 <header class="header">
-    <h1>🐉 Alberto NFT Marketplace</h1>
+
+    <div class="brand">
+        <img
+            src="images/logo.png"
+            class="logo"
+            alt="Alberto NFT Marketplace Logo"
+        >
+
+        <div>
+            <h1>Alberto NFT Marketplace</h1>
+            <p>Discover • Collect • Trade with Pi</p>
+        </div>
+    </div>
+
+    <div id="pi-user" class="pi-user">
+        👤 Pi Pioneer
+    </div>
 
     <input
-        type="text"
+        id="searchNFT"
         class="search"
-        placeholder="Search NFTs...">
+        type="search"
+        placeholder="🔎 Search NFTs..."
+        autocomplete="off"
+    >
+
 </header>
 
-<main class="market-grid">
+<nav class="categories">
 
-<div class="card">
+    <button class="category-btn active" data-category="all">
+        All NFTs
+    </button>
 
-<img src="images/satoshi-devil-wing.jpg">
+    <button class="category-btn" data-category="games">
+        🎮 Games
+    </button>
 
-<h2>Satoshi Devil Wings +30</h2>
+    <button class="category-btn" data-category="art">
+        🎨 Art
+    </button>
 
-<p>500 Pi</p>
+    <button class="category-btn" data-category="collectibles">
+        💎 Collectibles
+    </button>
 
-<button
-class="buy-btn"
-data-price="1"
-data-nft="Satoshi Devil Wings +30">
+    <button class="category-btn" data-category="pets">
+        🐾 Pets
+    </button>
 
-Buy with Pi
+    <button class="category-btn" data-category="characters">
+        ⚔️ Characters
+    </button>
 
-</button>
+    <button class="category-btn" data-category="mounts">
+        🚀 Mounts
+    </button>
 
-</div>
+    <button class="category-btn" data-category="rare">
+        👑 Rare
+    </button>
 
-<div class="card">
+</nav>
 
-<img src="images/satoshi-archangel.jpg">
+<main>
 
-<h2>Satoshi Archangel Wings +30</h2>
+    <section class="market-intro">
 
-<p>800 Pi</p>
+        <h2>Explore NFTs</h2>
 
-<button
-class="buy-btn"
-data-price="2"
-data-nft="Satoshi Archangel Wings +30">
+        <p>
+            Discover digital art, collectibles,
+            game assets, characters, pets and rare creations.
+        </p>
 
-Buy with Pi
+    </section>
 
-</button>
+    <section
+        id="nftGrid"
+        class="market-grid"
+        aria-label="NFT Marketplace"
+    >
 
-</div>
+        <article
+            class="card"
+            data-category="collectibles"
+            data-nft-id="SATOSHI-WINGS-001"
+        >
+
+            <img
+                src="images/satoshi-devil-wing.jpg"
+                alt="Satoshi Devil Wings +30"
+                loading="lazy"
+            >
+
+            <div class="card-content">
+
+                <span class="badge">
+                    Collectible
+                </span>
+
+                <h2>Satoshi Devil Wings +30</h2>
+
+                <p class="collection">
+                    Satoshi Wings
+                </p>
+
+                <p class="price">
+                    <strong>500</strong> Pi
+                </p>
+
+                <button
+                    class="buy-btn"
+                    type="button"
+                    data-price="500"
+                    data-nft="Satoshi Devil Wings +30"
+                    data-nft-id="SATOSHI-WINGS-001"
+                >
+                    Buy with Pi
+                </button>
+
+            </div>
+
+        </article>
+
+
+        <article
+            class="card"
+            data-category="collectibles"
+            data-nft-id="SATOSHI-WINGS-002"
+        >
+
+            <img
+                src="images/archangel.jpg"
+                alt="Satoshi Archangel Wings +30"
+                loading="lazy"
+            >
+
+            <div class="card-content">
+
+                <span class="badge">
+                    Collectible
+                </span>
+
+                <h2>Satoshi Archangel Wings +30</h2>
+
+                <p class="collection">
+                    Satoshi Wings
+                </p>
+
+                <p class="price">
+                    <strong>800</strong> Pi
+                </p>
+
+                <button
+                    class="buy-btn"
+                    type="button"
+                    data-price="800"
+                    data-nft="Satoshi Archangel Wings +30"
+                    data-nft-id="SATOSHI-WINGS-002"
+                >
+                    Buy with Pi
+                </button>
+
+            </div>
+
+        </article>
+
+
+        <article
+            class="card"
+            data-category="collectibles"
+            data-nft-id="SATOSHI-WINGS-003"
+        >
+
+            <img
+                src="images/satoshi-dark-angel-wing.jpg"
+                alt="Satoshi Dark Angel Wings +30"
+                loading="lazy"
+            >
+
+            <div class="card-content">
+
+                <span class="badge">
+                    Rare
+                </span>
+
+                <h2>Satoshi Dark Angel Wings +30</h2>
+
+                <p class="collection">
+                    Satoshi Wings
+                </p>
+
+                <p class="price">
+                    <strong>1200</strong> Pi
+                </p>
+
+                <button
+                    class="buy-btn"
+                    type="button"
+                    data-price="1200"
+                    data-nft="Satoshi Dark Angel Wings +30"
+                    data-nft-id="SATOSHI-WINGS-003"
+                >
+                    Buy with Pi
+                </button>
+
+            </div>
+
+        </article>
+
+
+        <article
+            class="card"
+            data-category="mounts"
+            data-nft-id="RW3-MOUNT-001"
+        >
+
+            <img
+                src="images/satoshi-astral-bike-rw3.jpg"
+                alt="Satoshi Astral Bike RW3"
+                loading="lazy"
+            >
+
+            <div class="card-content">
+
+                <span class="badge">
+                    Mount
+                </span>
+
+                <h2>Satoshi Astral Bike RW3</h2>
+
+                <p class="collection">
+                    RW3 Mounts
+                </p>
+
+                <p class="price">
+                    <strong>2000</strong> Pi
+                </p>
+
+                <button
+                    class="buy-btn"
+                    type="button"
+                    data-price="2000"
+                    data-nft="Satoshi Astral Bike RW3"
+                    data-nft-id="RW3-MOUNT-001"
+                >
+                    Buy with Pi
+                </button>
+
+            </div>
+
+        </article>
+
+    </section>
+
+
+    <section
+        id="emptyState"
+        class="empty-state"
+        hidden
+    >
+
+        <h2>No NFTs found</h2>
+
+        <p>
+            Try another search or choose a different category.
+        </p>
+
+    </section>
 
 </main>
 
-<script src="js/marketplace.js"></script>
+<footer class="market-footer">
+
+    <p>© 2026 Alberto NFT Marketplace</p>
+    <p>Built for the Pi ecosystem</p>
+
+</footer>
+
+<script src="marketplace.js"></script>
 
 </body>
+
 </html>

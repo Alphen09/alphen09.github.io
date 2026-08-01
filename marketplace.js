@@ -376,9 +376,12 @@ function buyNFT(button) {
             error
         );
 
-        alert(
-            "Unable to start Pi payment."
-        );
+       alert(
+    "Pi Payment Error:\n\n" +
+    (error && error.message
+        ? error.message
+        : String(error))
+);
 
         button.disabled = false;
 

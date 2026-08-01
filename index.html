@@ -7,7 +7,6 @@
 
   <title>Alberto NFT Marketplace</title>
 
-  <!-- Pi Network SDK -->
   <script src="https://sdk.minepi.com/pi-sdk.js"></script>
 
   <style>
@@ -47,6 +46,7 @@
       padding: 35px;
       border-radius: 20px;
       box-shadow: 0 0 20px rgba(111, 66, 193, 0.3);
+      border-radius: 20px;
     }
 
     .btn {
@@ -80,115 +80,93 @@
 
 <body>
 
-  <div class="container">
+<div class="container">
 
-    <div class="logo">🐉</div>
+<div class="logo">🐉</div>
 
-    <h1>Alberto NFT Marketplace</h1>
+<h1>Alberto NFT Marketplace</h1>
 
-    <p class="subtitle">
-      Discover • Collect • Mint • Trade Legendary NFTs
-    </p>
+<p class="subtitle">
+Discover • Collect • Mint • Trade Legendary NFTs
+</p>
 
-    <div class="login-card">
+<div class="login-card">
 
-      <h2>Welcome to Alberto NFT Marketplace</h2>
+<h2>Welcome to Alberto NFT Marketplace</h2>
 
-      <p>
-        Login with your Pi account to enter the marketplace.
-      </p>
+<p>
+Login with your Pi account to enter the marketplace.
+</p>
 
-      <button class="btn" id="loginBtn">
-        Login with Pi
-      </button>
+<button class="btn" id="loginBtn">
+Login with Pi
+</button>
 
-      <div id="userInfo"></div>
+<div id="userInfo"></div>
 
-      <div class="status">
-        Pi Network Sandbox Testing
-      </div>
+<div class="status">
+Pi Network Sandbox Testing
+</div>
 
-    </div>
+</div>
 
-  </div>
+</div>
 
+<script>
 
-  <script>
+Pi.init({
+    version: "2.0",
+    sandbox: true
+});
 
-    // Initialize Pi Network
-    Pi.init({
-      version: "2.0",
-      sandbox: true
-    });
+const loginBtn = document.getElementById("loginBtn");
 
+loginBtn.addEventListener("click", async () => {
 
-    // Login Button
-    const loginBtn = document.getElementById("loginBtn");
-
-
-    loginBtn.addEventListener("click", async function () {
-
-      try {
+    try {
 
         loginBtn.disabled = true;
         loginBtn.innerText = "Connecting to Pi...";
 
-
-        // Authenticate Pi user
         const auth = await Pi.authenticate(
-          ["username"],
-          onIncompletePaymentFound
+            ["username", "payments"],
+            onIncompletePaymentFound
         );
 
-
-        // Display username
         document.getElementById("userInfo").innerHTML =
-          "Welcome, " + auth.user.username + "!";
+            "👤 Welcome, " + auth.user.username;
 
-
-        // Save username
         localStorage.setItem(
-          "piUser",
-          auth.user.username
+            "piUser",
+            auth.user.username
         );
 
+        setTimeout(() => {
 
-        // Go to Marketplace
-        setTimeout(function () {
-
-          window.location.href = "./marketplace.html";
+            window.location.href = "marketplace.html";
 
         }, 1000);
 
+    } catch (error) {
 
-      } catch (error) {
+        console.error(error);
 
-        console.error("Pi Login Error:", error);
-
-        alert(
-          "Pi Login failed or was cancelled. Please try again."
-        );
+        alert("Pi Login Failed.");
 
         loginBtn.disabled = false;
         loginBtn.innerText = "Login with Pi";
 
-      }
-
-    });
-
-
-    // Handle incomplete payments
-    function onIncompletePaymentFound(payment) {
-
-      console.log(
-        "Incomplete payment found:",
-        payment
-      );
-
     }
 
-  </script>
+});
+
+function onIncompletePaymentFound(payment) {
+
+    console.log("Incomplete Payment:", payment);
+
+}
+
+</script>
 
 </body>
-
 </html>

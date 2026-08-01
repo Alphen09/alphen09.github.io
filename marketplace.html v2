@@ -43,41 +43,43 @@
 
 </header>
 
+
 <nav class="categories">
 
-    <button class="category-btn active" data-category="all">
+    <button class="category-btn active" type="button" data-category="all">
         All NFTs
     </button>
 
-    <button class="category-btn" data-category="games">
+    <button class="category-btn" type="button" data-category="games">
         🎮 Games
     </button>
 
-    <button class="category-btn" data-category="art">
+    <button class="category-btn" type="button" data-category="art">
         🎨 Art
     </button>
 
-    <button class="category-btn" data-category="collectibles">
+    <button class="category-btn" type="button" data-category="collectibles">
         💎 Collectibles
     </button>
 
-    <button class="category-btn" data-category="pets">
+    <button class="category-btn" type="button" data-category="pets">
         🐾 Pets
     </button>
 
-    <button class="category-btn" data-category="characters">
+    <button class="category-btn" type="button" data-category="characters">
         ⚔️ Characters
     </button>
 
-    <button class="category-btn" data-category="mounts">
+    <button class="category-btn" type="button" data-category="mounts">
         🚀 Mounts
     </button>
 
-    <button class="category-btn" data-category="rare">
+    <button class="category-btn" type="button" data-category="rare">
         👑 Rare
     </button>
 
 </nav>
+
 
 <main>
 
@@ -92,11 +94,15 @@
 
     </section>
 
+
     <section
         id="nftGrid"
         class="market-grid"
         aria-label="NFT Marketplace"
     >
+
+
+        <!-- NFT 1 -->
 
         <article
             class="card"
@@ -105,7 +111,7 @@
         >
 
             <img
-                src="images/satoshi-devil-wing.jpg"
+                src="satoshi-devil-wing.png"
                 alt="Satoshi Devil Wings +30"
                 loading="lazy"
             >
@@ -141,6 +147,8 @@
         </article>
 
 
+        <!-- NFT 2 -->
+
         <article
             class="card"
             data-category="collectibles"
@@ -148,7 +156,7 @@
         >
 
             <img
-                src="images/archangel.jpg"
+                src="satoshi-archangel-wing.png"
                 alt="Satoshi Archangel Wings +30"
                 loading="lazy"
             >
@@ -184,6 +192,8 @@
         </article>
 
 
+        <!-- NFT 3 -->
+
         <article
             class="card"
             data-category="collectibles"
@@ -191,7 +201,7 @@
         >
 
             <img
-                src="images/satoshi-dark-angel-wing.jpg"
+                src="satoshi-dark-angel-wing.png"
                 alt="Satoshi Dark Angel Wings +30"
                 loading="lazy"
             >
@@ -227,6 +237,8 @@
         </article>
 
 
+        <!-- NFT 4 -->
+
         <article
             class="card"
             data-category="mounts"
@@ -234,7 +246,7 @@
         >
 
             <img
-                src="images/satoshi-astral-bike-rw3.jpg"
+                src="satoshi-astral-bike-rw3.png"
                 alt="Satoshi Astral Bike RW3"
                 loading="lazy"
             >
@@ -269,6 +281,7 @@
 
         </article>
 
+
     </section>
 
 
@@ -288,12 +301,19 @@
 
 </main>
 
+
 <footer class="market-footer">
 
-    <p>© 2026 Alberto NFT Marketplace</p>
-    <p>Built for the Pi ecosystem</p>
+    <p>
+        © 2026 Alberto NFT Marketplace
+    </p>
+
+    <p>
+        Built for the Pi ecosystem
+    </p>
 
 </footer>
+
 
 <script src="marketplace.js"></script>
 

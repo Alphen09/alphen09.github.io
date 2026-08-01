@@ -1,84 +1,65 @@
-// Alberto NFT Marketplace V2
-// Pi Sandbox Marketplace
+// Alberto NFT Marketplace
+// Pi Sandbox Payment
 
 document.addEventListener("DOMContentLoaded", function () {
 
     console.log("Alberto NFT Marketplace Loaded");
 
     // ==============================
-    // PI INITIALIZATION
+    // PI SDK
     // ==============================
 
-    if (typeof Pi !== "undefined") {
-
-        Pi.init({
-            version: "2.0",
-            sandbox: true
-        });
-
-        console.log("Pi SDK initialized");
-
-    } else {
-
-        console.error("Pi SDK not loaded");
-
+    if (typeof Pi === "undefined") {
         alert("Pi SDK is not loaded.");
-
         return;
     }
 
+    Pi.init({
+        version: "2.0",
+        sandbox: true
+    });
+
 
     // ==============================
-    // SHOW PI USERNAME
+    // PI USER
     // ==============================
 
-    const username = localStorage.getItem("piUser");
-    const userBox = document.getElementById("pi-user");
+    const username =
+        localStorage.getItem("piUser");
+
+    const userBox =
+        document.getElementById("pi-user");
 
     if (username && userBox) {
-        userBox.textContent = "👤 Welcome, " + username;
+        userBox.textContent =
+            "👤 Welcome, " + username;
     }
 
 
     // ==============================
-    // NFT SEARCH
+    // SEARCH
     // ==============================
 
-    const searchBox =
+    const search =
         document.getElementById("searchNFT");
 
     const cards =
         document.querySelectorAll(".card");
 
-    if (searchBox) {
+    if (search) {
 
-        searchBox.addEventListener("input", function () {
+        search.addEventListener("input", function () {
 
-            const searchValue =
-                this.value.toLowerCase().trim();
+            const value =
+                this.value.toLowerCase();
 
             cards.forEach(function (card) {
 
-                const titleElement =
-                    card.querySelector("h2, h3");
-
-                const paragraphs =
-                    card.querySelectorAll("p");
-
-                const title =
-                    titleElement
-                        ? titleElement.textContent.toLowerCase()
-                        : "";
-
-                let text = title;
-
-                paragraphs.forEach(function (p) {
-                    text += " " +
-                        p.textContent.toLowerCase();
-                });
+                const text =
+                    card.innerText.toLowerCase();
 
                 card.style.display =
-                    text.includes(searchValue)
+                    text.includes(value)
                         ? ""
                         : "none";
 
@@ -110,18 +91,14 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
 // ==============================
-// BUY NFT WITH PI
+// BUY NFT
 // ==============================
 
-async function buyNFT(button) {
+function buyNFT(button) {
 
     const username =
         localStorage.getItem("piUser");
 
-
-    // ==============================
-    // CHECK LOGIN
-    // ==============================
 
     if (!username) {
 
@@ -132,10 +109,6 @@ async function buyNFT(button) {
         return;
     }
 
-
-    // ==============================
-    // GET NFT DATA
-    // ==============================
 
     const nftName =
         button.dataset.nft;
@@ -154,24 +127,11 @@ async function buyNFT(button) {
     }
 
 
-    console.log(
-        "Starting Pi payment:",
-        nftName,
-        price
-    );
-
-
-    // ==============================
-    // DISABLE BUTTON
-    // ==============================
-
     button.disabled = true;
-    button.innerText = "Opening Pi Payment...";
 
+    button.innerText =
+        "Opening Pi Payment...";
 
-    // ==============================
-    // PAYMENT DATA
-    // ==============================
 
     const paymentData = {
 
@@ -194,10 +154,6 @@ async function buyNFT(button) {
     };
 
 
-    // ==============================
-    // CREATE PI PAYMENT
-    // ==============================
-
     try {
 
         Pi.createPayment(
@@ -206,20 +162,18 @@ async function buyNFT(button) {
 
             {
 
-                // ==========================
-                // SERVER APPROVAL
-                // ==========================
+                // ======================
+                // APPROVAL
+                // ======================
 
                 onReadyForServerApproval:
                     function (paymentId) {
 
                         console.log(
-                            "Payment ready for approval:",
+                            "Payment ID:",
                             paymentId
                         );
 
-
-                        // Send payment ID to backend
 
                         fetch(
                             "https://alphen09-github-io.onrender.com/approve",
@@ -231,33 +185,32 @@ async function buyNFT(button) {
                                         "application/json"
                                 },
 
-                                body: JSON.stringify({
+                                body:
+                                    JSON.stringify({
 
-                                    paymentId:
-                                        paymentId,
+                                        paymentId:
+                                            paymentId,
 
-                                    nftName:
-                                        nftName,
+                                        nftName:
+                                            nftName,
 
-                                    buyer:
-                                        username,
+                                        buyer:
+                                            username,
 
-                                    price:
-                                        price
+                                        price:
+                                            price
 
-                                })
+                                    })
 
                             }
                         )
                         .then(function (response) {
-
                             return response.json();
-
                         })
                         .then(function (data) {
 
                             console.log(
-                                "Backend approval response:",
+                                "Approval:",
                                 data
                             );
 
@@ -265,7 +218,7 @@ async function buyNFT(button) {
                         .catch(function (error) {
 
                             console.error(
-                                "Backend approval error:",
+                                "Approval error:",
                                 error
                             );
 
@@ -274,9 +227,9 @@ async function buyNFT(button) {
                     },
 
 
-                // ==========================
-                // SERVER COMPLETION
-                // ==========================
+                // ======================
+                // COMPLETION
+                // ======================
 
                 onReadyForServerCompletion:
                     function (
@@ -291,8 +244,6 @@ async function buyNFT(button) {
                         );
 
 
-                        // Send completion to backend
-
                         fetch(
                             "https://alphen09-github-io.onrender.com/complete",
                             {
@@ -303,39 +254,37 @@ async function buyNFT(button) {
                                         "application/json"
                                 },
 
-                                body: JSON.stringify({
+                                body:
+                                    JSON.stringify({
 
-                                    paymentId:
-                                        paymentId,
+                                        paymentId:
+                                            paymentId,
 
-                                    txid:
-                                        txid,
+                                        txid:
+                                            txid,
 
-                                    nftName:
-                                        nftName,
+                                        nftName:
+                                            nftName,
 
-                                    buyer:
-                                        username,
+                                        buyer:
+                                            username,
 
-                                    price:
-                                        price
+                                        price:
+                                            price
 
-                                })
+                                    })
 
                             }
                         )
                         .then(function (response) {
-
                             return response.json();
-
                         })
                         .then(function (data) {
 
                             console.log(
-                                "Backend completion response:",
+                                "Completion:",
                                 data
                             );
-
 
                             alert(
                                 "🎉 Pi Sandbox Payment Completed!\n\n" +
@@ -361,15 +310,16 @@ async function buyNFT(button) {
 
 
                         button.disabled = false;
+
                         button.innerText =
                             "Buy with Pi";
 
                     },
 
 
-                // ==========================
+                // ======================
                 // CANCEL
-                // ==========================
+                // ======================
 
                 onCancel:
                     function (paymentId) {
@@ -379,22 +329,21 @@ async function buyNFT(button) {
                             paymentId
                         );
 
-
                         alert(
                             "Payment cancelled."
                         );
 
-
                         button.disabled = false;
+
                         button.innerText =
                             "Buy with Pi";
 
                     },
 
 
-                // ==========================
+                // ======================
                 // ERROR
-                // ==========================
+                // ======================
 
                 onError:
                     function (error) {
@@ -404,14 +353,13 @@ async function buyNFT(button) {
                             error
                         );
 
-
                         alert(
                             "Pi Payment Error:\n\n" +
                             error
                         );
 
-
                         button.disabled = false;
+
                         button.innerText =
                             "Buy with Pi";
 
@@ -428,13 +376,12 @@ async function buyNFT(button) {
             error
         );
 
-
         alert(
             "Unable to start Pi payment."
         );
 
-
         button.disabled = false;
+
         button.innerText =
             "Buy with Pi";
 

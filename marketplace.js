@@ -1,47 +1,144 @@
 Pi.init({ version: "2.0" });
+
 let currentUser = null;
 
-window.onload = function() {
-  Pi.authenticate(['username', 'payments'], onIncompletePaymentFound)
-    .then(function(auth) {
-      currentUser = auth.user;
-      document.getElementById("user").innerText = "Hi, " + currentUser.username;
-    })
-    .catch(function(error) {
-      alert("Login failed: " + error);
-    });
-}
+window.onload = async function () {
+  try {
+    const auth = await Pi.authenticate(
+      ["username", "payments"],
+      onIncompletePaymentFound
+    );
+
+    currentUser = auth.user;
+    document.getElementById("user").innerText =
+      "Hi, " + currentUser.username;
+
+  } catch (error) {
+    alert("Login failed: " + error);
+    console.error(error);
+  }
+};
 
 function onIncompletePaymentFound(payment) {
-  console.log("Incomplete payment:", payment);
+  console.log("Incomplete payment found:", payment);
+}
+
+async function approvePayment(paymentId) {
+  const response = await fetch(
+    "https://alphen09-github-io.onrender.com/approve-payment",
+    {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        paymentId: paymentId,
+      }),
+    }
+  );
+
+  return await response.json();
+}
+
+async function completePayment(paymentId, txid) {
+  const response = await fetch(
+    "https://alphen09-github-io.onrender.com/complete-payment",
+    {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        paymentId: paymentId,
+        txid: txid,
+      }),
+    }
+  );
+
+  return await response.json();
 }
 
 function buy(amount, productId, productName) {
+
+  if (!currentUser) {
+    alert("Please login first.");
+    return;
+  }
+
   const paymentData = {
     amount: amount,
     memo: "Buy " + productName,
-    metadata: { 
+    metadata: {
       productId: productId,
       productName: productName,
       buyer: currentUser.username,
-      seller: "alphen09"
-    }
+      seller: "alphen09",
+    },
   };
 
   const callbacks = {
-    onReadyForServerApproval: (paymentId) => {
-      alert("Approved! Payment ID: " + paymentId);
+
+    onReadyForServerApproval: async function (paymentId) {
+
+      try {
+
+        const result = await approvePayment(paymentId);
+
+        console.log(result);
+
+      } catch (err) {
+
+        console.error(err);
+
+        alert("Approval failed.");
+
+      }
+
     },
-    onReadyForServerCompletion: (paymentId, txid) => {
-      alert("Payment Successful! \n" + productName + "\nTXID: " + txid);
+
+    onReadyForServerCompletion: async function (paymentId, txid) {
+
+      try {
+
+        const result = await completePayment(paymentId, txid);
+
+        console.log(result);
+
+        alert(
+          "Payment Successful!\n\n" +
+          productName +
+          "\n\nTXID:\n" +
+          txid
+        );
+
+      } catch (err) {
+
+        console.error(err);
+
+        alert("Completion failed.");
+
+      }
+
     },
-    onCancel: (paymentId) => {
-      alert("Payment cancelled");
+
+    onCancel: function (paymentId) {
+
+      console.log(paymentId);
+
+      alert("Payment Cancelled");
+
     },
-    onError: (error) => {
-      alert("Payment error: " + error);
-    }
+
+    onError: function (error) {
+
+      console.error(error);
+
+      alert("Payment Error");
+
+    },
+
   };
 
   Pi.createPayment(paymentData, callbacks);
+
 }

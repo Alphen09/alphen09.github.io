@@ -1,65 +1,33 @@
 // Alberto NFT Marketplace
-// Pi Sandbox Payment
+// Pi Sandbox Marketplace
 
-document.addEventListener("DOMContentLoaded", function () {
-
-    console.log("Alberto NFT Marketplace Loaded");
-
-    // ==============================
-    // PI SDK
-    // ==============================
-
-    if (typeof Pi === "undefined") {
-        alert("Pi SDK is not loaded.");
-        return;
-    }
+document.addEventListener("DOMContentLoaded", () => {
 
     Pi.init({
         version: "2.0",
         sandbox: true
     });
 
+    const username = localStorage.getItem("piUser");
 
-    // ==============================
-    // PI USER
-    // ==============================
-
-    const username =
-        localStorage.getItem("piUser");
-
-    const userBox =
-        document.getElementById("pi-user");
+    const userBox = document.getElementById("pi-user");
 
     if (username && userBox) {
-        userBox.textContent =
-            "👤 Welcome, " + username;
+        userBox.innerHTML = "👤 Welcome, " + username;
     }
 
-
-    // ==============================
-    // SEARCH
-    // ==============================
-
-    const search =
-        document.getElementById("searchNFT");
-
-    const cards =
-        document.querySelectorAll(".card");
+    const search = document.getElementById("searchNFT");
 
     if (search) {
 
         search.addEventListener("input", function () {
 
-            const value =
-                this.value.toLowerCase();
+            const value = this.value.toLowerCase();
 
-            cards.forEach(function (card) {
-
-                const text =
-                    card.innerText.toLowerCase();
+            document.querySelectorAll(".card").forEach(card => {
 
                 card.style.display =
-                    text.includes(value)
+                    card.innerText.toLowerCase().includes(value)
                         ? ""
                         : "none";
 
@@ -69,19 +37,11 @@ document.addEventListener("DOMContentLoaded", function () {
 
     }
 
+    document.querySelectorAll(".buy-btn").forEach(button => {
 
-    // ==============================
-    // BUY BUTTONS
-    // ==============================
+        button.addEventListener("click", () => {
 
-    const buyButtons =
-        document.querySelectorAll(".buy-btn");
-
-    buyButtons.forEach(function (button) {
-
-        button.addEventListener("click", function () {
-
-            buyNFT(this);
+            buyNFT(button);
 
         });
 
@@ -90,303 +50,142 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 
-// ==============================
-// BUY NFT
-// ==============================
+async function buyNFT(button) {
 
-function buyNFT(button) {
-
-    const username =
-        localStorage.getItem("piUser");
-
+    const username = localStorage.getItem("piUser");
 
     if (!username) {
 
-        alert(
-            "Please login with Pi first."
-        );
+        alert("Please login with Pi first.");
 
         return;
+
     }
 
+    const nftName = button.dataset.nft;
 
-    const nftName =
-        button.dataset.nft;
-
-    const price =
-        Number(button.dataset.price);
-
-
-    if (!nftName || !price) {
-
-        alert(
-            "NFT information is missing."
-        );
-
-        return;
-    }
-
+    const price = Number(button.dataset.price);
 
     button.disabled = true;
-
-    button.innerText =
-        "Opening Pi Payment...";
-
-
-    const paymentData = {
-
-        amount: price,
-
-        memo:
-            "Purchase NFT: " +
-            nftName,
-
-        metadata: {
-
-            nftName: nftName,
-
-            buyer: username,
-
-            type: "NFT_PURCHASE"
-
-        }
-
-    };
-
+    button.innerText = "Opening Pi...";
 
     try {
 
-        Pi.createPayment(
+        Pi.createPayment({
 
-            paymentData,
+            amount: price,
 
-            {
+            memo: "Purchase NFT: " + nftName,
 
-                // ======================
-                // APPROVAL
-                // ======================
+            metadata: {
 
-                onReadyForServerApproval:
-                    function (paymentId) {
+                nftName: nftName,
 
-                        console.log(
-                            "Payment ID:",
-                            paymentId
-                        );
-
-
-                        fetch(
-                            "https://alphen09-github-io.onrender.com/approve",
-                            {
-                                method: "POST",
-
-                                headers: {
-                                    "Content-Type":
-                                        "application/json"
-                                },
-
-                                body:
-                                    JSON.stringify({
-
-                                        paymentId:
-                                            paymentId,
-
-                                        nftName:
-                                            nftName,
-
-                                        buyer:
-                                            username,
-
-                                        price:
-                                            price
-
-                                    })
-
-                            }
-                        )
-                        .then(function (response) {
-                            return response.json();
-                        })
-                        .then(function (data) {
-
-                            console.log(
-                                "Approval:",
-                                data
-                            );
-
-                        })
-                        .catch(function (error) {
-
-                            console.error(
-                                "Approval error:",
-                                error
-                            );
-
-                        });
-
-                    },
-
-
-                // ======================
-                // COMPLETION
-                // ======================
-
-                onReadyForServerCompletion:
-                    function (
-                        paymentId,
-                        txid
-                    ) {
-
-                        console.log(
-                            "Payment completed:",
-                            paymentId,
-                            txid
-                        );
-
-
-                        fetch(
-                            "https://alphen09-github-io.onrender.com/complete",
-                            {
-                                method: "POST",
-
-                                headers: {
-                                    "Content-Type":
-                                        "application/json"
-                                },
-
-                                body:
-                                    JSON.stringify({
-
-                                        paymentId:
-                                            paymentId,
-
-                                        txid:
-                                            txid,
-
-                                        nftName:
-                                            nftName,
-
-                                        buyer:
-                                            username,
-
-                                        price:
-                                            price
-
-                                    })
-
-                            }
-                        )
-                        .then(function (response) {
-                            return response.json();
-                        })
-                        .then(function (data) {
-
-                            console.log(
-                                "Completion:",
-                                data
-                            );
-
-                            alert(
-                                "🎉 Pi Sandbox Payment Completed!\n\n" +
-                                "NFT: " +
-                                nftName +
-                                "\n" +
-                                "Price: " +
-                                price +
-                                " Pi\n\n" +
-                                "Transaction ID:\n" +
-                                txid
-                            );
-
-                        })
-                        .catch(function (error) {
-
-                            console.error(
-                                "Completion error:",
-                                error
-                            );
-
-                        });
-
-
-                        button.disabled = false;
-
-                        button.innerText =
-                            "Buy with Pi";
-
-                    },
-
-
-                // ======================
-                // CANCEL
-                // ======================
-
-                onCancel:
-                    function (paymentId) {
-
-                        console.log(
-                            "Payment cancelled:",
-                            paymentId
-                        );
-
-                        alert(
-                            "Payment cancelled."
-                        );
-
-                        button.disabled = false;
-
-                        button.innerText =
-                            "Buy with Pi";
-
-                    },
-
-
-                // ======================
-                // ERROR
-                // ======================
-
-                onError:
-                    function (error) {
-
-                        console.error(
-                            "Pi payment error:",
-                            error
-                        );
-
-                        alert(
-                            "Pi Payment Error:\n\n" +
-                            error
-                        );
-
-                        button.disabled = false;
-
-                        button.innerText =
-                            "Buy with Pi";
-
-                    }
+                buyer: username
 
             }
 
-        );
+        },
+
+        {
+
+            onReadyForServerApproval(paymentId) {
+
+                fetch("https://alphen09-github-io.onrender.com/approve-payment", {
+
+                    method: "POST",
+
+                    headers: {
+
+                        "Content-Type": "application/json"
+
+                    },
+
+                    body: JSON.stringify({
+
+                        paymentId,
+
+                        nftName,
+
+                        buyer: username,
+
+                        price
+
+                    })
+
+                });
+
+            },
+
+            onReadyForServerCompletion(paymentId, txid) {
+
+                fetch("https://alphen09-github-io.onrender.com/complete-payment", {
+
+                    method: "POST",
+
+                    headers: {
+
+                        "Content-Type": "application/json"
+
+                    },
+
+                    body: JSON.stringify({
+
+                        paymentId,
+
+                        txid,
+
+                        nftName,
+
+                        buyer: username,
+
+                        price
+
+                    })
+
+                });
+
+                alert(
+                    "✅ NFT Purchased Successfully!\n\n" +
+                    nftName +
+                    "\nPrice: " + price + " Pi"
+                );
+
+                button.disabled = false;
+                button.innerText = "Buy with Pi";
+
+            },
+
+            onCancel() {
+
+                alert("Payment Cancelled");
+
+                button.disabled = false;
+                button.innerText = "Buy with Pi";
+
+            },
+
+            onError(error) {
+
+                console.error(error);
+
+                alert(error.message || error);
+
+                button.disabled = false;
+                button.innerText = "Buy with Pi";
+
+            }
+
+        });
 
     } catch (error) {
 
-        console.error(
-            "Payment exception:",
-            error
-        );
+        console.error(error);
 
-       alert(
-    "Pi Payment Error:\n\n" +
-    (error && error.message
-        ? error.message
-        : String(error))
-);
+        alert(error.message || error);
 
         button.disabled = false;
-
-        button.innerText =
-            "Buy with Pi";
+        button.innerText = "Buy with Pi";
 
     }
 

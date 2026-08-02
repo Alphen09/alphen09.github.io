@@ -1,38 +1,30 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>Alphen NFT Marketplace</title>
-  <script src="https://sdk.minepi.com/pi-sdk.js"></script>
-  <style>
-    body { background: #1a0033; color: white; font-family: Arial; text-align: center; padding: 20px; }
-    .nft { background: #2d0059; border-radius: 15px; padding: 20px; margin: 20px auto; max-width: 400px; }
-    .nft h3 { color: #ffd700; }
-    .nft p { color: #ccc; }
-    .price { color: #ffd700; font-size: 24px; font-weight: bold; }
-    button { background: #ffd700; color: black; border: none; padding: 15px 30px; font-size: 18px; border-radius: 10px; font-weight: bold; cursor: pointer; width: 90%; }
-    #user { margin-bottom: 20px; font-size: 18px; }
-  </style>
-</head>
 <body>
   <h1>Alphen NFT Marketplace</h1>
   <div id="user">Logging in...</div>
 
   <div class="nft">
-    <h3>Satoshi Dark Angel Wings +30</h3>
-    <p>Collection: Satoshi Wings</p>
+    <img src="devilwing.png" width="100%">
+    <h3>Devil Wing</h3>
+    <p>Collection: Dark Series</p>
     <p class="price">0.01 Pi</p>
-    <button onclick="buy(0.01, 'wings-001', 'Satoshi Dark Angel Wings +30')">Buy with Pi</button>
+    <button onclick="buy(0.01, 'devil-001', 'Devil Wing')">Buy with Pi</button>
   </div>
 
   <div class="nft">
-    <img src="bike.png" width="100%">
-    <h3>Satoshi Astral Bike RW3</h3>
+    <img src="darkangelwing.png" width="100%">
+    <h3>Dark Angel Wing</h3>
+    <p>Collection: Angel Series</p>
+    <p class="price">0.01 Pi</p>
+    <button onclick="buy(0.01, 'daw-001', 'Dark Angel Wing')">Buy with Pi</button>
+  </div>
+
+  <div class="nft">
+    <img src="astralbike.png" width="100%">
+    <h3>Astral Bike</h3>
     <p>Collection: RW3 Mounts</p>
     <p class="price">0.01 Pi</p>
-    <button onclick="buy(0.01, 'bike-001', 'Satoshi Astral Bike RW3')">Buy with Pi</button>
+    <button onclick="buy(0.01, 'bike-001', 'Astral Bike')">Buy with Pi</button>
   </div>
 
   <script src="marketplace.js"></script>
 </body>
-</html>

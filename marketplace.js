@@ -1,12 +1,12 @@
 // 1. Initialize Pi SDK
 Pi.init({ version: "2.0" });
 
-// 2. Hawak sa incomplete payments
+// 2. Handle incomplete payments
 function onIncompletePaymentFound(payment) {
     console.log("Incomplete payment found:", payment);
 }
 
-// 3. Auto Login pag bukas ng page
+// 3. Auto Login when page opens
 Pi.authenticate(['username', 'payments'], onIncompletePaymentFound)
 .then(function(auth) {
     document.getElementById("pi-user").innerHTML = "Hi, " + auth.user.username;
@@ -14,10 +14,11 @@ Pi.authenticate(['username', 'payments'], onIncompletePaymentFound)
 })
 .catch(function(error) {
     console.error("Login error:", error);
+    document.getElementById("pi-user").innerHTML = "Please open in Pi Browser";
     alert("Please open this in Pi Browser");
 });
 
-// 4. Lahat ng Buy buttons
+// 4. All "Buy with Pi" buttons
 document.querySelectorAll('.buy-btn').forEach(button => {
     button.addEventListener('click', function() {
         const price = parseFloat(this.dataset.price);
@@ -31,26 +32,22 @@ document.querySelectorAll('.buy-btn').forEach(button => {
 
         const callbacks = {
             onReadyForServerApproval: (paymentId) => {
-                // PALITAN MO ITO NG RENDER URL MO
-                fetch('https://alberto-backend.onrender.com/approve', {
+                fetch('https://alphen09-github-io.onrender.com/approve', {
                     method: 'POST',
                     headers: {'Content-Type': 'application/json'},
                     body: JSON.stringify({paymentId})
-                }).then(res => res.json());
+                });
             },
             onReadyForServerCompletion: (paymentId, txid) => {
-                // PALITAN MO DIN ITO
-                fetch('https://alberto-backend.onrender.com/complete', {
+                fetch('https://alphen09-github-io.onrender.com/complete', {
                     method: 'POST',
                     headers: {'Content-Type': 'application/json'},
                     body: JSON.stringify({paymentId, txid})
-                }).then(res => res.json());
+                });
+                alert("Success! You bought: " + nftName);
             },
             onCancel: () => alert("Payment cancelled"),
-            onError: (error) => {
-                console.log("Payment error:", error);
-                alert("Error: " + error.message);
-            }
+            onError: (error) => alert("Error: " + error.message)
         };
         
         Pi.createPayment(paymentData, callbacks);

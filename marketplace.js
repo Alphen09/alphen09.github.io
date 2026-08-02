@@ -1,192 +1,58 @@
-// Alberto NFT Marketplace
-// Pi Sandbox Marketplace
+// 1. Initialize Pi SDK
+Pi.init({ version: "2.0" });
 
-document.addEventListener("DOMContentLoaded", () => {
+// 2. Hawak sa incomplete payments
+function onIncompletePaymentFound(payment) {
+    console.log("Incomplete payment found:", payment);
+}
 
-    Pi.init({
-        version: "2.0",
-        sandbox: true
-    });
-
-    const username = localStorage.getItem("piUser");
-
-    const userBox = document.getElementById("pi-user");
-
-    if (username && userBox) {
-        userBox.innerHTML = "👤 Welcome, " + username;
-    }
-
-    const search = document.getElementById("searchNFT");
-
-    if (search) {
-
-        search.addEventListener("input", function () {
-
-            const value = this.value.toLowerCase();
-
-            document.querySelectorAll(".card").forEach(card => {
-
-                card.style.display =
-                    card.innerText.toLowerCase().includes(value)
-                        ? ""
-                        : "none";
-
-            });
-
-        });
-
-    }
-
-    document.querySelectorAll(".buy-btn").forEach(button => {
-
-        button.addEventListener("click", () => {
-
-            buyNFT(button);
-
-        });
-
-    });
-
+// 3. Auto Login pag bukas ng page
+Pi.authenticate(['username', 'payments'], onIncompletePaymentFound)
+.then(function(auth) {
+    document.getElementById("pi-user").innerHTML = "Hi, " + auth.user.username;
+    console.log("Logged in:", auth.user.username);
+})
+.catch(function(error) {
+    console.error("Login error:", error);
+    alert("Please open this in Pi Browser");
 });
 
+// 4. Lahat ng Buy buttons
+document.querySelectorAll('.buy-btn').forEach(button => {
+    button.addEventListener('click', function() {
+        const price = parseFloat(this.dataset.price);
+        const nftName = this.dataset.nft;
 
-async function buyNFT(button) {
-
-    const username = localStorage.getItem("piUser");
-
-    if (!username) {
-
-        alert("Please login with Pi first.");
-
-        return;
-
-    }
-
-    const nftName = button.dataset.nft;
-
-    const price = Number(button.dataset.price);
-
-    button.disabled = true;
-    button.innerText = "Opening Pi...";
-
-    try {
-
-        Pi.createPayment({
-
+        const paymentData = {
             amount: price,
+            memo: "Buy: " + nftName,
+            metadata: { nft: nftName, price: price }
+        };
 
-            memo: "Purchase NFT: " + nftName,
-
-            metadata: {
-
-                nftName: nftName,
-
-                buyer: username
-
+        const callbacks = {
+            onReadyForServerApproval: (paymentId) => {
+                // PALITAN MO ITO NG RENDER URL MO
+                fetch('https://alberto-backend.onrender.com/approve', {
+                    method: 'POST',
+                    headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify({paymentId})
+                }).then(res => res.json());
+            },
+            onReadyForServerCompletion: (paymentId, txid) => {
+                // PALITAN MO DIN ITO
+                fetch('https://alberto-backend.onrender.com/complete', {
+                    method: 'POST',
+                    headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify({paymentId, txid})
+                }).then(res => res.json());
+            },
+            onCancel: () => alert("Payment cancelled"),
+            onError: (error) => {
+                console.log("Payment error:", error);
+                alert("Error: " + error.message);
             }
-
-        },
-
-        {
-
-            onReadyForServerApproval(paymentId) {
-
-                fetch("https://alphen09-github-io.onrender.com/approve-payment", {
-
-                    method: "POST",
-
-                    headers: {
-
-                        "Content-Type": "application/json"
-
-                    },
-
-                    body: JSON.stringify({
-
-                        paymentId,
-
-                        nftName,
-
-                        buyer: username,
-
-                        price
-
-                    })
-
-                });
-
-            },
-
-            onReadyForServerCompletion(paymentId, txid) {
-
-                fetch("https://alphen09-github-io.onrender.com/complete-payment", {
-
-                    method: "POST",
-
-                    headers: {
-
-                        "Content-Type": "application/json"
-
-                    },
-
-                    body: JSON.stringify({
-
-                        paymentId,
-
-                        txid,
-
-                        nftName,
-
-                        buyer: username,
-
-                        price
-
-                    })
-
-                });
-
-                alert(
-                    "✅ NFT Purchased Successfully!\n\n" +
-                    nftName +
-                    "\nPrice: " + price + " Pi"
-                );
-
-                button.disabled = false;
-                button.innerText = "Buy with Pi";
-
-            },
-
-            onCancel() {
-
-                alert("Payment Cancelled");
-
-                button.disabled = false;
-                button.innerText = "Buy with Pi";
-
-            },
-
-            onError(error) {
-
-                console.error(error);
-
-                alert(error.message || error);
-
-                button.disabled = false;
-                button.innerText = "Buy with Pi";
-
-            }
-
-        });
-
-    } catch (error) {
-
-        console.error(error);
-
-        alert(error.message || error);
-
-        button.disabled = false;
-        button.innerText = "Buy with Pi";
-
-    }
-
-}
+        };
+        
+        Pi.createPayment(paymentData, callbacks);
+    });
+});

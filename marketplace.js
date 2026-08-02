@@ -1,48 +1,47 @@
 Pi.init({ version: "2.0" });
 let currentUser = null;
+
 window.onload = function() {
   Pi.authenticate(['username', 'payments'], onIncompletePaymentFound)
     .then(function(auth) {
       currentUser = auth.user;
-      console.log("Logged in as:", currentUser.username);
       document.getElementById("user").innerText = "Hi, " + currentUser.username;
     })
     .catch(function(error) {
-      console.error(error);
       alert("Login failed: " + error);
     });
 }
+
 function onIncompletePaymentFound(payment) {
-  console.log("Found incomplete payment:", payment);
+  console.log("Incomplete payment:", payment);
 }
-function buy() {
-  console.log("Buy button clicked");
+
+function buy(amount, productId, productName) {
   const paymentData = {
-    amount: 0.01,
-    memo: "Test Payment - Marketplace Item",
+    amount: amount,
+    memo: "Buy " + productName,
     metadata: { 
-      productId: "test-001",
+      productId: productId,
+      productName: productName,
       buyer: currentUser.username,
       seller: "alphen09"
     }
   };
+
   const callbacks = {
     onReadyForServerApproval: (paymentId) => {
-      console.log("Payment ready for approval:", paymentId);
-      alert("Payment approved! ID: " + paymentId);
+      alert("Approved! Payment ID: " + paymentId);
     },
     onReadyForServerCompletion: (paymentId, txid) => {
-      console.log("Payment completed:", paymentId, txid);
-      alert("Payment Successful! \nTXID: " + txid);
+      alert("Payment Successful! \n" + productName + "\nTXID: " + txid);
     },
     onCancel: (paymentId) => {
-      console.log("Payment cancelled:", paymentId);
       alert("Payment cancelled");
     },
-    onError: (error, payment) => {
-      console.error("Payment error:", error);
+    onError: (error) => {
       alert("Payment error: " + error);
     }
   };
+
   Pi.createPayment(paymentData, callbacks);
 }

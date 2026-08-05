@@ -63,14 +63,38 @@ app.get("/database-test", async (req, res) => {
 // APPROVE PAYMENT
 // ==============================
 
-app.post("/approve-payment", (req, res) => {
+// ==============================
+// APPROVE PAYMENT
+// ==============================
 
-    console.log(req.body);
+app.post("/approve-payment", async (req, res) => {
 
-    res.json({
-        success: true,
-        message: "Payment Approved"
-    });
+    try {
+
+        const { paymentId } = req.body;
+
+        const response = await axios.post(
+            `https://api.minepi.com/v2/payments/${paymentId}/approve`,
+            {},
+            {
+                headers: {
+                    Authorization: `Key ${process.env.PI_API_KEY}`
+                }
+            }
+        );
+
+        res.json(response.data);
+
+    } catch (error) {
+
+        console.error(error.response?.data || error.message);
+
+        res.status(500).json({
+            success: false,
+            error: error.response?.data || error.message
+        });
+
+    }
 
 });
 

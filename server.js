@@ -63,10 +63,6 @@ app.get("/database-test", async (req, res) => {
 // APPROVE PAYMENT
 // ==============================
 
-// ==============================
-// APPROVE PAYMENT
-// ==============================
-
 app.post("/approve-payment", async (req, res) => {
 
     try {

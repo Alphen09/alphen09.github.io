@@ -1,4 +1,4 @@
-Pi.init({ version: "2.0", sandbox: true }); // Test mode muna
+Pi.init({ version: "2.0", sandbox: true }); // Test Pi muna
 
 let currentUser = null;
 
@@ -6,7 +6,7 @@ window.onload = async function () {
   try {
     const auth = await Pi.authenticate(["username", "payments"], onIncompletePaymentFound);
     currentUser = auth.user;
-    document.getElementById("pi-user").innerText = "Hi, " + currentUser.username; // pi-user gamit mo sa HTML
+    document.getElementById("pi-user").innerText = "Hi, " + currentUser.username;
   } catch (error) {
     alert("Login failed: " + error);
     console.error(error);
@@ -18,7 +18,7 @@ function onIncompletePaymentFound(payment) {
 }
 
 async function approvePayment(paymentId) {
-  const response = await fetch("https://alphen09-github-io.onrender.com/approve-payment", {
+  const response = await fetch("https://alphen09-github-io.onrender.com/approve", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ paymentId: paymentId }),
@@ -27,7 +27,7 @@ async function approvePayment(paymentId) {
 }
 
 async function completePayment(paymentId, txid) {
-  const response = await fetch("https://alphen09-github-io.onrender.com/complete-payment", {
+  const response = await fetch("https://alphen09-github-io.onrender.com/complete", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ paymentId: paymentId, txid: txid }),
@@ -55,9 +55,8 @@ function buy(amount, productId, productName) {
   const callbacks = {
     onReadyForServerApproval: async function (paymentId) {
       try {
-        const result = await approvePayment(paymentId);
-        console.log("Approved:", result);
-        Pi.completePayment(paymentId); // <-- ITO YUNG PANG PAWALA NG 60S
+        await approvePayment(paymentId);
+        Pi.completePayment(paymentId); // <-- ITO PANG PAWALA NG 60S
       } catch (err) {
         console.error(err);
         alert("Approval failed.");
@@ -66,8 +65,7 @@ function buy(amount, productId, productName) {
     
     onReadyForServerCompletion: async function (paymentId, txid) {
       try {
-        const result = await completePayment(paymentId, txid);
-        console.log("Completed:", result);
+        await completePayment(paymentId, txid);
         alert("Payment Successful!\n\n" + productName + "\n\nTXID:\n" + txid);
       } catch (err) {
         console.error(err);
@@ -76,7 +74,6 @@ function buy(amount, productId, productName) {
     },
     
     onCancel: function (paymentId) {
-      console.log(paymentId);
       alert("Payment Cancelled");
     },
     

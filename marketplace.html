@@ -1,43 +1,123 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
+
 <head>
-  <title>PetVerse NFT Marketplace</title>
-  <script src="https://sdk.minepi.com/pi-sdk.js"></script>
-  <style>
-    body{background:#1a1a2e;color:gold;font-family:Arial;padding:20px;text-align:center}
-    .item{border:2px solid purple;margin:20px;padding:20px;border-radius:15px}
-    button{background:gold;color:#1a1a2e;border:none;padding:12px 25px;border-radius:10px;font-weight:bold;cursor:pointer}
-    #status{margin-top:20px;font-size:18px}
-  </style>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Alberto NFT Marketplace</title>
+
+<link rel="stylesheet" href="marketplace.css">
+
+<script src="https://sdk.minepi.com/pi-sdk.js"></script>
+
 </head>
+
 <body>
-  <h1>PetVerse NFT Marketplace [TEST MODE]</h1>
-  
-  <div class="item"><h2>Devil Wing</h2><p>Price: 10 Test π</p><button onclick="buyItem('Devil Wing', 10)">Buy with Pi</button></div>
-  <div class="item"><h2>Dark Angel Wing</h2><p>Price: 15 Test π</p><button onclick="buyItem('Dark Angel Wing', 15)">Buy with Pi</button></div>
-  <div class="item"><h2>Astral Bike</h2><p>Price: 25 Test π</p><button onclick="buyItem('Astral Bike', 25)">Buy with Pi</button></div>
-  
-  <div id="status"></div>
 
-<script>
-Pi.init({ version: "2.0", sandbox: true }); // TEST PI LANG TO
+<header class="header">
 
-function buyItem(itemName, amount) {
-  document.getElementById("status").innerHTML = "Opening Pi Wallet...";
-  const paymentData = {amount: amount, memo: "TEST Buy " + itemName, metadata: { item: itemName }};
-  const callbacks = {
-    onReadyForServerApproval: function(paymentId) {
-      document.getElementById("status").innerHTML = "Approving payment...";
-      Pi.completePayment(paymentId); // DITO NAAAYOS YUNG 60s EXPIRED
-    },
-    onReadyForServerCompletion: function(paymentId, txid) {
-      document.getElementById("status").innerHTML = "✅ TEST SUCCESS! " + itemName + " is yours!";
-    },
-    onCancel: function(paymentId) { document.getElementById("status").innerHTML = "❌ Payment Cancelled"; },
-    onError: function(error) { document.getElementById("status").innerHTML = "Error: " + error; }
-  };
-  Pi.createPayment(paymentData, callbacks);
-}
-</script>
+<h1>
+<img src="images/logo.png" class="logo" alt="Alberto Logo">
+Alberto NFT Marketplace
+</h1>
+
+<div id="pi-user"></div>
+
+<input
+id="searchNFT"
+class="search"
+type="text"
+placeholder="Search NFTs...">
+
+</header>
+
+<main class="market-grid">
+
+<div class="card">
+
+<img src="satoshi-devil-wing.jpg" alt="Satoshi Devil Wings">
+
+<h2>Satoshi Devil Wings +30</h2>
+
+<p class="collection">Collection: Satoshi Wings</p>
+
+<p class="price">500 Pi</p>
+
+<button
+class="buy-btn"
+onclick="buy(500,'wing001','Satoshi Devil Wings +30')">
+
+Buy with Pi
+
+</button>
+
+</div>
+
+<div class="card">
+
+<img src="images/archangel.jpg" alt="Satoshi Archangel Wings">
+
+<h2>Satoshi Archangel Wings +30</h2>
+
+<p class="collection">Collection: Satoshi Wings</p>
+
+<p class="price">800 Pi</p>
+
+<button
+class="buy-btn"
+onclick="buy(800,'wing002','Satoshi Archangel Wings +30')">
+
+Buy with Pi
+
+</button>
+
+</div>
+<div class="card">
+
+<img src="satoshi-dark-angel-wing.jpg" alt="Satoshi Dark Angel Wings">
+
+<h2>Satoshi Dark Angel Wings +30</h2>
+
+<p class="collection">Collection: Satoshi Wings</p>
+
+<p class="price">1200 Pi</p>
+
+<button
+class="buy-btn"
+onclick="buy(1200,'wing003','Satoshi Dark Angel Wings +30')">
+
+Buy with Pi
+
+</button>
+
+</div>
+
+<div class="card">
+
+<img src="satoshi-astral-bike-rw3.jpg" alt="Satoshi Astral Bike RW3">
+
+<h2>Satoshi Astral Bike RW3</h2>
+
+<p class="collection">Collection: RW3 Mounts</p>
+
+<p class="price">2000 Pi</p>
+
+<button
+class="buy-btn"
+onclick="buy(2000,'bike001','Satoshi Astral Bike RW3')">
+
+Buy with Pi
+
+</button>
+
+</div>
+
+</main>
+
+<script src="marketplace.js"></script>
+
 </body>
+
 </html>

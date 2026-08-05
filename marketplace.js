@@ -1,5 +1,4 @@
 Pi.init({ version: "2.0", sandbox: true }); // Test Pi muna
-
 let currentUser = null;
 
 window.onload = async function () {
@@ -17,22 +16,26 @@ function onIncompletePaymentFound(payment) {
   console.log("Incomplete payment found:", payment);
 }
 
+// DITO LANG DAPAT ANG APPROVE
 async function approvePayment(paymentId) {
-  const response = await fetch("https://alphen09-github-io.onrender.com/approve", {
+  const res = await fetch("https://alphen09-github-io.onrender.com/approve", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ paymentId: paymentId }),
+    body: JSON.stringify({ paymentId }),
   });
-  return await response.json();
+  if (!res.ok) throw new Error("Approve failed");
+  return await res.json();
 }
 
+// DITO LANG DAPAT ANG COMPLETE
 async function completePayment(paymentId, txid) {
-  const response = await fetch("https://alphen09-github-io.onrender.com/complete", {
+  const res = await fetch("https://alphen09-github-io.onrender.com/complete", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ paymentId: paymentId, txid: txid }),
+    body: JSON.stringify({ paymentId, txid }),
   });
-  return await response.json();
+  if (!res.ok) throw new Error("Complete failed");
+  return await res.json();
 }
 
 function buy(amount, productId, productName) {
@@ -56,7 +59,7 @@ function buy(amount, productId, productName) {
     onReadyForServerApproval: async function (paymentId) {
       try {
         await approvePayment(paymentId);
-        Pi.completePayment(paymentId); // <-- ITO PANG PAWALA NG 60S
+        Pi.completePayment(paymentId); // PANG PAWALA NG 60S
       } catch (err) {
         console.error(err);
         alert("Approval failed.");
@@ -65,7 +68,7 @@ function buy(amount, productId, productName) {
     
     onReadyForServerCompletion: async function (paymentId, txid) {
       try {
-        await completePayment(paymentId, txid);
+        await completePayment(paymentId, txid); // TINAWAG NA NATIN DITO
         alert("Payment Successful!\n\n" + productName + "\n\nTXID:\n" + txid);
       } catch (err) {
         console.error(err);

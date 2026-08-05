@@ -14,28 +14,36 @@ window.onload = async function () {
 
 function onIncompletePaymentFound(payment) {
   console.log("Incomplete payment found:", payment);
+  // Auto complete pag may naiwan
+  approvePayment(payment.identifier);
 }
 
-// DITO LANG DAPAT ANG APPROVE
 async function approvePayment(paymentId) {
+  console.log("Sending approve for:", paymentId);
   const res = await fetch("https://alphen09-github-io.onrender.com/approve", {
     method: "POST",
+    mode: "cors",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ paymentId }),
   });
-  if (!res.ok) throw new Error("Approve failed");
-  return await res.json();
+  
+  const data = await res.json();
+  console.log("Approve response:", data);
+  return data;
 }
 
-// DITO LANG DAPAT ANG COMPLETE
 async function completePayment(paymentId, txid) {
+  console.log("Sending complete for:", paymentId, txid);
   const res = await fetch("https://alphen09-github-io.onrender.com/complete", {
     method: "POST",
+    mode: "cors",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ paymentId, txid }),
   });
-  if (!res.ok) throw new Error("Complete failed");
-  return await res.json();
+  
+  const data = await res.json();
+  console.log("Complete response:", data);
+  return data;
 }
 
 function buy(amount, productId, productName) {
@@ -68,7 +76,7 @@ function buy(amount, productId, productName) {
     
     onReadyForServerCompletion: async function (paymentId, txid) {
       try {
-        await completePayment(paymentId, txid); // TINAWAG NA NATIN DITO
+        await completePayment(paymentId, txid);
         alert("Payment Successful!\n\n" + productName + "\n\nTXID:\n" + txid);
       } catch (err) {
         console.error(err);

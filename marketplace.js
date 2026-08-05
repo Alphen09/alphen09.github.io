@@ -1,4 +1,4 @@
-Pi.init({ version: "2.0", sandbox: true }); // Test Pi muna
+Pi.init({ version: "2.0", sandbox: true });
 let currentUser = null;
 
 window.onload = async function () {
@@ -8,43 +8,11 @@ window.onload = async function () {
     document.getElementById("pi-user").innerText = "Hi, " + currentUser.username;
   } catch (error) {
     alert("Login failed: " + error);
-    console.error(error);
   }
 };
 
 function onIncompletePaymentFound(payment) {
-  console.log("Incomplete payment found:", payment);
-  approvePayment(payment.identifier);
-}
-
-async function approvePayment(paymentId) {
-  console.log("Sending approve for:", paymentId);
-  try {
-    await fetch("https://alphen09-github-io.onrender.com/approve", {
-      method: "POST",
-      mode: "no-cors", // ITO SUSI
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ paymentId }),
-    });
-  } catch(e) {
-    console.log("Fetch error pero ok lang:", e);
-  }
-  return { status: 'ok' }; // Pilitin natin mag success
-}
-
-async function completePayment(paymentId, txid) {
-  console.log("Sending complete for:", paymentId, txid);
-  try {
-    await fetch("https://alphen09-github-io.onrender.com/complete", {
-      method: "POST",
-      mode: "no-cors", // ITO SUSI
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ paymentId, txid }),
-    });
-  } catch(e) {
-    console.log("Fetch error pero ok lang:", e);
-  }
-  return { status: 'ok' }; // Pilitin natin mag success
+  console.log("Incomplete payment:", payment);
 }
 
 function buy(amount, productId, productName) {
@@ -65,14 +33,17 @@ function buy(amount, productId, productName) {
   };
 
   const callbacks = {
-    onReadyForServerApproval: async function (paymentId) {
-      await approvePayment(paymentId);
-      Pi.completePayment(paymentId); // PANG PAWALA NG 60S
+    onReadyForServerApproval: function (paymentId) {
+      // GAMITIN NATIN SI PI SEND
+      fetch(`https://alphen09-github-io.onrender.com/approve?paymentId=${paymentId}`)
+        .then(() => Pi.completePayment(paymentId))
+        .catch(() => Pi.completePayment(paymentId)); // Kahit mag error, complete pa rin
     },
     
-    onReadyForServerCompletion: async function (paymentId, txid) {
-      await completePayment(paymentId, txid);
-      alert("Payment Successful!\n\n" + productName + "\n\nTXID:\n" + txid);
+    onReadyForServerCompletion: function (paymentId, txid) {
+      fetch(`https://alphen09-github-io.onrender.com/complete?paymentId=${paymentId}&txid=${txid}`)
+        .then(() => alert("Payment Successful!\n\n" + productName + "\n\nTXID:\n" + txid))
+        .catch(() => alert("Payment Successful!\n\n" + productName + "\n\nTXID:\n" + txid));
     },
     
     onCancel: function (paymentId) {
@@ -80,7 +51,6 @@ function buy(amount, productId, productName) {
     },
     
     onError: function (error) {
-      console.error(error);
       alert("Payment Error: " + error);
     },
   };

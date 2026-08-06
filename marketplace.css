@@ -1,150 +1,201 @@
 *{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-    font-family:Arial,sans-serif;
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Arial,sans-serif;
 }
 
 body{
-    background:#120022;
-    color:#ffffff;
-}
 
-/* HEADER */
+background:#08080d;
+
+background-image:
+radial-gradient(circle at top,#5b2be0 0%,#08080d 45%);
+
+color:white;
+
+}
 
 .header{
-    background:linear-gradient(135deg,#3b0066,#6a00b8);
-    padding:25px;
-    text-align:center;
-    border-bottom:2px solid #FFD700;
-}
 
-.header h1{
-    color:#FFD700;
-    margin-bottom:10px;
-    font-size:32px;
-}
+display:flex;
 
-#pi-user{
-    margin-bottom:15px;
-    color:#ffffff;
-    font-weight:bold;
-}
+justify-content:space-between;
 
-.search{
-    width:100%;
-    max-width:450px;
-    padding:12px;
-    border:none;
-    border-radius:10px;
-    font-size:16px;
-}
+align-items:center;
 
-/* MARKETPLACE */
+padding:20px 40px;
 
-.market-grid{
-    max-width:1300px;
-    margin:30px auto;
-    padding:20px;
-    display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
-    gap:25px;
-}
+background:rgba(20,20,30,.85);
 
-/* CARD */
+backdrop-filter:blur(15px);
 
-.card{
-    background:#24003d;
-    border-radius:18px;
-    padding:20px;
-    text-align:center;
-    border:1px solid rgba(255,215,0,.25);
-    transition:.3s;
-}
+position:sticky;
 
-.card:hover{
-    transform:translateY(-8px);
-    box-shadow:0 0 20px rgba(255,215,0,.5);
-}
+top:0;
 
-/* IMAGE */
-
-.card img{
-    width:100%;
-    max-width:180px;
-    height:180px;
-    display:block;
-    margin:0 auto 15px;
-    object-fit:contain;
-    object-position:center;
-}
-
-/* TEXT */
-
-.card h2{
-    color:#FFD700;
-    font-size:22px;
-    margin-bottom:10px;
-}
-
-.collection{
-    color:#cccccc;
-    margin-bottom:8px;
-}
-
-.price{
-    color:#FFD700;
-    font-size:20px;
-    font-weight:bold;
-    margin-bottom:18px;
-}
-
-/* BUTTON */
-
-.buy-btn{
-    width:100%;
-    padding:14px;
-    border:none;
-    border-radius:10px;
-    background:#FFD700;
-    color:#000;
-    font-size:16px;
-    font-weight:bold;
-    cursor:pointer;
-    transition:.3s;
-}
-
-.buy-btn:hover{
-    background:#ffffff;
-}
-
-/* MOBILE */
-
-@media(max-width:768px){
-
-.header h1{
-    font-size:26px;
-}
-
-.market-grid{
-    grid-template-columns:1fr;
-}
-
-.card img{
-    max-width:160px;
-    height:160px;
-}
+z-index:999;
 
 }
-.header h1{
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    gap:12px;
+
+.header-left{
+
+display:flex;
+
+align-items:center;
+
+gap:15px;
+
 }
 
 .logo{
-    width:60px;
-    height:60px;
-    object-fit:contain;
+
+width:70px;
+
+height:70px;
+
+border-radius:50%;
+
+box-shadow:0 0 20px #8b5cf6;
+
+}
+
+.tagline{
+
+color:#cfcfcf;
+
+font-size:15px;
+
+margin-top:4px;
+
+}
+
+.search{
+
+width:280px;
+
+padding:12px;
+
+border:none;
+
+border-radius:12px;
+
+background:#1b1b2a;
+
+color:white;
+
+outline:none;
+
+}
+
+.hero{
+
+padding:80px 30px;
+
+text-align:center;
+
+}
+
+.hero h1{
+
+font-size:55px;
+
+margin-bottom:20px;
+
+background:linear-gradient(90deg,#ffffff,#b784ff);
+
+-webkit-background-clip:text;
+
+-webkit-text-fill-color:transparent;
+
+}
+
+.hero p{
+
+font-size:20px;
+
+color:#d4d4d4;
+
+max-width:700px;
+
+margin:auto;
+
+line-height:1.7;
+
+}
+
+.hero-btn{
+
+margin-top:35px;
+
+padding:18px 40px;
+
+background:#7c3aed;
+
+color:white;
+
+border:none;
+
+border-radius:15px;
+
+font-size:18px;
+
+cursor:pointer;
+
+transition:.3s;
+
+}
+
+.hero-btn:hover{
+
+background:#9f67ff;
+
+transform:scale(1.05);
+
+}
+
+.stats{
+
+display:grid;
+
+grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
+
+gap:25px;
+
+padding:40px;
+
+}
+
+.stat-card{
+
+background:#151525;
+
+padding:30px;
+
+border-radius:18px;
+
+text-align:center;
+
+border:1px solid rgba(255,255,255,.08);
+
+transition:.3s;
+
+}
+
+.stat-card:hover{
+
+transform:translateY(-8px);
+
+box-shadow:0 0 25px rgba(124,58,237,.5);
+
+}
+
+.stat-card h2{
+
+font-size:35px;
+
+color:#b784ff;
+
+margin-bottom:10px;
+
 }

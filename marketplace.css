@@ -1,3 +1,8 @@
+/* ===================================
+   Alberto NFT Marketplace
+   Part 1
+=================================== */
+
 *{
 margin:0;
 padding:0;
@@ -7,14 +12,18 @@ font-family:Arial,sans-serif;
 
 body{
 
-background:#08080d;
+background:#090912;
 
 background-image:
-radial-gradient(circle at top,#5b2be0 0%,#08080d 45%);
+radial-gradient(circle at top,#5b2be0 0%,#090912 40%);
 
-color:white;
+color:#fff;
+
+overflow-x:hidden;
 
 }
+
+/* HEADER */
 
 .header{
 
@@ -26,15 +35,17 @@ align-items:center;
 
 padding:20px 40px;
 
-background:rgba(20,20,30,.85);
+background:rgba(20,20,35,.92);
 
-backdrop-filter:blur(15px);
+backdrop-filter:blur(18px);
 
 position:sticky;
 
 top:0;
 
 z-index:999;
+
+border-bottom:1px solid rgba(255,255,255,.08);
 
 }
 
@@ -44,29 +55,57 @@ display:flex;
 
 align-items:center;
 
-gap:15px;
+gap:18px;
 
 }
 
 .logo{
 
-width:70px;
+width:65px;
 
-height:70px;
+height:65px;
 
 border-radius:50%;
 
-box-shadow:0 0 20px #8b5cf6;
+box-shadow:0 0 20px rgba(124,58,237,.6);
+
+}
+
+.header h1{
+
+font-size:34px;
+
+font-weight:bold;
 
 }
 
 .tagline{
 
+margin-top:6px;
+
 color:#cfcfcf;
+
+font-size:14px;
+
+}
+
+.header-right{
+
+display:flex;
+
+flex-direction:column;
+
+align-items:flex-end;
+
+gap:12px;
+
+}
+
+#pi-user{
 
 font-size:15px;
 
-margin-top:4px;
+color:#b784ff;
 
 }
 
@@ -74,33 +113,37 @@ margin-top:4px;
 
 width:280px;
 
-padding:12px;
+padding:12px 15px;
 
 border:none;
 
 border-radius:12px;
 
-background:#1b1b2a;
+background:#1d1d2d;
 
 color:white;
 
 outline:none;
 
+font-size:15px;
+
 }
+
+/* HERO */
 
 .hero{
 
-padding:80px 30px;
+padding:90px 30px;
 
 text-align:center;
 
 }
 
-.hero h1{
+.hero h2{
 
-font-size:55px;
+font-size:52px;
 
-margin-bottom:20px;
+line-height:1.2;
 
 background:linear-gradient(90deg,#ffffff,#b784ff);
 
@@ -108,19 +151,21 @@ background:linear-gradient(90deg,#ffffff,#b784ff);
 
 -webkit-text-fill-color:transparent;
 
+margin-bottom:25px;
+
 }
 
 .hero p{
 
 font-size:20px;
 
-color:#d4d4d4;
-
-max-width:700px;
+max-width:750px;
 
 margin:auto;
 
-line-height:1.7;
+line-height:1.8;
+
+color:#d8d8d8;
 
 }
 
@@ -132,13 +177,13 @@ padding:18px 40px;
 
 background:#7c3aed;
 
-color:white;
-
 border:none;
 
-border-radius:15px;
+border-radius:14px;
 
 font-size:18px;
+
+color:white;
 
 cursor:pointer;
 
@@ -150,27 +195,195 @@ transition:.3s;
 
 background:#9f67ff;
 
-transform:scale(1.05);
+transform:translateY(-3px);
+
+}
+/* ==============================
+   FEATURED NFT CARDS
+============================== */
+
+.featured,
+.categories,
+.trending,
+.market-stats{
+
+padding:60px 30px;
 
 }
 
-.stats{
+.featured h2,
+.categories h2,
+.trending h2,
+.market-stats h2{
+
+text-align:center;
+
+font-size:34px;
+
+margin-bottom:35px;
+
+color:#ffffff;
+
+}
+
+.market-grid{
+
+display:grid;
+
+grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+
+gap:30px;
+
+}
+
+.card{
+
+background:rgba(25,25,40,.95);
+
+border-radius:20px;
+
+padding:20px;
+
+border:1px solid rgba(255,255,255,.08);
+
+transition:.35s;
+
+text-align:center;
+
+}
+
+.card:hover{
+
+transform:translateY(-10px);
+
+box-shadow:0 0 30px rgba(124,58,237,.45);
+
+}
+
+.card img{
+
+width:100%;
+
+border-radius:16px;
+
+margin-bottom:15px;
+
+}
+
+.card h3{
+
+margin-bottom:10px;
+
+font-size:22px;
+
+}
+
+.card p{
+
+color:#cfcfcf;
+
+}
+
+.price{
+
+margin:15px 0;
+
+font-size:24px;
+
+font-weight:bold;
+
+color:#b784ff;
+
+}
+
+.buy-btn{
+
+width:100%;
+
+padding:15px;
+
+border:none;
+
+border-radius:12px;
+
+background:#7c3aed;
+
+color:#fff;
+
+font-size:17px;
+
+cursor:pointer;
+
+transition:.3s;
+
+}
+
+.buy-btn:hover{
+
+background:#9f67ff;
+
+}
+
+/* ==============================
+   CATEGORIES
+============================== */
+
+.category-grid{
+
+display:grid;
+
+grid-template-columns:repeat(auto-fit,minmax(160px,1fr));
+
+gap:20px;
+
+}
+
+.category{
+
+background:#181828;
+
+padding:25px;
+
+border-radius:18px;
+
+text-align:center;
+
+font-size:20px;
+
+font-weight:bold;
+
+transition:.3s;
+
+cursor:pointer;
+
+}
+
+.category:hover{
+
+background:#7c3aed;
+
+transform:translateY(-8px);
+
+}
+/* ==============================
+   MARKETPLACE STATISTICS
+============================== */
+
+.stats-grid{
 
 display:grid;
 
 grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
 
-gap:25px;
-
-padding:40px;
+gap:20px;
 
 }
 
-.stat-card{
+.stat-box{
 
-background:#151525;
+background:rgba(25,25,40,.95);
 
-padding:30px;
+padding:25px;
 
 border-radius:18px;
 
@@ -182,20 +395,156 @@ transition:.3s;
 
 }
 
-.stat-card:hover{
+.stat-box:hover{
 
-transform:translateY(-8px);
+transform:translateY(-6px);
 
-box-shadow:0 0 25px rgba(124,58,237,.5);
+box-shadow:0 0 20px rgba(124,58,237,.35);
 
 }
 
-.stat-card h2{
+.stat-box h3{
 
-font-size:35px;
+font-size:32px;
 
 color:#b784ff;
 
 margin-bottom:10px;
+
+}
+
+/* ==============================
+   FOOTER
+============================== */
+
+.footer{
+
+margin-top:70px;
+
+padding:45px 20px;
+
+text-align:center;
+
+background:#101018;
+
+border-top:1px solid rgba(255,255,255,.08);
+
+}
+
+.footer .logo{
+
+width:60px;
+
+height:60px;
+
+margin-bottom:15px;
+
+}
+
+.footer h3{
+
+margin-bottom:10px;
+
+}
+
+.footer p{
+
+color:#cfcfcf;
+
+margin:6px 0;
+
+}
+
+/* ==============================
+   MOBILE RESPONSIVE
+============================== */
+
+@media (max-width:768px){
+
+.header{
+
+flex-direction:column;
+
+align-items:center;
+
+padding:18px;
+
+gap:18px;
+
+}
+
+.header-left{
+
+flex-direction:column;
+
+text-align:center;
+
+}
+
+.header h1{
+
+font-size:26px;
+
+}
+
+.logo{
+
+width:55px;
+
+height:55px;
+
+}
+
+.header-right{
+
+width:100%;
+
+align-items:center;
+
+}
+
+.search{
+
+width:100%;
+
+max-width:100%;
+
+}
+
+.hero{
+
+padding:60px 20px;
+
+}
+
+.hero h2{
+
+font-size:34px;
+
+}
+
+.hero p{
+
+font-size:16px;
+
+}
+
+.market-grid{
+
+grid-template-columns:1fr;
+
+}
+
+.category-grid{
+
+grid-template-columns:repeat(2,1fr);
+
+}
+
+.stats-grid{
+
+grid-template-columns:repeat(2,1fr);
+
+}
 
 }

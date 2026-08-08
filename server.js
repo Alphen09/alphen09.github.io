@@ -66,7 +66,7 @@ app.get("/database-test", async (req, res) => {
 });
 
 // =========================
-// APPROVE PAYMENT
+// APPROVE PI PAYMENT
 // =========================
 
 app.post("/approve-payment", async (req, res) => {
@@ -98,8 +98,10 @@ app.post("/approve-payment", async (req, res) => {
     console.log("Price:", price);
 
     const response = await axios.post(
-      `${PI_API_BASE}/payments/${paymentId}/approve`,
-      {},
+      `${PI_API_BASE}/payments/approve`,
+      {
+        paymentId: paymentId
+      },
       {
         headers: {
           Authorization: `Key ${PI_API_KEY}`,
@@ -108,7 +110,10 @@ app.post("/approve-payment", async (req, res) => {
       }
     );
 
-    console.log("PI APPROVAL RESPONSE:", response.data);
+    console.log(
+      "PI APPROVAL RESPONSE:",
+      response.data
+    );
 
     res.json({
       success: true,
@@ -122,16 +127,20 @@ app.post("/approve-payment", async (req, res) => {
       error.response?.data || error.message
     );
 
-    res.status(error.response?.status || 500).json({
+    res.status(
+      error.response?.status || 500
+    ).json({
       success: false,
       message: "Pi payment approval failed.",
-      error: error.response?.data || error.message
+      error:
+        error.response?.data ||
+        error.message
     });
   }
 });
 
 // =========================
-// COMPLETE PAYMENT
+// COMPLETE PI PAYMENT
 // =========================
 
 app.post("/complete-payment", async (req, res) => {
@@ -147,7 +156,8 @@ app.post("/complete-payment", async (req, res) => {
     if (!paymentId || !txid) {
       return res.status(400).json({
         success: false,
-        message: "Payment ID and transaction ID are required."
+        message:
+          "Payment ID and transaction ID are required."
       });
     }
 
@@ -165,8 +175,9 @@ app.post("/complete-payment", async (req, res) => {
     console.log("Price:", price);
 
     const response = await axios.post(
-      `${PI_API_BASE}/payments/${paymentId}/complete`,
+      `${PI_API_BASE}/payments/complete`,
       {
+        paymentId: paymentId,
         txid: txid
       },
       {
@@ -177,7 +188,10 @@ app.post("/complete-payment", async (req, res) => {
       }
     );
 
-    console.log("PI COMPLETION RESPONSE:", response.data);
+    console.log(
+      "PI COMPLETION RESPONSE:",
+      response.data
+    );
 
     res.json({
       success: true,
@@ -188,13 +202,19 @@ app.post("/complete-payment", async (req, res) => {
   } catch (error) {
     console.error(
       "PI COMPLETION ERROR:",
-      error.response?.data || error.message
+      error.response?.data ||
+      error.message
     );
 
-    res.status(error.response?.status || 500).json({
+    res.status(
+      error.response?.status || 500
+    ).json({
       success: false,
-      message: "Pi payment completion failed.",
-      error: error.response?.data || error.message
+      message:
+        "Pi payment completion failed.",
+      error:
+        error.response?.data ||
+        error.message
     });
   }
 });
@@ -236,5 +256,7 @@ app.post("/mint", (req, res) => {
 const PORT = process.env.PORT || 3000;
 
 app.listen(PORT, () => {
-  console.log("Backend running on port " + PORT);
+  console.log(
+    "Backend running on port " + PORT
+  );
 });

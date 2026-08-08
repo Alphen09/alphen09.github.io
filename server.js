@@ -2,6 +2,7 @@ require("dotenv").config();
 
 const express = require("express");
 const cors = require("cors");
+const axios = require("axios");
 const { Pool } = require("pg");
 
 const app = express();
@@ -16,27 +17,39 @@ const pool = new Pool({
   }
 });
 
-// =========================
-// HOME
-// =========================
+/* =========================
+   PI API
+========================= */
+
+const PI_API_KEY = process.env.PI_API_KEY;
+
+const PI_API_BASE =
+  "https://api.testnet.minepi.com";
+
+/* =========================
+   HOME
+========================= */
 
 app.get("/", (req, res) => {
+
   res.json({
     app: "Alberto NFT Marketplace",
     network: "Pi Sandbox",
     status: "Backend Running"
   });
+
 });
 
-// =========================
-// DATABASE TEST
-// =========================
+/* =========================
+   DATABASE TEST
+========================= */
 
 app.get("/database-test", async (req, res) => {
 
   try {
 
-    const result = await pool.query("SELECT NOW()");
+    const result =
+      await pool.query("SELECT NOW()");
 
     res.json({
       success: true,
@@ -46,6 +59,11 @@ app.get("/database-test", async (req, res) => {
 
   } catch (error) {
 
+    console.error(
+      "DATABASE ERROR:",
+      error.message
+    );
+
     res.status(500).json({
       success: false,
       error: error.message
@@ -54,10 +72,9 @@ app.get("/database-test", async (req, res) => {
   }
 
 });
-
-// =========================
-// APPROVE PAYMENT
-// =========================
+/* =========================
+   APPROVE PI PAYMENT
+========================= */
 
 app.post("/approve-payment", async (req, res) => {
 
@@ -70,31 +87,80 @@ app.post("/approve-payment", async (req, res) => {
       price
     } = req.body;
 
-    console.log("APPROVE PAYMENT");
-    console.log(paymentId);
-    console.log(nftName);
-    console.log(buyer);
-    console.log(price);
+    if (!paymentId) {
+
+      return res.status(400).json({
+        success: false,
+        message: "Payment ID is required."
+      });
+
+    }
+
+    if (!PI_API_KEY) {
+
+      return res.status(500).json({
+        success: false,
+        message: "PI_API_KEY is missing."
+      });
+
+    }
+
+    console.log("APPROVE PAYMENT:", paymentId);
+    console.log("NFT:", nftName);
+    console.log("Buyer:", buyer);
+    console.log("Price:", price);
+
+    const response = await axios.post(
+      `${PI_API_BASE}/payments/${paymentId}/approve`,
+      {},
+      {
+        headers: {
+          Authorization: `Key ${PI_API_KEY}`,
+          "Content-Type": "application/json"
+        }
+      }
+    );
+
+    console.log(
+      "PI APPROVAL RESPONSE:",
+      response.data
+    );
 
     res.json({
       success: true,
-      status: "approved"
+      status: "approved",
+      payment: response.data
     });
 
   } catch (error) {
 
-    res.status(500).json({
+    console.error(
+      "PI APPROVAL ERROR:",
+      error.response?.data ||
+      error.message
+    );
+
+    res.status(
+      error.response?.status || 500
+    ).json({
+
       success: false,
-      message: error.message
+
+      message:
+        "Pi payment approval failed.",
+
+      error:
+        error.response?.data ||
+        error.message
+
     });
 
   }
 
 });
-
-// =========================
-// COMPLETE PAYMENT
-// =========================
+/* =========================
+   COMPLETE PI PAYMENT
+========================= */
 
 app.post("/complete-payment", async (req, res) => {
 
@@ -108,32 +174,85 @@ app.post("/complete-payment", async (req, res) => {
       price
     } = req.body;
 
-    console.log("COMPLETE PAYMENT");
-    console.log(paymentId);
-    console.log(txid);
-    console.log(nftName);
-    console.log(buyer);
-    console.log(price);
+    if (!paymentId || !txid) {
+
+      return res.status(400).json({
+        success: false,
+        message: "Payment ID and transaction ID are required."
+      });
+
+    }
+
+    if (!PI_API_KEY) {
+
+      return res.status(500).json({
+        success: false,
+        message: "PI_API_KEY is missing."
+      });
+
+    }
+
+    console.log("COMPLETE PAYMENT:", paymentId);
+    console.log("TXID:", txid);
+    console.log("NFT:", nftName);
+    console.log("Buyer:", buyer);
+    console.log("Price:", price);
+
+    const response = await axios.post(
+      `${PI_API_BASE}/payments/${paymentId}/complete`,
+      {
+        txid: txid
+      },
+      {
+        headers: {
+          Authorization: `Key ${PI_API_KEY}`,
+          "Content-Type": "application/json"
+        }
+      }
+    );
+
+    console.log(
+      "PI COMPLETION RESPONSE:",
+      response.data
+    );
 
     res.json({
       success: true,
-      status: "completed"
+      status: "completed",
+      payment: response.data
     });
 
   } catch (error) {
 
-    res.status(500).json({
+    console.error(
+      "PI COMPLETION ERROR:",
+      error.response?.data ||
+      error.message
+    );
+
+    res.status(
+      error.response?.status || 500
+    ).json({
+
       success: false,
-      message: error.message
+
+      message:
+        "Pi payment completion failed.",
+
+      error:
+        error.response?.data ||
+        error.message
+
     });
 
   }
 
 });
 
-// =========================
-// NFT MINT
-// =========================
+
+/* =========================
+   NFT MINT
+========================= */
 
 app.post("/mint", (req, res) => {
 
@@ -146,11 +265,18 @@ app.post("/mint", (req, res) => {
     price
   } = req.body;
 
-  console.log("NFT Minted:", nftName);
+  console.log(
+    "NFT Minted:",
+    nftName
+  );
 
   res.json({
+
     success: true,
-    message: "NFT Minted Successfully!",
+
+    message:
+      "NFT Minted Successfully!",
+
     nft: {
       nftName,
       description,
@@ -159,15 +285,18 @@ app.post("/mint", (req, res) => {
       royalty,
       price
     }
+
   });
 
 });
 
-// =========================
-// START SERVER
-// =========================
 
-const PORT = process.env.PORT || 3000;
+/* =========================
+   START SERVER
+========================= */
+
+const PORT =
+  process.env.PORT || 3000;
 
 app.listen(PORT, () => {
 

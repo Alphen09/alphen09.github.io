@@ -59,10 +59,7 @@ app.get("/database-test", async (req, res) => {
 
   } catch (error) {
 
-    console.error(
-      "DATABASE ERROR:",
-      error.message
-    );
+    console.error("DATABASE ERROR:", error);
 
     res.status(500).json({
       success: false,

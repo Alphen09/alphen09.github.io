@@ -1,550 +1,856 @@
-/* ===================================
-   Alberto NFT Marketplace
-   Part 1
-=================================== */
+/* =========================================
+   ALBERTO NFT MARKETPLACE
+   PREMIUM MARKETPLACE UI
+========================================= */
 
-*{
-margin:0;
-padding:0;
-box-sizing:border-box;
-font-family:Arial,sans-serif;
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
-body{
-
-background:#090912;
-
-background-image:
-radial-gradient(circle at top,#5b2be0 0%,#090912 40%);
-
-color:#fff;
-
-overflow-x:hidden;
-
+body {
+    min-height: 100vh;
+    background:
+        radial-gradient(
+            circle at top,
+            #32135f 0%,
+            #10091b 35%,
+            #050508 75%
+        );
+    color: #ffffff;
+    font-family: Arial, sans-serif;
+    overflow-x: hidden;
 }
 
-/* HEADER */
 
-.header{
+/* =========================================
+   TOP BAR
+========================================= */
 
-display:flex;
+.topbar {
 
-justify-content:space-between;
+    position: sticky;
 
-align-items:center;
+    top: 0;
 
-padding:20px 40px;
+    z-index: 999;
 
-background:rgba(20,20,35,.92);
+    width: 100%;
 
-backdrop-filter:blur(18px);
+    display: flex;
 
-position:sticky;
+    align-items: center;
 
-top:0;
+    gap: 20px;
 
-z-index:999;
+    padding: 15px 30px;
 
-border-bottom:1px solid rgba(255,255,255,.08);
+    background:
+        rgba(10, 7, 18, 0.94);
 
-}
+    backdrop-filter:
+        blur(18px);
 
-.header-left{
-
-display:flex;
-
-align-items:center;
-
-gap:18px;
-
-}
-
-.logo{
-
-width:65px;
-
-height:65px;
-
-border-radius:50%;
-
-box-shadow:0 0 20px rgba(124,58,237,.6);
+    border-bottom:
+        1px solid rgba(255,255,255,0.08);
 
 }
 
-.header h1{
 
-font-size:34px;
+/* BRAND */
 
-font-weight:bold;
+.brand {
 
-}
+    display: flex;
 
-.tagline{
+    align-items: center;
 
-margin-top:6px;
+    gap: 12px;
 
-color:#cfcfcf;
-
-font-size:14px;
+    margin-right: auto;
 
 }
 
-.header-right{
+.brand-logo {
 
-display:flex;
+    width: 52px;
 
-flex-direction:column;
+    height: 52px;
 
-align-items:flex-end;
+    object-fit: contain;
 
-gap:12px;
+    border-radius: 50%;
 
-}
-
-#pi-user{
-
-font-size:15px;
-
-color:#b784ff;
+    box-shadow:
+        0 0 20px rgba(150,80,255,0.65);
 
 }
 
-.search{
+.brand strong {
 
-width:280px;
+    display: block;
 
-padding:12px 15px;
-
-border:none;
-
-border-radius:12px;
-
-background:#1d1d2d;
-
-color:white;
-
-outline:none;
-
-font-size:15px;
+    font-size: 18px;
 
 }
 
-/* HERO */
+.brand span {
 
-.hero{
+    display: block;
 
-padding:90px 30px;
+    margin-top: 3px;
 
-text-align:center;
+    font-size: 12px;
 
-}
-
-.hero h2{
-
-font-size:52px;
-
-line-height:1.2;
-
-background:linear-gradient(90deg,#ffffff,#b784ff);
-
--webkit-background-clip:text;
-
--webkit-text-fill-color:transparent;
-
-margin-bottom:25px;
+    color: #a99ab8;
 
 }
 
-.hero p{
 
-font-size:20px;
+/* PI USER */
 
-max-width:750px;
+.pi-user {
 
-margin:auto;
+    color: #c99cff;
 
-line-height:1.8;
-
-color:#d8d8d8;
+    font-size: 14px;
 
 }
 
-.hero-btn{
 
-margin-top:35px;
+/* PROFILE */
 
-padding:18px 40px;
+.profile-btn {
 
-background:#7c3aed;
+    border: 1px solid #7f4bd4;
 
-border:none;
+    background: transparent;
 
-border-radius:14px;
+    color: white;
 
-font-size:18px;
+    padding: 10px 15px;
 
-color:white;
+    border-radius: 10px;
 
-cursor:pointer;
-
-transition:.3s;
+    cursor: pointer;
 
 }
 
-.hero-btn:hover{
+.profile-btn:hover {
 
-background:#9f67ff;
-
-transform:translateY(-3px);
-
-}
-/* ==============================
-   FEATURED NFT CARDS
-============================== */
-
-.featured,
-.categories,
-.trending,
-.market-stats{
-
-padding:60px 30px;
+    background: #7c3aed;
 
 }
 
-.featured h2,
-.categories h2,
-.trending h2,
-.market-stats h2{
 
-text-align:center;
+/* =========================================
+   HERO
+========================================= */
 
-font-size:34px;
+.hero {
 
-margin-bottom:35px;
+    position: relative;
 
-color:#ffffff;
+    padding: 85px 20px 70px;
 
-}
-
-.market-grid{
-
-display:grid;
-
-grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
-
-gap:30px;
+    text-align: center;
 
 }
 
-.card{
+.hero-content {
 
-background:rgba(25,25,40,.95);
+    max-width: 850px;
 
-border-radius:20px;
-
-padding:20px;
-
-border:1px solid rgba(255,255,255,.08);
-
-transition:.35s;
-
-text-align:center;
+    margin: auto;
 
 }
 
-.card:hover{
+.eyebrow {
 
-transform:translateY(-10px);
+    color: #ad78ff;
 
-box-shadow:0 0 30px rgba(124,58,237,.45);
+    font-size: 12px;
 
-}
+    letter-spacing: 3px;
 
-.card img{
+    font-weight: bold;
 
-width:100%;
-
-border-radius:16px;
-
-margin-bottom:15px;
+    margin-bottom: 18px;
 
 }
 
-.card h3{
+.hero h1 {
 
-margin-bottom:10px;
+    font-size: clamp(38px, 7vw, 68px);
 
-font-size:22px;
+    line-height: 1.05;
 
-}
+    background:
+        linear-gradient(
+            90deg,
+            #ffffff,
+            #c18aff
+        );
 
-.card p{
+    -webkit-background-clip: text;
 
-color:#cfcfcf;
+    -webkit-text-fill-color: transparent;
 
-}
-
-.price{
-
-margin:15px 0;
-
-font-size:24px;
-
-font-weight:bold;
-
-color:#b784ff;
+    margin-bottom: 22px;
 
 }
 
-.buy-btn{
+.hero p {
 
-width:100%;
+    max-width: 650px;
 
-padding:15px;
+    margin: auto;
 
-border:none;
+    color: #c8c2d0;
 
-border-radius:12px;
+    font-size: 17px;
 
-background:#7c3aed;
-
-color:#fff;
-
-font-size:17px;
-
-cursor:pointer;
-
-transition:.3s;
+    line-height: 1.7;
 
 }
 
-.buy-btn:hover{
 
-background:#9f67ff;
+/* =========================================
+   MARKET CONTROLS
+========================================= */
 
-}
+.market-controls {
 
-/* ==============================
-   CATEGORIES
-============================== */
+    max-width: 1250px;
 
-.category-grid{
+    margin: auto;
 
-display:grid;
-
-grid-template-columns:repeat(auto-fit,minmax(160px,1fr));
-
-gap:20px;
+    padding: 0 25px 35px;
 
 }
 
-.category{
 
-background:#181828;
+/* SEARCH */
 
-padding:25px;
+.search-box {
 
-border-radius:18px;
+    display: flex;
 
-text-align:center;
+    align-items: center;
 
-font-size:20px;
+    gap: 10px;
 
-font-weight:bold;
+    width: 100%;
 
-transition:.3s;
+    background:
+        rgba(24,19,35,0.95);
 
-cursor:pointer;
+    border:
+        1px solid rgba(255,255,255,0.08);
 
-}
+    border-radius: 14px;
 
-.category:hover{
+    padding: 13px 16px;
 
-background:#7c3aed;
-
-transform:translateY(-8px);
-
-}
-/* ==============================
-   MARKETPLACE STATISTICS
-============================== */
-
-.stats-grid{
-
-display:grid;
-
-grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
-
-gap:20px;
+    margin-bottom: 20px;
 
 }
 
-.stat-box{
+.search-box span {
 
-background:rgba(25,25,40,.95);
-
-padding:25px;
-
-border-radius:18px;
-
-text-align:center;
-
-border:1px solid rgba(255,255,255,.08);
-
-transition:.3s;
+    font-size: 18px;
 
 }
 
-.stat-box:hover{
+.search-box input {
 
-transform:translateY(-6px);
+    width: 100%;
 
-box-shadow:0 0 20px rgba(124,58,237,.35);
+    border: none;
 
-}
+    outline: none;
 
-.stat-box h3{
+    background: transparent;
 
-font-size:32px;
+    color: white;
 
-color:#b784ff;
-
-margin-bottom:10px;
+    font-size: 15px;
 
 }
 
-/* ==============================
+.search-box input::placeholder {
+
+    color: #77717f;
+
+}
+
+
+/* CATEGORIES */
+
+.categories {
+
+    display: flex;
+
+    gap: 10px;
+
+    overflow-x: auto;
+
+    padding-bottom: 5px;
+
+}
+
+.categories::-webkit-scrollbar {
+
+    height: 3px;
+
+}
+
+.category {
+
+    flex-shrink: 0;
+
+    border: 1px solid
+        rgba(255,255,255,0.08);
+
+    background:
+        #171320;
+
+    color: #d6cfdf;
+
+    padding: 11px 17px;
+
+    border-radius: 12px;
+
+    cursor: pointer;
+
+    font-size: 14px;
+
+}
+
+.category:hover {
+
+    background: #34204e;
+
+}
+
+.category.active {
+
+    background:
+        linear-gradient(
+            135deg,
+            #6f35bd,
+            #914ee8
+        );
+
+    color: white;
+
+    border-color: transparent;
+
+}
+
+
+/* =========================================
+   MARKET CONTAINER
+========================================= */
+
+.market-container {
+
+    max-width: 1250px;
+
+    margin: auto;
+
+    padding: 10px 25px 60px;
+
+}
+
+.market-heading {
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    gap: 20px;
+
+    margin-bottom: 25px;
+
+}
+
+.market-heading h2 {
+
+    font-size: 28px;
+
+    margin-bottom: 5px;
+
+}
+
+.market-heading p {
+
+    color: #918a9b;
+
+    font-size: 14px;
+
+}
+
+.network {
+
+    white-space: nowrap;
+
+    color: #9e73cc;
+
+    font-size: 13px;
+
+}
+
+
+/* =========================================
+   NFT GRID
+========================================= */
+
+.market-grid {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(
+            auto-fit,
+            minmax(260px, 1fr)
+        );
+
+    gap: 24px;
+
+}
+
+
+/* =========================================
+   NFT CARD
+========================================= */
+
+.card {
+
+    overflow: hidden;
+
+    background:
+        linear-gradient(
+            180deg,
+            rgba(28,21,40,0.98),
+            rgba(15,12,22,0.98)
+        );
+
+    border:
+        1px solid rgba(255,255,255,0.08);
+
+    border-radius: 20px;
+
+    transition:
+        transform .3s ease,
+        box-shadow .3s ease,
+        border-color .3s ease;
+
+}
+
+.card:hover {
+
+    transform:
+        translateY(-7px);
+
+    border-color:
+        rgba(150,90,240,0.45);
+
+    box-shadow:
+        0 18px 45px
+        rgba(80,30,130,0.35);
+
+}
+
+
+/* IMAGE */
+
+.nft-image {
+
+    position: relative;
+
+    width: 100%;
+
+    aspect-ratio: 1 / 1;
+
+    overflow: hidden;
+
+    background: #0d0a12;
+
+}
+
+.nft-image img {
+
+    width: 100%;
+
+    height: 100%;
+
+    object-fit: cover;
+
+    display: block;
+
+    transition:
+        transform .4s ease;
+
+}
+
+.card:hover
+.nft-image img {
+
+    transform: scale(1.05);
+
+}
+
+
+/* RARITY */
+
+.rarity {
+
+    position: absolute;
+
+    top: 12px;
+
+    right: 12px;
+
+    padding: 7px 10px;
+
+    border-radius: 8px;
+
+    background:
+        rgba(10,7,15,0.82);
+
+    border:
+        1px solid
+        rgba(255,255,255,0.12);
+
+    font-size: 11px;
+
+    font-weight: bold;
+
+    color: #d7b7ff;
+
+}
+
+
+/* CARD BODY */
+
+.card-body {
+
+    padding: 20px;
+
+}
+
+.collection {
+
+    color: #9f73d0;
+
+    font-size: 12px;
+
+    font-weight: bold;
+
+    text-transform: uppercase;
+
+    letter-spacing: 1px;
+
+    margin-bottom: 8px;
+
+}
+
+.card h2 {
+
+    font-size: 19px;
+
+    line-height: 1.3;
+
+    margin-bottom: 10px;
+
+}
+
+.description {
+
+    min-height: 42px;
+
+    color: #96909f;
+
+    font-size: 13px;
+
+    line-height: 1.5;
+
+}
+
+
+/* =========================================
+   CARD BOTTOM
+========================================= */
+
+.card-bottom {
+
+    display: flex;
+
+    align-items: end;
+
+    justify-content: space-between;
+
+    gap: 12px;
+
+    margin-top: 20px;
+
+}
+
+.card-bottom small {
+
+    display: block;
+
+    color: #77717f;
+
+    font-size: 11px;
+
+    margin-bottom: 4px;
+
+}
+
+.card-bottom strong {
+
+    display: block;
+
+    color: #c18aff;
+
+    font-size: 20px;
+
+}
+
+
+/* BUY BUTTON */
+
+.buy-btn {
+
+    border: none;
+
+    background:
+        linear-gradient(
+            135deg,
+            #7137c5,
+            #934eea
+        );
+
+    color: white;
+
+    padding: 11px 14px;
+
+    border-radius: 10px;
+
+    font-size: 13px;
+
+    font-weight: bold;
+
+    cursor: pointer;
+
+    white-space: nowrap;
+
+    transition: .2s;
+
+}
+
+.buy-btn:hover {
+
+    transform:
+        translateY(-2px);
+
+    box-shadow:
+        0 8px 20px
+        rgba(120,50,200,0.35);
+
+}
+
+.buy-btn:disabled {
+
+    opacity: .6;
+
+    cursor: wait;
+
+    transform: none;
+
+}
+
+
+/* =========================================
    FOOTER
-============================== */
+========================================= */
 
-.footer{
+.footer {
 
-margin-top:70px;
+    padding: 35px 20px;
 
-padding:45px 20px;
+    text-align: center;
 
-text-align:center;
+    background:
+        rgba(8,6,12,0.95);
 
-background:#101018;
-
-border-top:1px solid rgba(255,255,255,.08);
-
-}
-
-.footer .logo{
-
-width:60px;
-
-height:60px;
-
-margin-bottom:15px;
+    border-top:
+        1px solid rgba(255,255,255,0.07);
 
 }
 
-.footer h3{
+.footer strong {
 
-margin-bottom:10px;
+    display: block;
 
-}
+    font-size: 15px;
 
-.footer p{
-
-color:#cfcfcf;
-
-margin:6px 0;
+    margin-bottom: 7px;
 
 }
 
-/* ==============================
-   MOBILE RESPONSIVE
-============================== */
+.footer span {
 
-@media (max-width:768px){
+    color: #706a76;
 
-.header{
-
-flex-direction:column;
-
-align-items:center;
-
-padding:18px;
-
-gap:18px;
+    font-size: 12px;
 
 }
 
-.header-left{
 
-flex-direction:column;
+/* =========================================
+   MOBILE
+========================================= */
 
-text-align:center;
+@media (max-width: 768px) {
+
+    .topbar {
+
+        padding: 12px 15px;
+
+        flex-wrap: wrap;
+
+    }
+
+    .brand-logo {
+
+        width: 44px;
+
+        height: 44px;
+
+    }
+
+    .brand strong {
+
+        font-size: 15px;
+
+    }
+
+    .brand span {
+
+        font-size: 10px;
+
+    }
+
+    .pi-user {
+
+        order: 3;
+
+        width: 100%;
+
+        text-align: center;
+
+    }
+
+    .profile-btn {
+
+        padding: 8px 11px;
+
+        font-size: 12px;
+
+    }
+
+    .hero {
+
+        padding:
+            55px 20px 45px;
+
+    }
+
+    .hero h1 {
+
+        font-size: 39px;
+
+    }
+
+    .hero p {
+
+        font-size: 15px;
+
+    }
+
+    .market-controls {
+
+        padding:
+            0 15px 25px;
+
+    }
+
+    .market-container {
+
+        padding:
+            5px 15px 45px;
+
+    }
+
+    .market-heading {
+
+        align-items: flex-start;
+
+    }
+
+    .market-heading h2 {
+
+        font-size: 24px;
+
+    }
+
+    .network {
+
+        font-size: 11px;
+
+    }
+
+    .market-grid {
+
+        grid-template-columns: 1fr;
+
+        gap: 18px;
+
+    }
 
 }
 
-.header h1{
 
-font-size:26px;
+/* =========================================
+   SMALL PHONES
+========================================= */
 
-}
+@media (max-width: 380px) {
 
-.logo{
+    .hero h1 {
 
-width:55px;
+        font-size: 34px;
 
-height:55px;
+    }
 
-}
+    .card-bottom {
 
-.header-right{
+        flex-direction: column;
 
-width:100%;
+        align-items: stretch;
 
-align-items:center;
+    }
 
-}
+    .buy-btn {
 
-.search{
+        width: 100%;
 
-width:100%;
-
-max-width:100%;
-
-}
-
-.hero{
-
-padding:60px 20px;
-
-}
-
-.hero h2{
-
-font-size:34px;
-
-}
-
-.hero p{
-
-font-size:16px;
-
-}
-
-.market-grid{
-
-grid-template-columns:1fr;
-
-}
-
-.category-grid{
-
-grid-template-columns:repeat(2,1fr);
-
-}
-
-.stats-grid{
-
-grid-template-columns:repeat(2,1fr);
-
-}
+    }
 
 }

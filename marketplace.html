@@ -2,28 +2,17 @@
 <html lang="en">
 
 <head>
-
     <meta charset="UTF-8">
-
-    <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1.0"
-    >
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>Alberto NFT Marketplace</title>
 
-    <link
-        rel="stylesheet"
-        href="marketplace.css"
-    >
+    <link rel="stylesheet" href="marketplace.css">
 
     <script src="https://sdk.minepi.com/pi-sdk.js"></script>
-
 </head>
 
-
 <body>
-
 
 <!-- =========================
      TOP NAVIGATION
@@ -33,35 +22,20 @@
 
     <div class="brand">
 
-<div class="brand-logo">
-    <img
-        src="alberto%20nft%20marketplace.jpg"
-        alt="Alberto NFT Marketplace Logo"
-        style="width:64px !important;height:64px !important;min-width:64px !important;min-height:64px !important;max-width:64px !important;max-height:64px !important;object-fit:cover !important;border-radius:50% !important;display:block !important;"
-    >
-</div>
+        <img
+            src="alberto%20nft%20marketplace.jpg"
+            class="logo"
+            alt="Alberto NFT Marketplace Logo"
+        >
 
-        <div>
-
-            <strong>
-                Alberto NFT
-            </strong>
-
-            <span>
-                Marketplace
-            </span>
-
+        <div class="brand-text">
+            <strong>Alberto NFT</strong>
+            <span>Marketplace</span>
         </div>
 
     </div>
 
-
-    <div
-        id="pi-user"
-        class="pi-user"
-    >
-    </div>
-
+    <div id="pi-user" class="pi-user"></div>
 
     <button
         class="profile-btn"
@@ -72,7 +46,6 @@
     </button>
 
 </header>
-
 
 
 <!-- =========================
@@ -92,9 +65,8 @@
         </h1>
 
         <p>
-            Collect, discover and trade
-            exclusive digital assets
-            inside the Alberto ecosystem.
+            Collect, discover and trade exclusive
+            digital assets inside the Alberto ecosystem.
         </p>
 
     </div>
@@ -102,9 +74,8 @@
 </section>
 
 
-
 <!-- =========================
-     MARKETPLACE CONTROLS
+     MARKET CONTROLS
 ========================= -->
 
 <section class="market-controls">
@@ -169,7 +140,6 @@
 </section>
 
 
-
 <!-- =========================
      NFT MARKET
 ========================= -->
@@ -197,7 +167,6 @@
     </div>
 
 
-
     <div class="market-grid">
 
 
@@ -223,7 +192,6 @@
 
             </div>
 
-
             <div class="card-body">
 
                 <p class="collection">
@@ -239,7 +207,6 @@
                     from the Satoshi collection.
                 </p>
 
-
                 <div class="card-bottom">
 
                     <div>
@@ -253,7 +220,6 @@
                         </strong>
 
                     </div>
-
 
                     <button
                         type="button"
@@ -271,20 +237,21 @@
         </div>
 
 
-
         <!-- =========================
              NFT 2
+             CELESTIAL DEMONLORD
         ========================== -->
 
         <div
             class="card"
-            data-category="wings"
+            data-category="mounts"
         >
 
             <div class="nft-image">
 
                 <img
-                   Satoshi-archangel-wing.jpg
+                    src="celestial%20demonlord%20demonite%20astral%20bike%20%2B%20100%20.jpg"
+                    alt="Celestial Demonlord Demonite Astral Bike +100"
                 >
 
                 <span class="rarity">
@@ -293,22 +260,20 @@
 
             </div>
 
-
             <div class="card-body">
 
                 <p class="collection">
-                    Satoshi Wings
+                    Celestial Mounts
                 </p>
 
                 <h2>
-                    Satoshi Archangel Wings +30
+                    Celestial Demonlord Demonite Astral Bike +100
                 </h2>
 
                 <p class="description">
-                    Divine archangel wings
-                    created for legendary collectors.
+                    A legendary astral bike forged
+                    for elite collectors and explorers.
                 </p>
-
 
                 <div class="card-bottom">
 
@@ -319,17 +284,16 @@
                         </small>
 
                         <strong>
-                            800 Pi
+                            1500 Pi
                         </strong>
 
                     </div>
 
-
                     <button
                         type="button"
                         class="buy-btn"
-                        data-price="800"
-                        data-nft="Satoshi Archangel Wings +30"
+                        data-price="1500"
+                        data-nft="Celestial Demonlord Demonite Astral Bike +100"
                     >
                         Buy with Pi
                     </button>
@@ -339,7 +303,6 @@
             </div>
 
         </div>
-
 
 
         <!-- =========================
@@ -364,7 +327,6 @@
 
             </div>
 
-
             <div class="card-body">
 
                 <p class="collection">
@@ -380,7 +342,6 @@
                     from the Alberto collection.
                 </p>
 
-
                 <div class="card-bottom">
 
                     <div>
@@ -394,7 +355,6 @@
                         </strong>
 
                     </div>
-
 
                     <button
                         type="button"
@@ -410,7 +370,6 @@
             </div>
 
         </div>
-
 
 
         <!-- =========================
@@ -435,7 +394,6 @@
 
             </div>
 
-
             <div class="card-body">
 
                 <p class="collection">
@@ -451,7 +409,6 @@
                     designed for legendary explorers.
                 </p>
 
-
                 <div class="card-bottom">
 
                     <div>
@@ -465,7 +422,6 @@
                         </strong>
 
                     </div>
-
 
                     <button
                         type="button"
@@ -488,7 +444,6 @@
 </main>
 
 
-
 <!-- =========================
      FOOTER
 ========================= -->
@@ -506,9 +461,8 @@
 </footer>
 
 
-
 <!-- =========================
-     EXISTING MARKETPLACE JS
+     MARKETPLACE JAVASCRIPT
 ========================= -->
 
 <script src="marketplace.js"></script>
@@ -520,69 +474,57 @@
 
 <script>
 
-const categoryButtons =
-    document.querySelectorAll(".category");
+document.addEventListener("DOMContentLoaded", function () {
 
-const nftCards =
-    document.querySelectorAll(".card");
+    const categoryButtons =
+        document.querySelectorAll(".category");
 
-
-categoryButtons.forEach(
-    function(button) {
-
-        button.addEventListener(
-            "click",
-            function() {
-
-                categoryButtons.forEach(
-                    function(btn) {
-
-                        btn.classList.remove(
-                            "active"
-                        );
-
-                    }
-                );
+    const nftCards =
+        document.querySelectorAll(".card");
 
 
-                this.classList.add(
-                    "active"
-                );
+    categoryButtons.forEach(function (button) {
+
+        button.addEventListener("click", function () {
+
+            categoryButtons.forEach(function (btn) {
+
+                btn.classList.remove("active");
+
+            });
 
 
-                const category =
-                    this.dataset.category;
+            this.classList.add("active");
 
 
-                nftCards.forEach(
-                    function(card) {
+            const category =
+                this.dataset.category;
 
-                        if (
-                            category === "all" ||
-                            card.dataset.category === category
-                        ) {
 
-                            card.style.display =
-                                "";
+            nftCards.forEach(function (card) {
 
-                        } else {
+                if (
+                    category === "all" ||
+                    card.dataset.category === category
+                ) {
 
-                            card.style.display =
-                                "none";
+                    card.style.display = "";
 
-                        }
+                } else {
 
-                    }
-                );
+                    card.style.display = "none";
 
-            }
-        );
+                }
 
-    }
-);
+            });
+
+        });
+
+    });
+
+});
 
 </script>
-
 
 </body>
 

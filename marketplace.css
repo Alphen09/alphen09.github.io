@@ -1097,3 +1097,17 @@ body {
     }
 
 }
+/* ==============================
+   MARKETPLACE HEADER LOGO FIX
+============================== */
+
+.topbar .brand .logo {
+    width: 48px;
+    height: 48px;
+    min-width: 48px;
+    max-width: 48px;
+    object-fit: contain;
+    object-position: center;
+    border-radius: 50%;
+    display: block;
+}

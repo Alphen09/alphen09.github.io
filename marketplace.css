@@ -1097,17 +1097,82 @@ body {
     }
 
 }
-/* ==============================
-   MARKETPLACE HEADER LOGO FIX
-============================== */
+/* =========================================
+   FINAL ALBERTO HEADER LOGO FIX
+========================================= */
 
-.topbar .brand .logo {
-    width: 48px;
-    height: 48px;
-    min-width: 48px;
-    max-width: 48px;
-    object-fit: contain;
-    object-position: center;
-    border-radius: 50%;
-    display: block;
+.topbar .brand {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+}
+
+.topbar .brand img.logo {
+    width: 48px !important;
+    height: 48px !important;
+
+    min-width: 48px !important;
+    min-height: 48px !important;
+
+    max-width: 48px !important;
+    max-height: 48px !important;
+
+    display: block !important;
+
+    object-fit: contain !important;
+    object-position: center !important;
+
+    border-radius: 50% !important;
+
+    margin: 0 !important;
+
+    padding: 0 !important;
+}
+/* =========================================================
+   FINAL LOGO SIZE FIX - ALBERTO NFT MARKETPLACE
+========================================================= */
+
+.topbar .brand-logo-fixed {
+    width: 48px !important;
+    height: 48px !important;
+
+    min-width: 48px !important;
+    min-height: 48px !important;
+
+    max-width: 48px !important;
+    max-height: 48px !important;
+
+    flex: 0 0 48px !important;
+
+    overflow: hidden !important;
+
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+
+    border-radius: 50% !important;
+
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+.topbar .brand-logo-fixed img {
+    width: 48px !important;
+    height: 48px !important;
+
+    min-width: 48px !important;
+    min-height: 48px !important;
+
+    max-width: 48px !important;
+    max-height: 48px !important;
+
+    display: block !important;
+
+    object-fit: cover !important;
+    object-position: center !important;
+
+    border-radius: 50% !important;
+
+    margin: 0 !important;
+    padding: 0 !important;
 }

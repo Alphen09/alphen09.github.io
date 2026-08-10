@@ -1176,3 +1176,157 @@ body {
     margin: 0 !important;
     padding: 0 !important;
 }
+/* =========================================================
+   PREMIUM NFT CARD UPGRADE
+========================================================= */
+
+.market-grid {
+    gap: 16px;
+}
+
+.card {
+    border-radius: 18px;
+    background:
+        linear-gradient(
+            145deg,
+            rgba(35, 20, 52, 0.98),
+            rgba(12, 8, 18, 0.98)
+        );
+    border: 1px solid rgba(170, 100, 255, 0.25);
+    box-shadow:
+        0 10px 30px rgba(0, 0, 0, 0.45);
+}
+
+.card:hover {
+    transform: translateY(-6px);
+    border-color: rgba(180, 110, 255, 0.7);
+    box-shadow:
+        0 18px 45px rgba(120, 50, 220, 0.35);
+}
+
+.nft-image {
+    aspect-ratio: 1 / 1;
+    background: #050308;
+}
+
+.nft-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.rarity {
+    top: 10px;
+    right: 10px;
+    padding: 6px 10px;
+    border-radius: 10px;
+
+    background: rgba(10, 5, 18, 0.88);
+    border: 1px solid rgba(190, 120, 255, 0.5);
+
+    color: #ead8ff;
+    font-size: 10px;
+    font-weight: bold;
+
+    backdrop-filter: blur(8px);
+}
+
+.card-body {
+    padding: 13px;
+}
+
+.collection {
+    color: #b875ff;
+    font-size: 10px;
+    letter-spacing: 0.5px;
+}
+
+.card-body h2 {
+    font-size: 15px;
+    margin-bottom: 7px;
+}
+
+.description {
+    color: #a49baa;
+    font-size: 10px;
+}
+
+.card-bottom strong {
+    color: #d8b4ff;
+    font-size: 15px;
+}
+
+.buy-btn {
+    padding: 10px 13px;
+    border-radius: 11px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #7138c8,
+            #a653f0
+        );
+
+    font-size: 10px;
+    font-weight: bold;
+
+    box-shadow:
+        0 6px 18px rgba(120, 55, 220, 0.3);
+}
+
+.buy-btn:hover {
+    background:
+        linear-gradient(
+            135deg,
+            #8246dd,
+            #b765ff
+        );
+}
+
+
+/* =========================================================
+   MOBILE NFT CARDS
+========================================================= */
+
+@media (max-width: 600px) {
+
+    .market-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 9px;
+    }
+
+    .card {
+        border-radius: 13px;
+    }
+
+    .card-body {
+        padding: 8px;
+    }
+
+    .card-body h2 {
+        font-size: 11px;
+    }
+
+    .collection {
+        font-size: 8px;
+    }
+
+    .description {
+        font-size: 8px;
+        min-height: 25px;
+    }
+
+    .card-bottom strong {
+        font-size: 10px;
+    }
+
+    .buy-btn {
+        padding: 7px 8px;
+        font-size: 8px;
+    }
+
+    .rarity {
+        font-size: 7px;
+        padding: 4px 6px;
+    }
+}

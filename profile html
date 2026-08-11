@@ -137,7 +137,109 @@ Login with Pi
 </div>
 
 </section>
+<!-- MINT NFT -->
+<section class="mint-section">
 
+    <div class="mint-card">
+
+        <div class="mint-icon">
+            🎨
+        </div>
+
+        <h2>Mint Your Own NFT</h2>
+
+        <p>
+            Create and publish your own Alberto digital asset.
+        </p>
+
+        <button
+            class="mint-btn"
+            onclick="goMint()"
+        >
+            🎨 Mint New NFT
+        </button>
+
+    </div>
+
+</section>
+
+<style>
+
+.mint-section {
+    width: 100%;
+    max-width: 600px;
+    margin: 0 auto 35px;
+    padding: 0 20px;
+}
+
+.mint-card {
+    padding: 28px 20px;
+    text-align: center;
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(35,20,52,.98),
+            rgba(12,8,18,.98)
+        );
+
+    border:
+        1px solid
+        rgba(170,100,255,.3);
+
+    border-radius: 22px;
+
+    box-shadow:
+        0 12px 35px rgba(0,0,0,.35);
+}
+
+.mint-icon {
+    font-size: 42px;
+    margin-bottom: 10px;
+}
+
+.mint-card h2 {
+    font-size: 23px;
+    margin-bottom: 8px;
+}
+
+.mint-card p {
+    color: #aaa0b5;
+    font-size: 14px;
+    margin-bottom: 20px;
+}
+
+.mint-btn {
+    width: 100%;
+    padding: 14px;
+
+    border: none;
+    border-radius: 13px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #7138c8,
+            #a653f0
+        );
+
+    color: white;
+
+    font-size: 16px;
+    font-weight: bold;
+
+    cursor: pointer;
+
+    box-shadow:
+        0 8px 22px
+        rgba(130,60,230,.3);
+}
+
+.mint-btn:active {
+    transform: scale(.98);
+}
+
+</style>
 <footer>
 
 <p>

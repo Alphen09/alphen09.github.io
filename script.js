@@ -34,3 +34,6 @@ async function loginPi() {
     }
 
 }
+function goMint() {
+    window.location.href = "mint.html";
+}

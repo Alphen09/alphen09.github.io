@@ -1,143 +1,823 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
+
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+>
 
 <title>Alberto NFT Museum</title>
 
 <style>
 
-*{
-margin:0;
-padding:0;
-box-sizing:border-box;
-font-family:Arial,Helvetica,sans-serif;
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
 }
 
-body{
-background:radial-gradient(circle at top,#35145f 0%,#1a0b31 40%,#09050f 100%);
-color:white;
+html {
+    scroll-behavior: smooth;
 }
 
-header{
-background:#0d0716;
-padding:18px;
-display:flex;
-justify-content:space-between;
-align-items:center;
-border-bottom:1px solid rgba(170,100,255,.3);
+body {
+
+    min-height: 100vh;
+
+    background:
+        radial-gradient(
+            circle at top,
+            #35145f 0%,
+            #1a0b31 45%,
+            #09050f 100%
+        );
+
+    color: white;
+
+    font-family:
+        Arial,
+        Helvetica,
+        sans-serif;
+
+    overflow-x: hidden;
 }
 
-.back-btn{
-padding:10px 18px;
-background:#2a1545;
-border:1px solid #8d4fff;
-border-radius:12px;
-color:white;
-font-weight:bold;
-text-decoration:none;
+
+/* =========================================================
+   TOP BAR
+========================================================= */
+
+.topbar {
+
+    width: 100%;
+
+    min-height: 72px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    padding: 10px 16px;
+
+    background:
+        rgba(7,4,13,.97);
+
+    border-bottom:
+        1px solid
+        rgba(170,100,255,.25);
+
+    box-shadow:
+        0 8px 30px
+        rgba(0,0,0,.4);
 }
 
-.logo{
-font-size:22px;
-font-weight:bold;
-text-align:center;
+
+.back-btn {
+
+    padding:
+        10px 14px;
+
+    border-radius: 12px;
+
+    border:
+        1px solid
+        rgba(170,100,255,.45);
+
+    background:
+        rgba(35,18,55,.95);
+
+    color: white;
+
+    font-size: 13px;
+
+    font-weight: bold;
+
+    text-decoration: none;
+
+    cursor: pointer;
 }
 
-.hero{
-padding:60px 20px;
-text-align:center;
+
+.brand {
+
+    text-align: center;
+
+    font-size: 18px;
+
+    font-weight: bold;
 }
 
-.hero h1{
-font-size:40px;
-margin-bottom:15px;
+
+.brand span {
+
+    display: block;
+
+    margin-top: 3px;
+
+    color: #9d8fae;
+
+    font-size: 10px;
+
+    font-weight: normal;
 }
 
-.hero p{
-font-size:18px;
-color:#c9b4ff;
-max-width:700px;
-margin:auto;
+
+/* =========================================================
+   HERO
+========================================================= */
+
+.hero {
+
+    position: relative;
+
+    overflow: hidden;
+
+    text-align: center;
+
+    padding:
+        65px 20px
+        45px;
 }
 
-.hero-box{
-margin-top:35px;
-padding:30px;
-border-radius:22px;
-background:linear-gradient(145deg,#311451,#12091d);
-border:1px solid rgba(170,100,255,.3);
-box-shadow:0 0 30px rgba(120,50,230,.25);
+
+.hero::before {
+
+    content: "";
+
+    position: absolute;
+
+    width: 300px;
+    height: 300px;
+
+    left: 50%;
+    top: -150px;
+
+    transform:
+        translateX(-50%);
+
+    border-radius: 50%;
+
+    background:
+        rgba(130,60,230,.2);
+
+    filter:
+        blur(45px);
 }
 
-.hero-box h2{
-font-size:28px;
-margin-bottom:10px;
+
+.museum-icon {
+
+    position: relative;
+
+    font-size: 58px;
+
+    margin-bottom: 15px;
 }
 
-.hero-box p{
-font-size:15px;
-color:#b6a9c8;
+
+.hero h1 {
+
+    position: relative;
+
+    font-size: 36px;
+
+    margin-bottom: 12px;
 }
 
-footer{
-margin-top:60px;
-padding:25px;
-text-align:center;
-color:#999;
-border-top:1px solid rgba(170,100,255,.2);
+
+.hero p {
+
+    position: relative;
+
+    max-width: 650px;
+
+    margin: 0 auto;
+
+    color: #bca9ca;
+
+    font-size: 15px;
+
+    line-height: 1.6;
+}
+
+
+/* =========================================================
+   MUSEUM CARD
+========================================================= */
+
+.museum-card {
+
+    width: 100%;
+
+    max-width: 900px;
+
+    margin:
+        0 auto
+        30px;
+
+    padding:
+        30px 20px;
+
+    text-align: center;
+
+    border-radius: 24px;
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(43,22,68,.98),
+            rgba(11,7,18,.98)
+        );
+
+    border:
+        1px solid
+        rgba(170,100,255,.3);
+
+    box-shadow:
+        0 20px 55px
+        rgba(0,0,0,.4);
+}
+
+
+.museum-card h2 {
+
+    font-size: 25px;
+
+    margin-bottom: 10px;
+}
+
+
+.museum-card p {
+
+    color: #94899e;
+
+    font-size: 13px;
+
+    line-height: 1.6;
+}
+
+
+/* =========================================================
+   COLLECTIONS
+========================================================= */
+
+.collections {
+
+    width: 100%;
+
+    max-width: 1000px;
+
+    margin: 0 auto;
+
+    padding:
+        0 16px
+        50px;
+}
+
+
+.collections h2 {
+
+    text-align: center;
+
+    font-size: 27px;
+
+    margin-bottom: 25px;
+}
+
+
+.collection-grid {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(3, minmax(0,1fr));
+
+    gap: 15px;
+}
+
+
+.collection {
+
+    padding:
+        25px 18px;
+
+    text-align: center;
+
+    border-radius: 18px;
+
+    background:
+        rgba(20,12,29,.9);
+
+    border:
+        1px solid
+        rgba(150,90,220,.25);
+
+    box-shadow:
+        0 10px 30px
+        rgba(0,0,0,.25);
+}
+
+
+.collection-icon {
+
+    font-size: 38px;
+
+    margin-bottom: 12px;
+}
+
+
+.collection h3 {
+
+    font-size: 17px;
+
+    margin-bottom: 8px;
+}
+
+
+.collection p {
+
+    color: #827789;
+
+    font-size: 11px;
+
+    line-height: 1.5;
+}
+
+
+.collection-status {
+
+    display: inline-block;
+
+    margin-top: 14px;
+
+    padding:
+        6px 10px;
+
+    border-radius: 20px;
+
+    background:
+        rgba(120,60,200,.15);
+
+    color: #c49aff;
+
+    font-size: 9px;
+
+    font-weight: bold;
+}
+
+
+/* =========================================================
+   GALLERY
+========================================================= */
+
+.gallery {
+
+    width: 100%;
+
+    max-width: 1000px;
+
+    margin: 0 auto;
+
+    padding:
+        0 16px
+        50px;
+}
+
+
+.gallery h2 {
+
+    text-align: center;
+
+    font-size: 27px;
+
+    margin-bottom: 20px;
+}
+
+
+.gallery-box {
+
+    padding:
+        45px 20px;
+
+    text-align: center;
+
+    border-radius: 20px;
+
+    background:
+        rgba(12,7,18,.7);
+
+    border:
+        1px dashed
+        rgba(160,95,230,.35);
+}
+
+
+.gallery-icon {
+
+    font-size: 45px;
+
+    margin-bottom: 12px;
+}
+
+
+.gallery-box h3 {
+
+    font-size: 19px;
+
+    margin-bottom: 8px;
+}
+
+
+.gallery-box p {
+
+    color: #83798b;
+
+    font-size: 12px;
+
+    line-height: 1.6;
+
+    max-width: 500px;
+
+    margin: auto;
+}
+
+
+/* =========================================================
+   FOOTER
+========================================================= */
+
+.footer {
+
+    margin-top: 20px;
+
+    padding:
+        30px 15px;
+
+    text-align: center;
+
+    color: #77717d;
+
+    font-size: 11px;
+
+    border-top:
+        1px solid
+        rgba(130,75,190,.2);
+}
+
+
+.footer strong {
+
+    display: block;
+
+    color: #bca0d5;
+
+    font-size: 14px;
+
+    margin-bottom: 6px;
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 650px) {
+
+    .topbar {
+
+        min-height: 68px;
+
+        padding:
+            9px 11px;
+    }
+
+
+    .back-btn {
+
+        padding:
+            9px 10px;
+
+        font-size: 11px;
+    }
+
+
+    .brand {
+
+        font-size: 14px;
+    }
+
+
+    .brand span {
+
+        font-size: 8px;
+    }
+
+
+    .hero {
+
+        padding:
+            45px 15px
+            35px;
+    }
+
+
+    .museum-icon {
+
+        font-size: 48px;
+    }
+
+
+    .hero h1 {
+
+        font-size: 27px;
+    }
+
+
+    .hero p {
+
+        font-size: 13px;
+    }
+
+
+    .museum-card {
+
+        margin:
+            0 12px
+            25px;
+
+        width:
+            calc(100% - 24px);
+
+        padding:
+            25px 16px;
+    }
+
+
+    .museum-card h2 {
+
+        font-size: 21px;
+    }
+
+
+    .collection-grid {
+
+        grid-template-columns:
+            1fr;
+
+        gap: 10px;
+    }
+
+
+    .collection {
+
+        padding:
+            20px 15px;
+    }
+
+
+    .collections h2,
+    .gallery h2 {
+
+        font-size: 23px;
+    }
+
 }
 
 </style>
 
 </head>
 
+
 <body>
 
-<header>
 
-<a href="index.html" class="back-btn">
-🏠 Home
-</a>
+<!-- =======================================================
+     TOP BAR
+======================================================= -->
 
-<div class="logo">
-🏛 Alberto NFT Museum
-</div>
+<header class="topbar">
 
-<div></div>
+    <a
+        href="marketplace.html"
+        class="back-btn"
+    >
+        ← Marketplace
+    </a>
+
+
+    <div class="brand">
+
+        🏛 Alberto NFT Museum
+
+        <span>
+            Digital Art Gallery
+        </span>
+
+    </div>
+
+
+    <div style="width:88px;"></div>
 
 </header>
 
+
+
+<!-- =======================================================
+     HERO
+======================================================= -->
+
 <section class="hero">
 
-<h1>Welcome to Alberto NFT Museum</h1>
+    <div class="museum-icon">
+        🏛️
+    </div>
 
-<p>
-Explore legendary digital collectibles created by Alberto Digital Art Work Studio.
-</p>
 
-<div class="hero-box">
+    <h1>
+        Alberto NFT Museum
+    </h1>
 
-<h2>Coming Soon</h2>
 
-<p>
-Legendary NFTs, Founder Collections, Mythic Collections, and Exclusive Digital Art will be displayed here.
-</p>
-
-</div>
+    <p>
+        Welcome to the digital museum of
+        Alberto Digital Art Work Studio.
+        Explore legendary digital collectibles,
+        exclusive creations, and future
+        Pi-powered NFT collections.
+    </p>
 
 </section>
 
-<footer>
 
-<b>Alberto Digital Art Work Studio</b>
 
-<br><br>
+<!-- =======================================================
+     MUSEUM INTRO
+======================================================= -->
 
-Powered by Pi Network
+<section class="museum-card">
+
+    <h2>
+        ✨ Digital Art Heritage
+    </h2>
+
+
+    <p>
+        The Alberto NFT Museum is the home
+        of our most remarkable digital creations.
+        Legendary, Mythic, Founder and Exclusive
+        collections will be preserved here.
+    </p>
+
+</section>
+
+
+
+<!-- =======================================================
+     COLLECTIONS
+======================================================= -->
+
+<section class="collections">
+
+    <h2>
+        🎨 Museum Collections
+    </h2>
+
+
+    <div class="collection-grid">
+
+
+        <div class="collection">
+
+            <div class="collection-icon">
+                👑
+            </div>
+
+            <h3>
+                Legendary Collection
+            </h3>
+
+            <p>
+                Rare and legendary digital
+                artworks from Alberto Studio.
+            </p>
+
+            <span class="collection-status">
+                COMING SOON
+            </span>
+
+        </div>
+
+
+        <div class="collection">
+
+            <div class="collection-icon">
+                💎
+            </div>
+
+            <h3>
+                Mythic Collection
+            </h3>
+
+            <p>
+                Premium digital assets created
+                for collectors.
+            </p>
+
+            <span class="collection-status">
+                COMING SOON
+            </span>
+
+        </div>
+
+
+        <div class="collection">
+
+            <div class="collection-icon">
+                🔐
+            </div>
+
+            <h3>
+                Exclusive Collection
+            </h3>
+
+            <p>
+                Limited digital collectibles
+                reserved for special editions.
+            </p>
+
+            <span class="collection-status">
+                COMING SOON
+            </span>
+
+        </div>
+
+
+    </div>
+
+</section>
+
+
+
+<!-- =======================================================
+     NFT GALLERY
+======================================================= -->
+
+<section class="gallery">
+
+    <h2>
+        🖼️ NFT Gallery
+    </h2>
+
+
+    <div class="gallery-box">
+
+        <div class="gallery-icon">
+            💠
+        </div>
+
+
+        <h3>
+            Museum Gallery Is Ready
+        </h3>
+
+
+        <p>
+            Your minted NFTs will be displayed
+            here once our NFT save system is
+            connected to the museum.
+        </p>
+
+    </div>
+
+</section>
+
+
+
+<!-- =======================================================
+     FOOTER
+======================================================= -->
+
+<footer class="footer">
+
+    <strong>
+        Alberto NFT Museum
+    </strong>
+
+    © 2026 Alberto Digital Art Work Studio
+
+    <br><br>
+
+    Powered by Pi Network
 
 </footer>
 
+
 </body>
+
 </html>

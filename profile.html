@@ -582,10 +582,49 @@ body {
 }
 
 
-.market-btn:hover {
+/* =========================
+   MINT NFT BUTTON
+========================= */
 
-    transform:
-        translateY(-2px);
+.mint-btn {
+    display: inline-block;
+
+    padding: 13px 22px;
+
+    border: none;
+    border-radius: 13px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #7138c8,
+            #a653f0
+        );
+
+    color: white;
+
+    font-size: 14px;
+    font-weight: bold;
+
+    cursor: pointer;
+
+    box-shadow:
+        0 7px 20px
+        rgba(115,50,210,.3);
+
+    transition: .2s ease;
+}
+
+.mint-btn:hover {
+    transform: translateY(-2px);
+
+    box-shadow:
+        0 10px 25px
+        rgba(145,70,235,.4);
+}
+
+.mint-btn:active {
+    transform: scale(.97);
 }
 
 
@@ -1068,6 +1107,13 @@ function goMarketplace() {
 
     window.location.href =
         "marketplace.html";
+
+}
+
+function goMint() {
+
+    window.location.href =
+        "mint.html";
 
 }
 

@@ -1,0 +1,529 @@
+Alberto Wallet — Pi & AMT Testnet
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Alberto Wallet | Pi & AMT Testnet</title>
+
+    <script src="https://sdk.minepi.com/pi-sdk.js"></script>
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            min-height: 100vh;
+            font-family: Arial, sans-serif;
+            color: #fff;
+            background:
+                radial-gradient(circle at 50% 0%, #4d167a 0, transparent 38%),
+                linear-gradient(145deg, #07040b, #16091f 55%, #050308);
+        }
+
+        .topbar {
+            padding: 16px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            border-bottom: 1px solid #8d45d766;
+            background: #09050dcc;
+            backdrop-filter: blur(12px);
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .logo {
+            width: 48px;
+            height: 48px;
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(145deg, #baff72, #35a64b);
+            color: #09200f;
+            font-size: 27px;
+            font-weight: 900;
+            box-shadow: 0 0 25px #7dff5a55;
+        }
+
+        .brand-text strong {
+            display: block;
+            font-size: 17px;
+        }
+
+        .brand-text span {
+            display: block;
+            margin-top: 3px;
+            color: #a99ab7;
+            font-size: 12px;
+        }
+
+        .back-btn {
+            padding: 10px 14px;
+            border: 1px solid #7d4ca5;
+            border-radius: 10px;
+            background: #170c21;
+            color: #fff;
+            cursor: pointer;
+            font-weight: 700;
+        }
+
+        .container {
+            width: min(920px, 92%);
+            margin: 35px auto 60px;
+        }
+
+        .hero {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 7px 12px;
+            border: 1px solid #9c58d8;
+            border-radius: 999px;
+            color: #d9b7ff;
+            background: #190c25;
+            font-size: 11px;
+            font-weight: 800;
+            letter-spacing: 1.5px;
+        }
+
+        h1 {
+            margin-top: 15px;
+            font-size: clamp(34px, 7vw, 58px);
+        }
+
+        .hero p {
+            margin: 12px auto 0;
+            max-width: 650px;
+            color: #bdb1c8;
+            line-height: 1.6;
+        }
+
+        .wallet-status {
+            margin: 25px 0;
+            padding: 14px;
+            text-align: center;
+            border: 1px solid #5b3b72;
+            border-radius: 14px;
+            background: #110918;
+            color: #cfc3d7;
+        }
+
+        .wallet-status strong {
+            color: #a3ff4f;
+        }
+
+        .balances {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 18px;
+        }
+
+        .balance-card {
+            padding: 25px;
+            border: 1px solid #70468e;
+            border-radius: 22px;
+            background:
+                linear-gradient(145deg, #1a0d25, #0d0712);
+            box-shadow: 0 15px 40px #00000055;
+        }
+
+        .balance-card.amt {
+            border-color: #579447;
+        }
+
+        .coin {
+            width: 55px;
+            height: 55px;
+            margin-bottom: 18px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 900;
+            font-size: 26px;
+        }
+
+        .pi-coin {
+            background: linear-gradient(145deg, #f1d6ff, #833bb5);
+            color: #321046;
+            box-shadow: 0 0 25px #a85cff55;
+        }
+
+        .amt-coin {
+            background: linear-gradient(145deg, #e6ffc7, #4cbd62);
+            color: #073318;
+            box-shadow: 0 0 25px #8dff7655;
+        }
+
+        .label {
+            color: #a99caf;
+            font-size: 13px;
+        }
+
+        .amount {
+            margin-top: 8px;
+            font-size: 34px;
+            font-weight: 900;
+        }
+
+        .unit {
+            margin-left: 5px;
+            color: #b9a9c4;
+            font-size: 15px;
+        }
+
+        .value {
+            margin-top: 10px;
+            color: #9e91a8;
+            font-size: 12px;
+        }
+
+        .wallet-card {
+            margin-top: 20px;
+            padding: 24px;
+            border: 1px solid #70468e;
+            border-radius: 22px;
+            background: #100815;
+        }
+
+        .wallet-card h2 {
+            margin-bottom: 8px;
+        }
+
+        .wallet-card p {
+            color: #9f93a8;
+            font-size: 13px;
+            line-height: 1.6;
+        }
+
+        .address-box {
+            margin-top: 18px;
+            padding: 15px;
+            overflow-wrap: anywhere;
+            border: 1px solid #3e294d;
+            border-radius: 12px;
+            background: #08050b;
+            color: #b9a8c5;
+            font-family: monospace;
+            font-size: 12px;
+        }
+
+        .security {
+            margin-top: 20px;
+            padding: 16px;
+            border-radius: 14px;
+            background: #16200f;
+            border: 1px solid #54743e;
+            color: #c8eab2;
+            font-size: 13px;
+            line-height: 1.6;
+        }
+
+        .actions {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-top: 25px;
+        }
+
+        .action-btn {
+            padding: 13px 18px;
+            border: 0;
+            border-radius: 12px;
+            cursor: pointer;
+            font-weight: 800;
+            background: #a3ff4f;
+            color: #081006;
+        }
+
+        .action-btn.secondary {
+            border: 1px solid #70468e;
+            background: #170c20;
+            color: #fff;
+        }
+
+        .footer {
+            padding: 25px;
+            text-align: center;
+            color: #716679;
+            font-size: 12px;
+        }
+
+        @media (max-width: 650px) {
+            .balances {
+                grid-template-columns: 1fr;
+            }
+
+            .topbar {
+                flex-wrap: wrap;
+            }
+
+            .amount {
+                font-size: 30px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<header class="topbar">
+
+    <div class="brand">
+        <div class="logo">π</div>
+
+        <div class="brand-text">
+            <strong>Alberto Wallet</strong>
+            <span>Pi & AMT Testnet</span>
+        </div>
+    </div>
+
+    <button
+        class="back-btn"
+        type="button"
+        onclick="window.location.href='marketplace.html'"
+    >
+        ← Marketplace
+    </button>
+
+</header>
+
+
+<main class="container">
+
+    <section class="hero">
+
+        <span class="badge">
+            ALBERTO ECOSYSTEM
+        </span>
+
+        <h1>
+            My Wallet
+        </h1>
+
+        <p>
+            View your available wallet information for
+            Pi and the future Alberto Marketplace Token.
+        </p>
+
+    </section>
+
+
+    <div class="wallet-status">
+
+        👤
+        <span id="userName">
+            Connecting to Pi...
+        </span>
+
+    </div>
+
+
+    <section class="balances">
+
+        <div class="balance-card">
+
+            <div class="coin pi-coin">
+                π
+            </div>
+
+            <div class="label">
+                Available Pi Balance
+            </div>
+
+            <div class="amount">
+                <span id="piBalance">—</span>
+                <span class="unit">Pi</span>
+            </div>
+
+            <div class="value">
+                View-only balance display
+            </div>
+
+        </div>
+
+
+        <div class="balance-card amt">
+
+            <div class="coin amt-coin">
+                A
+            </div>
+
+            <div class="label">
+                Alberto Marketplace Token
+            </div>
+
+            <div class="amount">
+                <span id="amtBalance">0</span>
+                <span class="unit">AMT</span>
+            </div>
+
+            <div class="value">
+                AMT Testnet • Future token integration
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <section class="wallet-card">
+
+        <h2>
+            🔐 Wallet Information
+        </h2>
+
+        <p>
+            Your wallet information is displayed in
+            view-only mode. Alberto Marketplace does not
+            request, store, or display your Pi Wallet
+            passphrase or private key.
+        </p>
+
+        <div
+            id="walletAddress"
+            class="address-box"
+        >
+            Wallet address:
+            Not connected
+        </div>
+
+        <div class="security">
+
+            🛡️
+            <strong>Security:</strong>
+            Never enter your Pi Wallet passphrase or
+            private key into Alberto Marketplace.
+            Your secret wallet credentials must remain
+            under your control.
+
+        </div>
+
+    </section>
+
+
+    <div class="actions">
+
+        <button
+            class="action-btn"
+            type="button"
+            onclick="window.location.href='marketplace.html'"
+        >
+            🛒 Go to Marketplace
+        </button>
+
+        <button
+            class="action-btn secondary"
+            type="button"
+            onclick="window.location.href='profile.html'"
+        >
+            👤 My Profile
+        </button>
+
+    </div>
+
+</main>
+
+
+<footer class="footer">
+    Alberto NFT Marketplace • Alberto Marketplace Token Testnet
+</footer>
+
+
+<script>
+
+Pi.init({
+    version: "2.0",
+    sandbox: true
+});
+
+
+async function connectPiUser() {
+
+    const userName =
+        document.getElementById("userName");
+
+    try {
+
+        const auth =
+            await Pi.authenticate(
+                ["username"],
+                function(payment) {
+                    console.log(
+                        "Incomplete payment:",
+                        payment
+                    );
+                }
+            );
+
+        if (
+            auth &&
+            auth.user
+        ) {
+
+            userName.innerHTML =
+                "👤 Connected as <strong>" +
+                auth.user.username +
+                "</strong>";
+
+            /*
+             * IMPORTANT:
+             * We intentionally do NOT request
+             * or store any wallet passphrase/private key.
+             */
+
+            document.getElementById(
+                "walletAddress"
+            ).textContent =
+                "Wallet address: Public wallet address will appear here when a supported Pi wallet/address connection is available.";
+
+        }
+
+    } catch (error) {
+
+        console.error(
+            "Pi wallet connection error:",
+            error
+        );
+
+        userName.textContent =
+            "Pi connection cancelled";
+
+    }
+
+}
+
+
+window.addEventListener(
+    "load",
+    connectPiUser
+);
+
+</script>
+
+</body>
+</html>
+
+I-save mo ito bilang "wallet.html" sa same GitHub repository kung nasaan ang "marketplace.html".
+
+Pagkatapos, ang link natin ay magiging:
+
+"alphen09.github.io/wallet.html"
+
+At puwede nating lagyan ng 👛 Wallet button sa marketplace pagkatapos nito. Huwag muna nating ilagay ang actual Pi/AMT balance number hanggang nakakonekta na tayo sa tunay na supported data source—para hindi tayo magpakita ng pekeng balance.

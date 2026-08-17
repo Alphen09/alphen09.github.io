@@ -1,23 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-
 <meta charset="UTF-8">
-
-<meta
-    name="viewport"
-    content="width=device-width, initial-scale=1.0"
->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>Mint NFT | Alberto NFT Marketplace</title>
 
 <style>
-
-/* =========================================================
-   ALBERTO NFT MARKETPLACE — MINT PAGE
-========================================================= */
-
 * {
     box-sizing: border-box;
     margin: 0;
@@ -30,845 +19,399 @@ html {
 
 body {
     min-height: 100vh;
-
     background:
-        radial-gradient(
-            circle at top,
-            #35145f 0%,
-            #1a0b31 40%,
-            #09050f 100%
-        );
-
-    color: #ffffff;
-
-    font-family:
-        Arial,
-        Helvetica,
-        sans-serif;
-
+        radial-gradient(circle at top, #35145f 0%, #1a0b31 40%, #09050f 100%);
+    color: #fff;
+    font-family: Arial, Helvetica, sans-serif;
     overflow-x: hidden;
 }
 
-
-/* =========================================================
-   HEADER
-========================================================= */
-
+/* HEADER */
 .topbar {
-
     width: 100%;
-
     min-height: 78px;
-
     padding: 10px 14px;
-
     display: flex;
-
     align-items: center;
-
     justify-content: space-between;
-
-    background:
-        rgba(8, 5, 15, 0.97);
-
-    border-bottom:
-        1px solid
-        rgba(150, 90, 230, .25);
-
+    background: rgba(8,5,15,.97);
+    border-bottom: 1px solid rgba(150,90,230,.25);
     position: sticky;
-
     top: 0;
-
     z-index: 20;
-
-    box-shadow:
-        0 8px 30px
-        rgba(0,0,0,.35);
+    box-shadow: 0 8px 30px rgba(0,0,0,.35);
 }
-
-
-/* =========================================================
-   BACK BUTTON
-========================================================= */
 
 .back-btn {
-
-    border:
-        1px solid
-        #8d4ee8;
-
-    background:
-        rgba(25,12,43,.9);
-
+    border: 1px solid #8d4ee8;
+    background: rgba(25,12,43,.9);
     color: white;
-
-    padding:
-        10px 13px;
-
+    padding: 10px 13px;
     border-radius: 12px;
-
     font-size: 13px;
-
     font-weight: bold;
-
     cursor: pointer;
-
-    white-space: nowrap;
 }
-
 
 .back-btn:active {
     transform: scale(.97);
 }
 
-
-/* =========================================================
-   TITLE
-========================================================= */
-
 .header-title {
-
     text-align: center;
-
     flex: 1;
-
     padding: 0 8px;
 }
 
-
 .header-title strong {
-
     display: block;
-
     font-size: 18px;
-
-    line-height: 1.2;
 }
 
-
 .header-title span {
-
     display: block;
-
     margin-top: 3px;
-
-    color:
-        #a99bb8;
-
+    color: #a99bb8;
     font-size: 11px;
 }
 
-
-/* =========================================================
-   PROFILE
-========================================================= */
-
 .profile-mini {
-
     width: 42px;
-
     height: 42px;
-
     border-radius: 50%;
-
     display: flex;
-
     align-items: center;
-
     justify-content: center;
-
-    background:
-        linear-gradient(
-            135deg,
-            #7138c8,
-            #a252ee
-        );
-
+    background: linear-gradient(135deg,#7138c8,#a252ee);
     font-size: 20px;
+    cursor: pointer;
 }
 
-
-/* =========================================================
-   MAIN
-========================================================= */
-
+/* MAIN */
 .main {
-
     width: 100%;
-
     max-width: 900px;
-
     margin: 0 auto;
-
-    padding:
-        28px 16px
-        60px;
+    padding: 28px 16px 60px;
 }
-
-
-/* =========================================================
-   INTRO
-========================================================= */
 
 .intro {
-
     text-align: center;
-
     margin-bottom: 25px;
 }
 
-
 .intro .eyebrow {
-
-    color:
-        #caa8f5;
-
+    color: #caa8f5;
     font-size: 11px;
-
     font-weight: bold;
-
     letter-spacing: 4px;
-
     margin-bottom: 10px;
 }
 
-
 .intro h1 {
-
-    font-size:
-        clamp(30px, 8vw, 48px);
-
+    font-size: clamp(30px,8vw,48px);
     line-height: 1.05;
-
     margin-bottom: 12px;
-
-    background:
-        linear-gradient(
-            90deg,
-            #ffffff,
-            #d4a7ff,
-            #ffffff
-        );
-
+    background: linear-gradient(90deg,#fff,#d4a7ff,#fff);
     -webkit-background-clip: text;
-
     background-clip: text;
-
     color: transparent;
 }
 
-
 .intro p {
-
-    color:
-        #aaa0b5;
-
+    color: #aaa0b5;
     font-size: 14px;
-
     line-height: 1.6;
 }
 
-
-/* =========================================================
-   MINT CARD
-========================================================= */
-
+/* CARD */
 .mint-card {
-
-    background:
-        linear-gradient(
-            145deg,
-            rgba(35,20,52,.98),
-            rgba(12,8,18,.98)
-        );
-
-    border:
-        1px solid
-        rgba(170,100,255,.30);
-
+    background: linear-gradient(145deg,rgba(35,20,52,.98),rgba(12,8,18,.98));
+    border: 1px solid rgba(170,100,255,.30);
     border-radius: 22px;
-
     padding: 18px;
-
-    box-shadow:
-        0 15px 45px
-        rgba(0,0,0,.45);
+    box-shadow: 0 15px 45px rgba(0,0,0,.45);
 }
 
-
-/* =========================================================
-   IMAGE PREVIEW
-========================================================= */
-
+/* PREVIEW */
 .preview {
-
     width: 100%;
-
     max-width: 430px;
-
     margin: 0 auto 25px;
-
-    aspect-ratio: 1 / 1;
-
+    aspect-ratio: 1/1;
     position: relative;
-
     overflow: hidden;
-
     border-radius: 18px;
-
-    border:
-        1px solid
-        rgba(170,100,255,.35);
-
-    background:
-        radial-gradient(
-            circle,
-            #291044,
-            #08050c
-        );
-
+    border: 1px solid rgba(170,100,255,.35);
+    background: radial-gradient(circle,#291044,#08050c);
     display: flex;
-
     align-items: center;
-
     justify-content: center;
-
-    box-shadow:
-        0 0 35px
-        rgba(120,55,220,.18);
 }
-
 
 .preview img {
-
     width: 100%;
-
     height: 100%;
-
     object-fit: cover;
-
     display: none;
 }
 
-
 .preview.empty::before {
-
     content: "💎";
-
     font-size: 65px;
-
     opacity: .8;
 }
 
-
 .preview.empty::after {
-
     content: "NFT PREVIEW";
-
     position: absolute;
-
     bottom: 25px;
-
     left: 0;
-
     width: 100%;
-
     text-align: center;
-
-    color:
-        #8f829d;
-
+    color: #8f829d;
     font-size: 11px;
-
     letter-spacing: 3px;
 }
 
-
-/* =========================================================
-   FORM
-========================================================= */
-
+/* FORM */
 .form-section {
-
     display: grid;
-
-    grid-template-columns:
-        repeat(2, minmax(0,1fr));
-
+    grid-template-columns: repeat(2,minmax(0,1fr));
     gap: 14px;
 }
 
-
 .field {
-
     width: 100%;
 }
 
-
 .field.full {
-
-    grid-column:
-        1 / -1;
+    grid-column: 1/-1;
 }
-
 
 .field label {
-
     display: block;
-
     margin-bottom: 7px;
-
-    color:
-        #cdb9df;
-
+    color: #cdb9df;
     font-size: 12px;
-
     font-weight: bold;
 }
-
 
 .field input,
 .field textarea,
 .field select {
-
     width: 100%;
-
-    border:
-        1px solid
-        rgba(150,90,220,.25);
-
+    border: 1px solid rgba(150,90,220,.25);
     border-radius: 12px;
-
     outline: none;
-
-    background:
-        rgba(15,9,24,.9);
-
+    background: rgba(15,9,24,.9);
     color: white;
-
-    padding:
-        13px;
-
-    font-family:
-        Arial,
-        Helvetica,
-        sans-serif;
-
+    padding: 13px;
+    font-family: Arial, Helvetica, sans-serif;
     font-size: 14px;
 }
-
 
 .field input:focus,
 .field textarea:focus,
 .field select:focus {
-
-    border-color:
-        #9854ed;
-
-    box-shadow:
-        0 0 15px
-        rgba(135,65,230,.18);
+    border-color: #9854ed;
+    box-shadow: 0 0 15px rgba(135,65,230,.18);
 }
 
-
 .field textarea {
-
     min-height: 100px;
-
     resize: vertical;
 }
 
-
 .field input::placeholder,
 .field textarea::placeholder {
-
-    color:
-        #696171;
+    color: #696171;
 }
 
-
-/* =========================================================
-   UPLOAD
-========================================================= */
-
+/* UPLOAD */
 .upload-box {
-
     padding: 15px;
-
-    border:
-        1px dashed
-        rgba(165,95,240,.45);
-
+    border: 1px dashed rgba(165,95,240,.45);
     border-radius: 13px;
-
-    background:
-        rgba(15,9,24,.75);
+    background: rgba(15,9,24,.75);
 }
-
 
 .upload-box input {
-
     border: none;
-
     padding: 0;
-
     background: transparent;
 }
 
-
-/* =========================================================
-   MINT INFO
-========================================================= */
-
+/* INFO */
 .mint-info {
-
     margin-top: 18px;
-
     padding: 14px;
-
     border-radius: 13px;
-
-    background:
-        rgba(80,35,130,.12);
-
-    border:
-        1px solid
-        rgba(150,90,220,.18);
+    background: rgba(80,35,130,.12);
+    border: 1px solid rgba(150,90,220,.18);
 }
 
-
 .mint-info-row {
-
     display: flex;
-
     align-items: center;
-
     justify-content: space-between;
-
     gap: 15px;
-
     padding: 6px 0;
-
-    color:
-        #9990a3;
-
+    color: #9990a3;
     font-size: 12px;
 }
 
-
 .mint-info-row strong {
-
-    color:
-        #d5b4ff;
-
+    color: #d5b4ff;
     font-size: 13px;
 }
 
-
-/* =========================================================
-   MINT BUTTON
-========================================================= */
-
+/* BUTTON */
 .mint-btn {
-
     width: 100%;
-
     margin-top: 20px;
-
     padding: 16px;
-
     border: none;
-
     border-radius: 14px;
-
-    background:
-        linear-gradient(
-            135deg,
-            #7138c8,
-            #a653f0
-        );
-
+    background: linear-gradient(135deg,#7138c8,#a653f0);
     color: white;
-
     font-size: 16px;
-
     font-weight: bold;
-
     cursor: pointer;
-
-    box-shadow:
-        0 8px 25px
-        rgba(120,55,220,.3);
-
+    box-shadow: 0 8px 25px rgba(120,55,220,.3);
     transition: .2s ease;
 }
 
-
 .mint-btn:hover {
-
-    transform:
-        translateY(-2px);
-
-    box-shadow:
-        0 12px 30px
-        rgba(145,70,235,.4);
+    transform: translateY(-2px);
 }
-
-
-.mint-btn:active {
-
-    transform:
-        scale(.98);
-}
-
 
 .mint-btn:disabled {
-
     opacity: .55;
-
     cursor: not-allowed;
-
     transform: none;
 }
 
-
-/* =========================================================
-   STATUS
-========================================================= */
-
+/* STATUS */
 .status {
-
     display: none;
-
     margin-top: 15px;
-
     padding: 13px;
-
     border-radius: 12px;
-
     text-align: center;
-
     font-size: 13px;
-
     line-height: 1.5;
 }
 
-
 .status.show {
-
     display: block;
 }
 
-
 .status.success {
-
-    background:
-        rgba(45,160,90,.12);
-
-    border:
-        1px solid
-        rgba(70,200,120,.3);
-
-    color:
-        #a8efc4;
+    background: rgba(45,160,90,.12);
+    border: 1px solid rgba(70,200,120,.3);
+    color: #a8efc4;
 }
-
 
 .status.error {
-
-    background:
-        rgba(200,50,70,.12);
-
-    border:
-        1px solid
-        rgba(220,70,90,.3);
-
-    color:
-        #ffb0ba;
+    background: rgba(200,50,70,.12);
+    border: 1px solid rgba(220,70,90,.3);
+    color: #ffb0ba;
 }
 
-
-/* =========================================================
-   FOOTER
-========================================================= */
-
+/* FOOTER */
 .footer {
-
-    padding:
-        30px 15px;
-
+    padding: 30px 15px;
     text-align: center;
-
-    border-top:
-        1px solid
-        rgba(130,75,190,.2);
-
-    color:
-        #77717d;
-
+    border-top: 1px solid rgba(130,75,190,.2);
+    color: #77717d;
     font-size: 11px;
 }
 
-
 .footer strong {
-
     display: block;
-
     margin-bottom: 7px;
-
-    color:
-        #bca0d5;
-
+    color: #bca0d5;
     font-size: 14px;
 }
 
-
-/* =========================================================
-   MOBILE
-========================================================= */
-
-@media (max-width: 600px) {
-
+/* MOBILE */
+@media (max-width:600px) {
     .topbar {
-
-        padding:
-            9px 10px;
+        padding: 9px 10px;
     }
 
-
     .back-btn {
-
-        padding:
-            9px 10px;
-
+        padding: 9px 10px;
         font-size: 11px;
     }
 
-
     .header-title strong {
-
         font-size: 16px;
     }
 
-
     .main {
-
-        padding:
-            25px 14px
-            50px;
+        padding: 25px 14px 50px;
     }
 
-
     .mint-card {
-
         padding: 13px;
-
         border-radius: 18px;
     }
 
-
     .form-section {
-
-        grid-template-columns:
-            1fr;
-
+        grid-template-columns: 1fr;
         gap: 12px;
     }
 
-
     .field.full {
-
-        grid-column:
-            auto;
+        grid-column: auto;
     }
-
 
     .preview {
-
         max-width: 100%;
-
         border-radius: 15px;
     }
-
 }
 
-
-@media (max-width: 360px) {
-
+@media (max-width:360px) {
     .header-title strong {
-
         font-size: 14px;
     }
 
-
     .profile-mini {
-
         width: 38px;
-
         height: 38px;
-
         font-size: 17px;
     }
 
-
     .intro h1 {
-
         font-size: 29px;
     }
-
 }
-
 </style>
-
 </head>
-
 
 <body>
 
-
-<!-- =====================================================
-     HEADER
-===================================================== -->
-
 <header class="topbar">
 
-    <button
-        class="back-btn"
-        onclick="goMarketplace()"
-    >
+    <button class="back-btn" type="button" onclick="goMarketplace()">
         ← Marketplace
     </button>
 
-
     <div class="header-title">
-
-        <strong>
-            Alberto NFT
-        </strong>
-
-        <span>
-            Mint Center
-        </span>
-
+        <strong>Alberto NFT</strong>
+        <span>Mint Center</span>
     </div>
 
-
-    <div
-        class="profile-mini"
-        onclick="goProfile()"
-    >
+    <div class="profile-mini" onclick="goProfile()">
         👤
     </div>
 
 </header>
 
-
-<!-- =====================================================
-     MAIN
-===================================================== -->
-
 <main class="main">
-
 
     <section class="intro">
 
@@ -876,46 +419,32 @@ body {
             ALBERTO DIGITAL ART WORK STUDIO
         </div>
 
-        <h1>
-            Mint Your NFT
-        </h1>
+        <h1>Mint Your NFT</h1>
 
         <p>
             Create your digital collectible
-            and prepare it for the Alberto NFT Marketplace.
+            and save it to your Alberto collection.
         </p>
 
     </section>
 
-
     <section class="mint-card">
 
+        <!-- PREVIEW -->
 
-        <!-- NFT PREVIEW -->
+        <div class="preview empty" id="preview">
 
-        <div
-            class="preview empty"
-            id="preview"
-        >
-
-            <img
-                id="previewImage"
-                alt="NFT Preview"
-            >
+            <img id="previewImage" alt="NFT Preview">
 
         </div>
-
 
         <!-- FORM -->
 
         <div class="form-section">
 
-
             <div class="field">
 
-                <label for="nftName">
-                    NFT Name
-                </label>
+                <label for="nftName">NFT Name</label>
 
                 <input
                     type="text"
@@ -925,83 +454,51 @@ body {
 
             </div>
 
-
             <div class="field">
 
-                <label for="rarity">
-                    Rarity
-                </label>
+                <label for="rarity">Rarity</label>
 
                 <select id="rarity">
-
                     <option>Common</option>
                     <option>Rare</option>
                     <option>Epic</option>
                     <option>Legendary</option>
                     <option>Mythic</option>
-
                 </select>
 
             </div>
 
-
             <div class="field">
 
-                <label for="collection">
-                    Collection
-                </label>
+                <label for="collection">Collection</label>
 
                 <select id="collection">
-
                     <option>Satoshi Wings</option>
-
-                    <option>
-                        RW3 Mounts
-                    </option>
-
-                    <option>
-                        Alberto Originals
-                    </option>
-
-                    <option>
-                        Celestial Collection
-                    </option>
-
+                    <option>RW3 Mounts</option>
+                    <option>Alberto Originals</option>
+                    <option>Celestial Collection</option>
                 </select>
 
             </div>
 
-
             <div class="field">
 
-                <label for="category">
-                    Category
-                </label>
+                <label for="category">Category</label>
 
                 <select id="category">
-
                     <option>Collectible Art</option>
-
                     <option>Wings</option>
-
                     <option>Mounts</option>
-
                     <option>Weapons</option>
-
                     <option>Armor</option>
-
                     <option>Avatar</option>
-
                 </select>
 
             </div>
 
-
             <div class="field">
 
-                <label for="level">
-                    Level
-                </label>
+                <label for="level">Level</label>
 
                 <input
                     type="number"
@@ -1013,29 +510,23 @@ body {
 
             </div>
 
-
             <div class="field">
 
-                <label for="price">
-                    Price (Pi)
-                </label>
+                <label for="price">Price (Pi)</label>
 
                 <input
                     type="number"
                     id="price"
-                    placeholder="Example: 500"
+                    placeholder="Example: 20"
                     min="0"
                     step="0.01"
                 >
 
             </div>
 
-
             <div class="field full">
 
-                <label for="description">
-                    Description
-                </label>
+                <label for="description">Description</label>
 
                 <textarea
                     id="description"
@@ -1044,12 +535,9 @@ body {
 
             </div>
 
-
             <div class="field full">
 
-                <label for="image">
-                    NFT Image
-                </label>
+                <label for="image">NFT Image</label>
 
                 <div class="upload-box">
 
@@ -1065,83 +553,54 @@ body {
 
         </div>
 
-
-        <!-- MINT INFO -->
+        <!-- INFO -->
 
         <div class="mint-info">
 
             <div class="mint-info-row">
-
-                <span>
-                    Creator
-                </span>
-
-                <strong id="creator">
-                    Connecting...
-                </strong>
-
+                <span>Creator</span>
+                <strong id="creator">Connecting...</strong>
             </div>
 
-
             <div class="mint-info-row">
-
-                <span>
-                    Network
-                </span>
-
-                <strong>
-                    Pi Sandbox
-                </strong>
-
+                <span>Network</span>
+                <strong>Pi Sandbox</strong>
             </div>
 
+            <div class="mint-info-row">
+                <span>Royalty</span>
+                <strong>5%</strong>
+            </div>
 
             <div class="mint-info-row">
-
-                <span>
-                    Royalty
-                </span>
-
-                <strong>
-                    5%
-                </strong>
-
+                <span>Storage</span>
+                <strong>Local Collection</strong>
             </div>
 
         </div>
-
 
         <!-- MINT -->
 
         <button
             class="mint-btn"
             id="mintBtn"
+            type="button"
         >
             🔨 Mint NFT
         </button>
 
-
-        <div
-            class="status"
-            id="status"
-        ></div>
-
+        <div class="status" id="status"></div>
 
     </section>
 
-
 </main>
-
 
 <footer class="footer">
 
-    <strong>
-        Alberto NFT Marketplace
-    </strong>
+    <strong>Alberto NFT Marketplace</strong>
 
     <span>
-        © 2026 Alberto Digital Art Work Studio
-        • Pi Sandbox
+        © 2026 Alberto Digital Art Work Studio • Pi Sandbox
     </span>
 
 </footer>
@@ -1150,77 +609,458 @@ body {
 <script>
 
 /* =========================================================
-   PI USER
+   ALBERTO NFT MINT — SAFE LOCAL SAVE SYSTEM
+   No external mint.js required.
 ========================================================= */
 
-const savedUser =
-    localStorage.getItem("piUser");
+document.addEventListener("DOMContentLoaded", function () {
+
+    const mintBtn = document.getElementById("mintBtn");
+    const statusBox = document.getElementById("status");
+
+    const nftName = document.getElementById("nftName");
+    const rarity = document.getElementById("rarity");
+    const collection = document.getElementById("collection");
+    const category = document.getElementById("category");
+    const level = document.getElementById("level");
+    const price = document.getElementById("price");
+    const description = document.getElementById("description");
+    const imageInput = document.getElementById("image");
+
+    const preview = document.getElementById("preview");
+    const previewImage = document.getElementById("previewImage");
+    const creator = document.getElementById("creator");
 
 
-const creator =
-    document.getElementById("creator");
+    /* =====================================================
+       PI USER
+    ===================================================== */
+
+    const piUser =
+        localStorage.getItem("piUser");
+
+    if (piUser) {
+        creator.textContent = "@" + piUser;
+    } else {
+        creator.textContent = "Pi account not connected";
+    }
 
 
-if (savedUser) {
+    /* =====================================================
+       IMAGE PREVIEW
+    ===================================================== */
 
-    creator.textContent =
-        "@" + savedUser;
+    imageInput.addEventListener("change", function () {
 
-} else {
-
-    creator.textContent =
-        "Pi account not connected";
-
-}
-
-
-/* =========================================================
-   IMAGE PREVIEW
-========================================================= */
-
-const imageInput =
-    document.getElementById("image");
-
-const preview =
-    document.getElementById("preview");
-
-const previewImage =
-    document.getElementById("previewImage");
-
-
-imageInput.addEventListener(
-    "change",
-    function () {
-
-        const file =
-            this.files[0];
+        const file = this.files && this.files[0];
 
         if (!file) {
             return;
         }
 
-        const reader =
-            new FileReader();
+        if (!file.type.startsWith("image/")) {
 
-        reader.onload =
-            function (event) {
+            showStatus(
+                "Please select a valid image.",
+                "error"
+            );
 
-                previewImage.src =
-                    event.target.result;
+            this.value = "";
+            return;
+        }
 
-                previewImage.style.display =
-                    "block";
+        const reader = new FileReader();
 
-                preview.classList.remove(
-                    "empty"
+        reader.onload = function (event) {
+
+            previewImage.src =
+                event.target.result;
+
+            previewImage.style.display =
+                "block";
+
+            preview.classList.remove("empty");
+        };
+
+        reader.readAsDataURL(file);
+    });
+
+
+    /* =====================================================
+       MINT
+    ===================================================== */
+
+    mintBtn.addEventListener("click", async function () {
+
+        try {
+
+            /* -----------------------------
+               CHECK PI LOGIN
+            ----------------------------- */
+
+            if (!piUser) {
+
+                showStatus(
+                    "Please connect your Pi account first.",
+                    "error"
                 );
+
+                return;
+            }
+
+
+            /* -----------------------------
+               GET VALUES
+            ----------------------------- */
+
+            const name =
+                nftName.value.trim();
+
+            const desc =
+                description.value.trim();
+
+            const priceValue =
+                Number(price.value);
+
+            const levelValue =
+                Number(level.value);
+
+            const imageFile =
+                imageInput.files &&
+                imageInput.files[0];
+
+
+            /* -----------------------------
+               VALIDATION
+            ----------------------------- */
+
+            if (!name) {
+
+                showStatus(
+                    "Please enter your NFT name.",
+                    "error"
+                );
+
+                nftName.focus();
+                return;
+            }
+
+            if (!desc) {
+
+                showStatus(
+                    "Please enter an NFT description.",
+                    "error"
+                );
+
+                description.focus();
+                return;
+            }
+
+            if (!priceValue || priceValue <= 0) {
+
+                showStatus(
+                    "Please enter a valid Pi price.",
+                    "error"
+                );
+
+                price.focus();
+                return;
+            }
+
+            if (
+                !levelValue ||
+                levelValue < 1 ||
+                levelValue > 100
+            ) {
+
+                showStatus(
+                    "Level must be between 1 and 100.",
+                    "error"
+                );
+
+                level.focus();
+                return;
+            }
+
+            if (!imageFile) {
+
+                showStatus(
+                    "Please upload your NFT image.",
+                    "error"
+                );
+
+                imageInput.focus();
+                return;
+            }
+
+
+            /* -----------------------------
+               READ IMAGE
+            ----------------------------- */
+
+            mintBtn.disabled = true;
+            mintBtn.textContent = "Saving NFT...";
+
+            const imageData =
+                await readImage(imageFile);
+
+
+            /* -----------------------------
+               CREATE NFT
+            ----------------------------- */
+
+            const nft = {
+
+                id:
+                    "ALB-" +
+                    Date.now() +
+                    "-" +
+                    Math.random()
+                        .toString(36)
+                        .substring(2, 8),
+
+                name:
+                    name,
+
+                description:
+                    desc,
+
+                rarity:
+                    rarity.value,
+
+                collection:
+                    collection.value,
+
+                category:
+                    category.value,
+
+                level:
+                    levelValue,
+
+                price:
+                    priceValue,
+
+                currency:
+                    "Pi",
+
+                image:
+                    imageData,
+
+                owner:
+                    piUser,
+
+                creator:
+                    piUser,
+
+                royalty:
+                    5,
+
+                status:
+                    "Minted",
+
+                minted:
+                    true,
+
+                network:
+                    "Pi Sandbox",
+
+                createdAt:
+                    new Date().toISOString()
 
             };
 
-        reader.readAsDataURL(file);
+
+            /* =================================================
+               SAVE TO MY COLLECTION
+            ================================================= */
+
+            let myCollection = [];
+
+            try {
+
+                const saved =
+                    localStorage.getItem("myCollection");
+
+                if (saved) {
+
+                    const parsed =
+                        JSON.parse(saved);
+
+                    if (Array.isArray(parsed)) {
+                        myCollection = parsed;
+                    }
+
+                }
+
+            } catch (storageError) {
+
+                console.error(
+                    "Existing collection read error:",
+                    storageError
+                );
+
+                myCollection = [];
+            }
+
+
+            /* -----------------------------
+               ADD NEW NFT
+            ----------------------------- */
+
+            myCollection.push(nft);
+
+
+            /* -----------------------------
+               SAVE COLLECTION
+            ----------------------------- */
+
+            localStorage.setItem(
+                "myCollection",
+                JSON.stringify(myCollection)
+            );
+
+
+            /* -----------------------------
+               VERIFY SAVE
+            ----------------------------- */
+
+            const verify =
+                localStorage.getItem("myCollection");
+
+            if (!verify) {
+
+                throw new Error(
+                    "NFT could not be saved to local collection."
+                );
+            }
+
+
+            /* -----------------------------
+               BACKUP LAST MINT
+            ----------------------------- */
+
+            localStorage.setItem(
+                "lastMintedNFT",
+                JSON.stringify(nft)
+            );
+
+
+            /* -----------------------------
+               BACKUP CURRENT NFT
+            ----------------------------- */
+
+            localStorage.setItem(
+                "albertoMintDraft",
+                JSON.stringify(nft)
+            );
+
+
+            /* -----------------------------
+               SUCCESS
+            ----------------------------- */
+
+            mintBtn.textContent =
+                "✓ NFT Saved";
+
+            showStatus(
+                "🎉 NFT saved successfully to your Alberto Collection!",
+                "success"
+            );
+
+
+            /*
+             * Give the browser a moment to finish
+             * localStorage processing before moving
+             * to the collection page.
+             */
+
+            setTimeout(function () {
+
+                window.location.href =
+                    "collections.html";
+
+            }, 1000);
+
+
+        } catch (error) {
+
+            console.error(
+                "Mint Save Error:",
+                error
+            );
+
+            mintBtn.disabled = false;
+
+            mintBtn.textContent =
+                "🔨 Mint NFT";
+
+            showStatus(
+                "Mint failed: " +
+                (
+                    error.message ||
+                    String(error)
+                ),
+                "error"
+            );
+
+        }
+
+    });
+
+
+    /* =====================================================
+       READ IMAGE
+    ===================================================== */
+
+    function readImage(file) {
+
+        return new Promise(function (resolve, reject) {
+
+            const reader =
+                new FileReader();
+
+            reader.onload =
+                function (event) {
+
+                    resolve(
+                        event.target.result
+                    );
+
+                };
+
+            reader.onerror =
+                function () {
+
+                    reject(
+                        new Error(
+                            "Unable to read NFT image."
+                        )
+                    );
+
+                };
+
+            reader.readAsDataURL(file);
+
+        });
 
     }
-);
+
+
+    /* =====================================================
+       STATUS
+    ===================================================== */
+
+    function showStatus(message, type) {
+
+        statusBox.textContent =
+            message;
+
+        statusBox.className =
+            "status show " + type;
+
+    }
+
+});
 
 
 /* =========================================================
@@ -1242,200 +1082,7 @@ function goProfile() {
 
 }
 
-
-/* =========================================================
-   MINT TEST FLOW
-========================================================= */
-
-const mintBtn =
-    document.getElementById("mintBtn");
-
-const statusBox =
-    document.getElementById("status");
-
-
-mintBtn.addEventListener(
-    "click",
-    function () {
-
-        const name =
-            document.getElementById("nftName")
-            .value.trim();
-
-        const description =
-            document.getElementById("description")
-            .value.trim();
-
-        const price =
-            document.getElementById("price")
-            .value;
-
-        const image =
-            document.getElementById("image")
-            .files[0];
-
-
-        if (!name) {
-
-            showStatus(
-                "Please enter an NFT name.",
-                "error"
-            );
-
-            return;
-        }
-
-
-        if (!description) {
-
-            showStatus(
-                "Please enter an NFT description.",
-                "error"
-            );
-
-            return;
-        }
-
-
-        if (!image) {
-
-            showStatus(
-                "Please upload an NFT image.",
-                "error"
-            );
-
-            return;
-        }
-
-
-        if (!price) {
-
-            showStatus(
-                "Please enter the NFT price.",
-                "error"
-            );
-
-            return;
-        }
-
-
-        /*
-         * TEST / SANDBOX PREPARATION ONLY
-         *
-         * Hindi nito kino-confirm na
-         * on-chain na ang NFT.
-         *
-         * Actual blockchain minting will be
-         * connected after the proper backend
-         * and Pi approval/payment flow are ready.
-         */
-
-
-        mintBtn.disabled =
-            true;
-
-        mintBtn.textContent =
-            "Preparing Mint...";
-
-
-        setTimeout(
-            function () {
-
-                const nft = {
-
-                    id:
-                        "ALBERTO-" +
-                        Date.now(),
-
-                    name:
-                        name,
-
-                    description:
-                        description,
-
-                    rarity:
-                        document.getElementById(
-                            "rarity"
-                        ).value,
-
-                    collection:
-                        document.getElementById(
-                            "collection"
-                        ).value,
-
-                    category:
-                        document.getElementById(
-                            "category"
-                        ).value,
-
-                    level:
-                        document.getElementById(
-                            "level"
-                        ).value,
-
-                    price:
-                        price,
-
-                    owner:
-                        savedUser ||
-                        "guest",
-
-                    status:
-                        "sandbox-prepared",
-
-                    createdAt:
-                        new Date().toISOString()
-
-                };
-
-
-                localStorage.setItem(
-                    "albertoMintDraft",
-                    JSON.stringify(nft)
-                );
-
-
-                showStatus(
-                    "✅ NFT is prepared for Pi Sandbox minting. Actual on-chain mint confirmation will be added through the approved backend/payment flow.",
-                    "success"
-                );
-
-
-                mintBtn.disabled =
-                    false;
-
-                mintBtn.textContent =
-                    "🔨 Mint NFT";
-
-
-            },
-            700
-        );
-
-    }
-);
-
-
-/* =========================================================
-   STATUS
-========================================================= */
-
-function showStatus(
-    message,
-    type
-) {
-
-    statusBox.textContent =
-        message;
-
-    statusBox.className =
-        "status show " + type;
-
-}
-
 </script>
 
-
 </body>
-
 </html>

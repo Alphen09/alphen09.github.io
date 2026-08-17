@@ -3,10 +3,7 @@
 <head>
 
     <meta charset="UTF-8">
-    <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1.0"
-    >
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>Alberto NFT Marketplace</title>
 
@@ -14,12 +11,11 @@
 
     <script src="https://sdk.minepi.com/pi-sdk.js"></script>
 
-
-    <!-- =========================
-         ANIMATED FRONT-PAGE HERO
-    ========================== -->
-
     <style>
+
+        /* =========================
+           HERO
+        ========================== */
 
         .hero {
             position: relative;
@@ -30,9 +26,7 @@
             justify-content: space-between;
             gap: 25px;
             padding: 55px 7%;
-
-            border-radius:
-                0 0 34px 34px;
+            border-radius: 0 0 34px 34px;
 
             background:
                 radial-gradient(
@@ -52,223 +46,134 @@
                     #060509
                 );
 
-            border-bottom:
-                1px solid #8d45d766;
-
-            box-shadow:
-                0 15px 60px #6d2eb522;
+            border-bottom: 1px solid #8d45d766;
+            box-shadow: 0 15px 60px #6d2eb522;
         }
-
 
         .hero::before {
             content: "";
             position: absolute;
-
             width: 430px;
             height: 430px;
-
             right: 8%;
             top: 7%;
-
             border-radius: 50%;
-
             background: #9a45ff20;
-
             filter: blur(55px);
-
-            animation:
-                heroGlow 4s ease-in-out infinite;
+            animation: heroGlow 4s ease-in-out infinite;
         }
-
 
         .hero-content {
             position: relative;
             z-index: 4;
-
             max-width: 560px;
-
-            animation:
-                heroTextIn .9s ease both;
+            animation: heroTextIn .9s ease both;
         }
-
 
         .hero .eyebrow {
             display: inline-block;
-
             padding: 8px 13px;
-
             margin-bottom: 13px;
-
-            border:
-                1px solid #9c58d8;
-
+            border: 1px solid #9c58d8;
             border-radius: 999px;
-
             color: #d5a7ff;
-
             font-size: 12px;
             font-weight: 800;
-
             letter-spacing: 2px;
-
             background: #170c24aa;
         }
 
-
         .hero h1 {
             margin: 8px 0 18px;
-
-            font-size:
-                clamp(42px, 7vw, 76px);
-
+            font-size: clamp(42px, 7vw, 76px);
             line-height: 1.02;
-
             color: #fff;
-
-            text-shadow:
-                0 0 25px #ffffff20;
+            text-shadow: 0 0 25px #ffffff20;
         }
-
 
         .hero h1 .green {
             color: #a3ff4f;
-
-            text-shadow:
-                0 0 24px #8cff4f55;
+            text-shadow: 0 0 24px #8cff4f55;
         }
-
 
         .hero-copy {
             margin: 0;
-
             max-width: 520px;
-
             color: #cfc6d8;
-
             font-size: 18px;
-
             line-height: 1.7;
         }
 
-
         .hero-actions {
             display: flex;
-
             flex-wrap: wrap;
-
             gap: 12px;
-
             margin-top: 27px;
         }
 
-
         .hero-action {
             padding: 14px 19px;
-
             border-radius: 13px;
-
             font-weight: 800;
-
             cursor: pointer;
-
             transition: .25s;
         }
 
-
         .hero-action:hover {
-            transform:
-                translateY(-4px);
+            transform: translateY(-4px);
         }
-
 
         .hero-action.primary {
             border: 0;
-
             background: #a3ff4f;
-
             color: #081006;
-
-            box-shadow:
-                0 8px 25px #8eff4540;
+            box-shadow: 0 8px 25px #8eff4540;
         }
 
-
         .hero-action.secondary {
-            border:
-                1px solid #8650b4;
-
+            border: 1px solid #8650b4;
             background: #130b1c;
-
             color: #f3eaff;
         }
 
-
         .hero-token-area {
             position: relative;
-
             z-index: 3;
-
             width: 390px;
             height: 390px;
-
-            flex:
-                0 0 390px;
-
+            flex: 0 0 390px;
             display: flex;
-
             align-items: center;
             justify-content: center;
         }
 
-
         .hero-token-ring {
             position: absolute;
-
             width: 350px;
             height: 350px;
-
             border-radius: 50%;
-
-            border:
-                1px solid #bd78ff88;
-
+            border: 1px solid #bd78ff88;
             box-shadow:
                 0 0 35px #963cff55,
                 inset 0 0 35px #963cff33;
-
-            animation:
-                tokenRing 9s linear infinite;
+            animation: tokenRing 9s linear infinite;
         }
-
 
         .hero-token-ring::after {
             content: "";
-
             position: absolute;
-
             inset: 24px;
-
             border-radius: 50%;
-
-            border:
-                1px dashed #b76cff66;
-
-            animation:
-                tokenRingReverse
-                12s linear infinite;
+            border: 1px dashed #b76cff66;
+            animation: tokenRingReverse 12s linear infinite;
         }
-
 
         .hero-token {
             width: 235px;
             height: 235px;
-
             border-radius: 50%;
-
             display: flex;
-
             flex-direction: column;
-
             align-items: center;
             justify-content: center;
 
@@ -280,133 +185,90 @@
                     #087638 75%
                 );
 
-            border:
-                9px solid #d3ff9b;
+            border: 9px solid #d3ff9b;
 
             box-shadow:
                 0 0 60px #9bff7099,
                 inset -20px -20px 35px #08703877;
 
-            animation:
-                tokenFloat 3.2s ease-in-out infinite;
+            animation: tokenFloat 3.2s ease-in-out infinite;
         }
-
 
         .hero-token .pi-symbol {
             font-size: 105px;
-
             line-height: .85;
-
             font-weight: 900;
-
             color: #073318;
         }
 
-
         .hero-token .token-name {
             margin-top: 10px;
-
             color: #092f18;
-
             font-size: 14px;
-
             font-weight: 900;
-
             letter-spacing: 3px;
         }
 
-
         .hero-spark {
             position: absolute;
-
             color: #cda0ff;
-
             font-size: 28px;
-
             font-style: normal;
-
-            text-shadow:
-                0 0 15px #b25aff;
-
-            animation:
-                sparkFloat
-                2.6s ease-in-out infinite;
+            text-shadow: 0 0 15px #b25aff;
+            animation: sparkFloat 2.6s ease-in-out infinite;
         }
-
 
         .hero-spark.one {
             top: 35px;
             right: 35px;
         }
 
-
         .hero-spark.two {
             bottom: 40px;
             left: 25px;
-
             animation-delay: .8s;
         }
-
 
         .hero-spark.three {
             top: 110px;
             left: 8px;
-
             animation-delay: 1.5s;
         }
 
-
         .hero-particle {
             position: absolute;
-
             width: 5px;
             height: 5px;
-
             border-radius: 50%;
-
             background: #c68cff;
-
-            box-shadow:
-                0 0 12px #c68cff;
-
-            animation:
-                particleRise
-                6s linear infinite;
+            box-shadow: 0 0 12px #c68cff;
+            animation: particleRise 6s linear infinite;
         }
-
 
         .hero-particle.p1 {
             left: 12%;
             bottom: -10px;
         }
 
-
         .hero-particle.p2 {
             left: 34%;
             bottom: -10px;
-
             animation-delay: 1.2s;
         }
-
 
         .hero-particle.p3 {
             left: 65%;
             bottom: -10px;
-
             animation-delay: 2.7s;
         }
-
 
         .hero-particle.p4 {
             left: 88%;
             bottom: -10px;
-
             animation-delay: 4s;
         }
 
-
         @keyframes heroGlow {
-
             0%,100% {
                 transform: scale(.85);
                 opacity: .45;
@@ -416,49 +278,33 @@
                 transform: scale(1.15);
                 opacity: .95;
             }
-
         }
 
-
         @keyframes heroTextIn {
-
             from {
                 opacity: 0;
-                transform:
-                    translateX(-55px);
+                transform: translateX(-55px);
             }
 
             to {
                 opacity: 1;
-                transform:
-                    translateX(0);
+                transform: translateX(0);
             }
-
         }
-
 
         @keyframes tokenRing {
-
             to {
-                transform:
-                    rotate(360deg);
+                transform: rotate(360deg);
             }
-
         }
-
 
         @keyframes tokenRingReverse {
-
             to {
-                transform:
-                    rotate(-360deg);
+                transform: rotate(-360deg);
             }
-
         }
 
-
         @keyframes tokenFloat {
-
             0%,100% {
                 transform:
                     translateY(0)
@@ -470,17 +316,13 @@
                     translateY(-15px)
                     rotateY(14deg);
             }
-
         }
 
-
         @keyframes sparkFloat {
-
             0%,100% {
                 transform:
                     translateY(0)
                     rotate(0);
-
                 opacity: .5;
             }
 
@@ -488,20 +330,15 @@
                 transform:
                     translateY(-17px)
                     rotate(25deg);
-
                 opacity: 1;
             }
-
         }
 
-
         @keyframes particleRise {
-
             0% {
                 transform:
                     translateY(0)
                     scale(.4);
-
                 opacity: 0;
             }
 
@@ -514,130 +351,90 @@
                     translateY(-650px)
                     translateX(70px)
                     scale(1.2);
-
                 opacity: 0;
             }
-
         }
 
-
-        /* =====================================================
-           DYNAMIC NFT BADGE
-        ===================================================== */
+        /* =========================
+           MINTED BADGE
+        ========================== */
 
         .minted-badge {
             position: absolute;
-
             top: 10px;
             left: 10px;
-
-            padding:
-                5px 8px;
-
+            padding: 5px 8px;
             border-radius: 8px;
-
-            background:
-                rgba(113,56,200,.92);
-
-            border:
-                1px solid
-                rgba(210,170,255,.55);
-
+            background: rgba(113,56,200,.92);
+            border: 1px solid rgba(210,170,255,.55);
             color: white;
-
             font-size: 9px;
-
             font-weight: bold;
-
             z-index: 5;
         }
 
-
-        /* =====================================================
+        /* =========================
            MOBILE
-        ===================================================== */
+        ========================== */
 
         @media (max-width: 760px) {
 
             .hero {
                 min-height: 700px;
-
-                padding:
-                    42px 25px 25px;
-
+                padding: 42px 25px 25px;
                 display: block;
-
                 text-align: center;
             }
-
 
             .hero-content {
                 max-width: none;
             }
 
-
-            .hero .eyebrow {
-                margin-top: 5px;
-            }
-
-
             .hero-copy {
                 margin: auto;
-
                 font-size: 17px;
             }
-
 
             .hero-actions {
                 justify-content: center;
             }
 
-
             .hero-token-area {
                 width: 100%;
-
                 height: 330px;
-
                 margin-top: 12px;
             }
-
 
             .hero-token-ring {
                 width: 285px;
                 height: 285px;
             }
 
-
             .hero-token {
                 width: 190px;
                 height: 190px;
-
                 border-width: 7px;
             }
-
 
             .hero-token .pi-symbol {
                 font-size: 78px;
             }
 
-
             .hero-token .token-name {
                 font-size: 11px;
             }
-
         }
 
     </style>
 
 </head>
 
-
 <body>
 
 
-<!-- =====================================================
+<!-- =========================
      TOP NAVIGATION
-====================================================== -->
+========================= -->
 
 <header class="topbar">
 
@@ -652,16 +449,11 @@
 
         </div>
 
-
         <div class="brand-text">
 
-            <strong>
-                Alberto NFT
-            </strong>
+            <strong>Alberto NFT</strong>
 
-            <span>
-                Marketplace
-            </span>
+            <span>Marketplace</span>
 
         </div>
 
@@ -694,10 +486,9 @@
 </header>
 
 
-
-<!-- =====================================================
+<!-- =========================
      HERO
-====================================================== -->
+========================= -->
 
 <section class="hero">
 
@@ -715,23 +506,15 @@
 
 
         <h1>
-
             Discover
-
-            <span class="green">
-                AMToken
-            </span>
-
+            <span class="green">AMToken</span>
             NFTs
-
         </h1>
 
 
         <p class="hero-copy">
-
             Collect, discover and trade exclusive
             digital assets inside the Alberto ecosystem.
-
         </p>
 
 
@@ -771,7 +554,6 @@
     </div>
 
 
-
     <div class="hero-token-area">
 
         <div class="hero-token-ring"></div>
@@ -783,7 +565,6 @@
                 π
             </div>
 
-
             <div class="token-name">
                 AMTOKEN
             </div>
@@ -791,36 +572,24 @@
         </div>
 
 
-        <i class="hero-spark one">
-            ✦
-        </i>
-
-        <i class="hero-spark two">
-            ✧
-        </i>
-
-        <i class="hero-spark three">
-            ✦
-        </i>
+        <i class="hero-spark one">✦</i>
+        <i class="hero-spark two">✧</i>
+        <i class="hero-spark three">✦</i>
 
     </div>
 
 </section>
 
 
-
-<!-- =====================================================
+<!-- =========================
      MARKET CONTROLS
-====================================================== -->
+========================= -->
 
 <section class="market-controls">
 
     <div class="search-box">
 
-        <span>
-            🔎
-        </span>
-
+        <span>🔎</span>
 
         <input
             id="searchNFT"
@@ -878,8 +647,6 @@
         </button>
 
 
-        <!-- NEW CATEGORIES -->
-
         <button
             class="category"
             type="button"
@@ -929,10 +696,9 @@
 </section>
 
 
-
-<!-- =====================================================
-     MARKET
-====================================================== -->
+<!-- =========================
+     MARKETPLACE
+========================= -->
 
 <main class="market-container">
 
@@ -961,9 +727,7 @@
     <div class="market-grid">
 
 
-        <!-- =================================================
-             NFT 1
-        ================================================== -->
+        <!-- NFT 1 -->
 
         <div
             class="card"
@@ -976,7 +740,6 @@
                     src="satoshi-devil-wing.jpg"
                     alt="Satoshi Devil Wings"
                 >
-
 
                 <span class="rarity">
                     Legendary
@@ -998,10 +761,8 @@
 
 
                 <p class="description">
-
                     Legendary celestial wings
                     from the Satoshi collection.
-
                 </p>
 
 
@@ -1009,14 +770,9 @@
 
                     <div>
 
-                        <small>
-                            Price
-                        </small>
+                        <small>Price</small>
 
-
-                        <strong>
-                            5 Pi
-                        </strong>
+                        <strong>5 Pi</strong>
 
                     </div>
 
@@ -1037,10 +793,7 @@
         </div>
 
 
-
-        <!-- =================================================
-             NFT 2
-        ================================================== -->
+        <!-- NFT 2 -->
 
         <div
             class="card"
@@ -1053,7 +806,6 @@
                     src="celestial%20demonlord%20demonite%20astral%20bike%20%2B%20100%20.jpg"
                     alt="Celestial Demonlord Demonite Astral Bike +100"
                 >
-
 
                 <span class="rarity">
                     Mythic
@@ -1075,10 +827,8 @@
 
 
                 <p class="description">
-
                     A legendary astral bike forged
                     for elite collectors and explorers.
-
                 </p>
 
 
@@ -1086,14 +836,9 @@
 
                     <div>
 
-                        <small>
-                            Price
-                        </small>
+                        <small>Price</small>
 
-
-                        <strong>
-                            15 Pi
-                        </strong>
+                        <strong>15 Pi</strong>
 
                     </div>
 
@@ -1114,10 +859,7 @@
         </div>
 
 
-
-        <!-- =================================================
-             NFT 3
-        ================================================== -->
+        <!-- NFT 3 -->
 
         <div
             class="card"
@@ -1130,7 +872,6 @@
                     src="satoshi-dark-angel-wing.jpg"
                     alt="Satoshi Dark Angel Wings"
                 >
-
 
                 <span class="rarity">
                     Mythic
@@ -1152,10 +893,8 @@
 
 
                 <p class="description">
-
                     A dark celestial collectible
                     from the Alberto collection.
-
                 </p>
 
 
@@ -1163,14 +902,9 @@
 
                     <div>
 
-                        <small>
-                            Price
-                        </small>
+                        <small>Price</small>
 
-
-                        <strong>
-                            12 Pi
-                        </strong>
+                        <strong>12 Pi</strong>
 
                     </div>
 
@@ -1191,10 +925,7 @@
         </div>
 
 
-
-        <!-- =================================================
-             NFT 4
-        ================================================== -->
+        <!-- NFT 4 -->
 
         <div
             class="card"
@@ -1207,7 +938,6 @@
                     src="satoshi-astral-bike-rw3.jpg"
                     alt="Satoshi Astral Bike RW3"
                 >
-
 
                 <span class="rarity">
                     Legendary
@@ -1229,10 +959,8 @@
 
 
                 <p class="description">
-
                     High-speed astral mount
                     designed for legendary explorers.
-
                 </p>
 
 
@@ -1240,14 +968,9 @@
 
                     <div>
 
-                        <small>
-                            Price
-                        </small>
+                        <small>Price</small>
 
-
-                        <strong>
-                            20 Pi
-                        </strong>
+                        <strong>20 Pi</strong>
 
                     </div>
 
@@ -1267,23 +990,20 @@
 
         </div>
 
-
     </div>
 
 </main>
 
 
-
-<!-- =====================================================
+<!-- =========================
      FOOTER
-====================================================== -->
+========================= -->
 
 <footer class="footer">
 
     <strong>
         Alberto NFT Marketplace
     </strong>
-
 
     <span>
         © 2026 Alberto Digital Art Work Studio
@@ -1292,570 +1012,418 @@
 </footer>
 
 
-
 <!-- =====================================================
-     EXISTING MARKETPLACE JAVASCRIPT
-     
      IMPORTANT:
-     DO NOT REMOVE THIS.
+     EXISTING marketplace.js IS NOT MODIFIED
 ====================================================== -->
 
 <script src="marketplace.js"></script>
 
 
-
 <!-- =====================================================
-     DYNAMIC MINTED NFT SYSTEM
+     MINTED NFT MARKETPLACE LOADER
+     
+     Reads NFTs saved by mint.html
+     and displays them in Marketplace.
 ====================================================== -->
 
 <script>
 
-document.addEventListener(
-    "DOMContentLoaded",
-    function () {
+document.addEventListener("DOMContentLoaded", function () {
+
+    const marketGrid =
+        document.querySelector(".market-grid");
+
+    if (!marketGrid) {
+        return;
+    }
 
 
-        /* =================================================
-           LOAD COLLECTION
-        ================================================= */
+    /* ==========================================
+       READ SAVED MINTED NFTs
+    ========================================== */
 
-        let mintedNFTs = [];
+    let mintedNFTs = [];
 
+    try {
 
-        try {
+        const saved =
+            localStorage.getItem("myCollection");
 
-            const saved =
-                localStorage.getItem(
-                    "myCollection"
-                );
+        if (saved) {
 
+            const parsed =
+                JSON.parse(saved);
 
-            if (saved) {
-
-                const parsed =
-                    JSON.parse(saved);
-
-
-                if (
-                    Array.isArray(parsed)
-                ) {
-
-                    mintedNFTs =
-                        parsed;
-
-                }
-
+            if (Array.isArray(parsed)) {
+                mintedNFTs = parsed;
             }
-
-        } catch (error) {
-
-            console.error(
-                "Unable to read myCollection:",
-                error
-            );
-
-            mintedNFTs = [];
 
         }
 
+    } catch (error) {
 
-        console.log(
-            "Alberto Marketplace minted NFTs:",
-            mintedNFTs.length
+        console.error(
+            "Error loading myCollection:",
+            error
         );
 
-
-        /* =================================================
-           MARKET GRID
-        ================================================= */
-
-        const marketGrid =
-            document.querySelector(
-                ".market-grid"
-            );
+    }
 
 
-        if (!marketGrid) {
+    console.log(
+        "Minted NFTs found:",
+        mintedNFTs.length
+    );
 
-            return;
 
+    /* ==========================================
+       CATEGORY NORMALIZER
+    ========================================== */
+
+    function getCategory(nft) {
+
+        const value =
+            String(
+                nft.category ||
+                nft.type ||
+                nft.collection ||
+                ""
+            )
+            .toLowerCase()
+            .trim();
+
+
+        if (value.includes("wing")) {
+            return "wings";
         }
 
+        if (value.includes("mount")) {
+            return "mounts";
+        }
 
-        /* =================================================
-           CATEGORY NORMALIZER
-        ================================================= */
+        if (value.includes("weapon")) {
+            return "weapons";
+        }
 
-        function normalizeCategory(
-            nft
+        if (
+            value.includes("accessor") ||
+            value.includes("jewel")
         ) {
+            return "accessories";
+        }
 
-            const value =
-                String(
-                    nft.category || ""
-                )
-                .toLowerCase()
-                .trim();
+        if (value.includes("avatar")) {
+            return "avatar";
+        }
 
+        if (value.includes("pet")) {
+            return "pet";
+        }
 
-            if (
-                value.includes("wing")
-            ) {
+        if (value.includes("armor")) {
+            return "armor";
+        }
 
-                return "wings";
+        if (value.includes("art")) {
+            return "art";
+        }
 
-            }
-
-
-            if (
-                value.includes("mount")
-            ) {
-
-                return "mounts";
-
-            }
-
-
-            if (
-                value.includes("weapon")
-            ) {
-
-                return "weapons";
-
-            }
-
-
-            if (
-                value.includes("accessor")
-            ) {
-
-                return "accessories";
-
-            }
-
-
-            if (
-                value.includes("avatar")
-            ) {
-
-                return "avatar";
-
-            }
-
-
-            if (
-                value.includes("pet")
-            ) {
-
-                return "pet";
-
-            }
-
-
-            if (
-                value.includes("armor")
-            ) {
-
-                return "armor";
-
-            }
-
-
-            if (
-                value.includes("art")
-            ) {
-
-                return "art";
-
-            }
-
-
-            if (
-                value.includes("collect")
-            ) {
-
-                return "collectibles";
-
-            }
-
-
+        if (value.includes("collect")) {
             return "collectibles";
-
         }
 
+        return "collectibles";
+    }
 
-        /* =================================================
-           HTML ESCAPE
-        ================================================= */
 
-        function escapeHTML(
-            value
+    /* ==========================================
+       SAFE HTML
+    ========================================== */
+
+    function escapeHTML(value) {
+
+        return String(
+            value == null ? "" : value
+        )
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+
+    }
+
+
+    /* ==========================================
+       ADD MINTED NFTs
+    ========================================== */
+
+    mintedNFTs.forEach(function (nft) {
+
+        if (
+            !nft ||
+            !nft.name ||
+            !nft.image
         ) {
-
-            return String(
-                value == null
-                    ? ""
-                    : value
-            )
-            .replace(
-                /&/g,
-                "&amp;"
-            )
-            .replace(
-                /</g,
-                "&lt;"
-            )
-            .replace(
-                />/g,
-                "&gt;"
-            )
-            .replace(
-                /"/g,
-                "&quot;"
-            )
-            .replace(
-                /'/g,
-                "&#039;"
-            );
-
+            return;
         }
 
 
-        /* =================================================
-           ADD MINTED NFTS
-        ================================================= */
-
-        mintedNFTs.forEach(
-            function (nft) {
+        const category =
+            getCategory(nft);
 
 
-                if (
-                    !nft ||
-                    !nft.name ||
-                    !nft.image
-                ) {
-
-                    return;
-
-                }
+        const price =
+            Number(nft.price || 0);
 
 
-                const category =
-                    normalizeCategory(
-                        nft
-                    );
+        const card =
+            document.createElement("div");
 
 
-                const price =
-                    Number(
-                        nft.price || 0
-                    );
+        card.className =
+            "card minted-market-card";
 
 
-                const card =
-                    document.createElement(
-                        "div"
-                    );
+        card.dataset.category =
+            category;
 
 
-                card.className =
-                    "card minted-market-card";
+        card.dataset.minted =
+            "true";
 
 
-                card.dataset.category =
-                    category;
+        card.innerHTML = `
+
+            <div class="nft-image">
+
+                <img
+                    src="${escapeHTML(nft.image)}"
+                    alt="${escapeHTML(nft.name)}"
+                >
+
+                <span class="minted-badge">
+                    ✦ Minted
+                </span>
+
+                <span class="rarity">
+                    ${escapeHTML(
+                        nft.rarity || "Common"
+                    )}
+                </span>
+
+            </div>
 
 
-                card.dataset.minted =
-                    "true";
+            <div class="card-body">
+
+                <p class="collection">
+                    ${escapeHTML(
+                        nft.collection ||
+                        "Alberto Originals"
+                    )}
+                </p>
 
 
-                card.dataset.nftId =
-                    nft.id || "";
+                <h2>
+                    ${escapeHTML(nft.name)}
+                </h2>
 
 
-                card.innerHTML = `
-
-                    <div
-                        class="nft-image"
-                    >
-
-                        <img
-                            src="${nft.image}"
-                            alt="${escapeHTML(
-                                nft.name
-                            )}"
-                        >
+                <p class="description">
+                    ${escapeHTML(
+                        nft.description ||
+                        "Alberto digital collectible."
+                    )}
+                </p>
 
 
-                        <span
-                            class="minted-badge"
-                        >
-                            ✦ Minted
-                        </span>
+                <div class="card-bottom">
 
+                    <div>
 
-                        <span
-                            class="rarity"
-                        >
-                            ${escapeHTML(
-                                nft.rarity ||
-                                "Common"
-                            )}
-                        </span>
+                        <small>
+                            Price
+                        </small>
+
+                        <strong>
+                            ${price} Pi
+                        </strong>
 
                     </div>
 
 
-                    <div
-                        class="card-body"
+                    <button
+                        type="button"
+                        class="buy-btn minted-buy-btn"
+                        data-price="${price}"
+                        data-nft="${escapeHTML(nft.name)}"
                     >
+                        Buy with Pi
+                    </button>
 
-                        <p
-                            class="collection"
-                        >
-                            ${escapeHTML(
-                                nft.collection ||
-                                "Alberto Originals"
-                            )}
-                        </p>
+                </div>
 
+            </div>
 
-                        <h2>
-                            ${escapeHTML(
-                                nft.name
-                            )}
-                        </h2>
+        `;
 
 
-                        <p
-                            class="description"
-                        >
-                            ${escapeHTML(
-                                nft.description ||
-                                "Alberto digital collectible."
-                            )}
-                        </p>
+        marketGrid.appendChild(card);
+
+    });
 
 
-                        <div
-                            class="card-bottom"
-                        >
+    /* ==========================================
+       MINTED BUY BUTTONS
+       
+       marketplace.js defines buyNFT().
+       We only connect the newly-created buttons.
+    ========================================== */
 
-                            <div>
+    document
+        .querySelectorAll(".minted-buy-btn")
+        .forEach(function (button) {
 
-                                <small>
-                                    Price
-                                </small>
-
-
-                                <strong>
-                                    ${price} Pi
-                                </strong>
-
-                            </div>
-
-
-                            <button
-                                type="button"
-                                class="buy-btn"
-                                data-price="${price}"
-                                data-nft="${escapeHTML(
-                                    nft.name
-                                )}"
-                            >
-                                Buy with Pi
-                            </button>
-
-                        </div>
-
-                    </div>
-
-                `;
-
-
-                marketGrid.appendChild(
-                    card
-                );
-
-            }
-        );
-
-
-        /* =================================================
-           DYNAMIC BUY BUTTON SUPPORT
-           
-           marketplace.js already attaches buttons
-           existing at page load.
-
-           Minted cards are created after that,
-           so we attach buyNFT directly here.
-        ================================================= */
-
-        const mintedBuyButtons =
-            document.querySelectorAll(
-                ".minted-market-card .buy-btn"
-            );
-
-
-        mintedBuyButtons.forEach(
-            function (button) {
-
-                button.addEventListener(
-                    "click",
-                    function () {
-
-                        if (
-                            typeof window.buyNFT ===
-                            "function"
-                        ) {
-
-                            window.buyNFT(
-                                this
-                            );
-
-                        } else {
-
-                            alert(
-                                "Pi payment system is still loading. Please try again."
-                            );
-
-                        }
-
-                    }
-                );
-
-            }
-        );
-
-
-        /* =================================================
-           SEARCH
-           
-           We use one listener here for all cards,
-           including minted cards.
-        ================================================= */
-
-        const search =
-            document.getElementById(
-                "searchNFT"
-            );
-
-
-        if (search) {
-
-            search.addEventListener(
-                "input",
+            button.addEventListener(
+                "click",
                 function () {
 
-                    const value =
-                        this.value
-                        .toLowerCase()
-                        .trim();
+                    if (
+                        typeof buyNFT === "function"
+                    ) {
 
+                        buyNFT(this);
 
-                    document
-                        .querySelectorAll(
-                            ".market-grid .card"
-                        )
-                        .forEach(
-                            function (card) {
+                    } else {
 
-                                const text =
-                                    card.innerText
-                                    .toLowerCase();
-
-
-                                card.style.display =
-                                    text.includes(
-                                        value
-                                    )
-                                    ? ""
-                                    : "none";
-
-                            }
+                        alert(
+                            "Pi payment system is still loading. Please try again."
                         );
+
+                    }
 
                 }
             );
 
-        }
+        });
 
 
-        /* =================================================
-           CATEGORY FILTER
-        ================================================= */
+    /* ==========================================
+       SEARCH
+       
+       One listener only.
+    ========================================== */
 
-        const categoryButtons =
-            document.querySelectorAll(
-                ".category"
-            );
-
-
-        categoryButtons.forEach(
-            function (button) {
-
-                button.addEventListener(
-                    "click",
-                    function () {
+    const search =
+        document.getElementById("searchNFT");
 
 
-                        categoryButtons.forEach(
-                            function (btn) {
+    if (search) {
 
-                                btn.classList.remove(
-                                    "active"
-                                );
+        search.addEventListener(
+            "input",
+            function () {
 
-                            }
-                        );
-
-
-                        this.classList.add(
-                            "active"
-                        );
+                const value =
+                    this.value
+                    .toLowerCase()
+                    .trim();
 
 
-                        const selected =
-                            this.dataset.category;
+                document
+                    .querySelectorAll(
+                        ".market-grid .card"
+                    )
+                    .forEach(function (card) {
+
+                        const text =
+                            card.innerText
+                            .toLowerCase();
 
 
-                        document
-                            .querySelectorAll(
-                                ".market-grid .card"
-                            )
-                            .forEach(
-                                function (card) {
+                        card.style.display =
+                            text.includes(value)
+                                ? ""
+                                : "none";
 
-                                    if (
-                                        selected ===
-                                        "all" ||
-                                        card.dataset.category ===
-                                        selected
-                                    ) {
-
-                                        card.style.display =
-                                            "";
-
-                                    } else {
-
-                                        card.style.display =
-                                            "none";
-
-                                    }
-
-                                }
-                            );
-
-                    }
-                );
+                    });
 
             }
         );
 
     }
 
-);
+
+    /* ==========================================
+       CATEGORY FILTER
+    ========================================== */
+
+    const categoryButtons =
+        document.querySelectorAll(
+            ".category"
+        );
+
+
+    categoryButtons.forEach(
+        function (button) {
+
+            button.addEventListener(
+                "click",
+                function () {
+
+                    categoryButtons.forEach(
+                        function (btn) {
+
+                            btn.classList.remove(
+                                "active"
+                            );
+
+                        }
+                    );
+
+
+                    this.classList.add(
+                        "active"
+                    );
+
+
+                    const selected =
+                        this.dataset.category;
+
+
+                    document
+                        .querySelectorAll(
+                            ".market-grid .card"
+                        )
+                        .forEach(function (card) {
+
+                            if (
+                                selected === "all" ||
+                                card.dataset.category ===
+                                selected
+                            ) {
+
+                                card.style.display =
+                                    "";
+
+                            } else {
+
+                                card.style.display =
+                                    "none";
+
+                            }
+
+                        });
+
+                }
+            );
+
+        }
+    );
+
+});
 
 </script>
 

@@ -22,41 +22,35 @@ const pool = new Pool({
 });
 
 /* =========================
-   PI API
+   PI PLATFORM API
 ========================= */
 
-const PI_API_KEY =
-  process.env.PI_API_KEY?.trim();
+const PI_API_KEY = process.env.PI_API_KEY?.trim();
 
-const PI_API_BASE =
-  "https://api.testnet.minepi.com";
+const PI_API_BASE = "https://api.minepi.com/v2";
 
 /* =========================
    HOME
 ========================= */
 
 app.get("/", (req, res) => {
-
   res.json({
     app: "Alberto NFT Marketplace",
     network: "Pi Sandbox",
     status: "Backend Running"
   });
-
 });
 
 /* =========================
-   API KEY TEST
+   PI API KEY TEST
 ========================= */
 
 app.get("/pi-test", (req, res) => {
-
   res.json({
     success: true,
     piApiKeyLoaded: !!PI_API_KEY,
     network: "Pi Sandbox"
   });
-
 });
 
 /* =========================
@@ -64,11 +58,8 @@ app.get("/pi-test", (req, res) => {
 ========================= */
 
 app.get("/database-test", async (req, res) => {
-
   try {
-
-    const result =
-      await pool.query("SELECT NOW()");
+    const result = await pool.query("SELECT NOW()");
 
     res.json({
       success: true,
@@ -77,19 +68,14 @@ app.get("/database-test", async (req, res) => {
     });
 
   } catch (error) {
-
-    console.error(
-      "DATABASE ERROR:",
-      error.message
-    );
+    console.error("DATABASE ERROR:", error.message);
 
     res.status(500).json({
       success: false,
+      message: "Database Connection Failed",
       error: error.message
     });
-
   }
-
 });
 
 /* =========================
@@ -97,9 +83,7 @@ app.get("/database-test", async (req, res) => {
 ========================= */
 
 app.post("/approve-payment", async (req, res) => {
-
   try {
-
     const {
       paymentId,
       nftName,
@@ -108,71 +92,46 @@ app.post("/approve-payment", async (req, res) => {
     } = req.body;
 
     if (!paymentId) {
-
       return res.status(400).json({
         success: false,
         message: "Payment ID is required."
       });
-
     }
 
     if (!PI_API_KEY) {
-
-      console.error(
-        "PI_API_KEY is missing."
-      );
+      console.error("PI_API_KEY is missing.");
 
       return res.status(500).json({
         success: false,
         message: "PI_API_KEY is missing."
       });
-
     }
 
-    console.log(
-      "APPROVE PAYMENT:",
-      paymentId
-    );
-
-    console.log(
-      "NFT:",
-      nftName
-    );
-
-    console.log(
-      "Buyer:",
-      buyer
-    );
-
-    console.log(
-      "Price:",
-      price
-    );
+    console.log("=================================");
+    console.log("PI PAYMENT APPROVAL");
+    console.log("Payment ID:", paymentId);
+    console.log("NFT:", nftName || "N/A");
+    console.log("Buyer:", buyer || "N/A");
+    console.log("Price:", price || "N/A");
+    console.log("=================================");
 
     /*
       IMPORTANT:
-      Pi API expects /payments/approve
-      with paymentId in the request body.
+      Payment ID belongs in the URL.
+
+      POST:
+      https://api.minepi.com/v2/payments/{paymentId}/approve
     */
 
     const response = await axios.post(
-
-      `${PI_API_BASE}/payments/approve`,
-
-      {
-        paymentId: paymentId
-      },
-
+      `${PI_API_BASE}/payments/${encodeURIComponent(paymentId)}/approve`,
+      null,
       {
         headers: {
-          Authorization:
-            `Key ${PI_API_KEY}`,
-
-          "Content-Type":
-            "application/json"
-        }
+          Authorization: `Key ${PI_API_KEY}`
+        },
+        timeout: 15000
       }
-
     );
 
     console.log(
@@ -181,41 +140,25 @@ app.post("/approve-payment", async (req, res) => {
     );
 
     return res.json({
-
       success: true,
-
       status: "approved",
-
-      payment:
-        response.data
-
+      payment: response.data
     });
 
   } catch (error) {
-
     console.error(
       "PI APPROVAL ERROR:",
-      error.response?.data ||
-      error.message
+      error.response?.data || error.message
     );
 
     return res.status(
       error.response?.status || 500
     ).json({
-
       success: false,
-
-      message:
-        "Pi payment approval failed.",
-
-      error:
-        error.response?.data ||
-        error.message
-
+      message: "Pi payment approval failed.",
+      error: error.response?.data || error.message
     });
-
   }
-
 });
 
 /* =========================
@@ -223,9 +166,7 @@ app.post("/approve-payment", async (req, res) => {
 ========================= */
 
 app.post("/complete-payment", async (req, res) => {
-
   try {
-
     const {
       paymentId,
       txid,
@@ -234,88 +175,59 @@ app.post("/complete-payment", async (req, res) => {
       price
     } = req.body;
 
-    if (!paymentId || !txid) {
-
+    if (!paymentId) {
       return res.status(400).json({
-
         success: false,
-
-        message:
-          "Payment ID and transaction ID are required."
-
+        message: "Payment ID is required."
       });
+    }
 
+    if (!txid) {
+      return res.status(400).json({
+        success: false,
+        message: "Transaction ID is required."
+      });
     }
 
     if (!PI_API_KEY) {
-
-      console.error(
-        "PI_API_KEY is missing."
-      );
+      console.error("PI_API_KEY is missing.");
 
       return res.status(500).json({
-
         success: false,
-
-        message:
-          "PI_API_KEY is missing."
-
+        message: "PI_API_KEY is missing."
       });
-
     }
 
-    console.log(
-      "COMPLETE PAYMENT:",
-      paymentId
-    );
-
-    console.log(
-      "TXID:",
-      txid
-    );
-
-    console.log(
-      "NFT:",
-      nftName
-    );
-
-    console.log(
-      "Buyer:",
-      buyer
-    );
-
-    console.log(
-      "Price:",
-      price
-    );
+    console.log("=================================");
+    console.log("PI PAYMENT COMPLETION");
+    console.log("Payment ID:", paymentId);
+    console.log("TXID:", txid);
+    console.log("NFT:", nftName || "N/A");
+    console.log("Buyer:", buyer || "N/A");
+    console.log("Price:", price || "N/A");
+    console.log("=================================");
 
     /*
       IMPORTANT:
-      Pi API expects /payments/complete
-      with paymentId and txid in the body.
+      Payment ID belongs in the URL.
+      TXID belongs in the request body.
+
+      POST:
+      https://api.minepi.com/v2/payments/{paymentId}/complete
     */
 
     const response = await axios.post(
-
-      `${PI_API_BASE}/payments/complete`,
-
+      `${PI_API_BASE}/payments/${encodeURIComponent(paymentId)}/complete`,
       {
-        paymentId: paymentId,
         txid: txid
       },
-
       {
         headers: {
-
-          Authorization:
-            `Key ${PI_API_KEY}`,
-
-          "Content-Type":
-            "application/json"
-
-        }
+          Authorization: `Key ${PI_API_KEY}`,
+          "Content-Type": "application/json"
+        },
+        timeout: 15000
       }
-
     );
 
     console.log(
@@ -323,42 +235,32 @@ app.post("/complete-payment", async (req, res) => {
       response.data
     );
 
+    /*
+      IMPORTANT:
+      Only return success after Pi API
+      actually confirms completion.
+    */
+
     return res.json({
-
       success: true,
-
       status: "completed",
-
-      payment:
-        response.data
-
+      payment: response.data
     });
 
   } catch (error) {
-
     console.error(
       "PI COMPLETION ERROR:",
-      error.response?.data ||
-      error.message
+      error.response?.data || error.message
     );
 
     return res.status(
       error.response?.status || 500
     ).json({
-
       success: false,
-
-      message:
-        "Pi payment completion failed.",
-
-      error:
-        error.response?.data ||
-        error.message
-
+      message: "Pi payment completion failed.",
+      error: error.response?.data || error.message
     });
-
   }
-
 });
 
 /* =========================
@@ -366,7 +268,6 @@ app.post("/complete-payment", async (req, res) => {
 ========================= */
 
 app.post("/mint", (req, res) => {
-
   const {
     nftName,
     description,
@@ -376,49 +277,52 @@ app.post("/mint", (req, res) => {
     price
   } = req.body;
 
-  console.log(
-    "NFT Minted:",
-    nftName
-  );
+  console.log("NFT MINT:", nftName);
 
   res.json({
-
     success: true,
-
-    message:
-      "NFT Minted Successfully!",
-
+    message: "NFT Minted Successfully!",
     nft: {
-
       nftName,
-
       description,
-
       collection,
-
       category,
-
       royalty,
-
       price
-
     }
-
   });
-
 });
 
 /* =========================
-   START SERVER
+   404 HANDLER
 ========================= */
 
-const PORT =
-  process.env.PORT || 3000;
+app.use((req, res) => {
+  res.status(404).json({
+    success: false,
+    message: "Backend route not found.",
+    path: req.originalUrl
+  });
+});
+
+/* =========================
+   SERVER
+========================= */
+
+const PORT = process.env.PORT || 3000;
 
 app.listen(PORT, () => {
-
   console.log(
-    "Backend running on port " + PORT
+    `Alberto NFT Backend running on port ${PORT}`
   );
 
+  console.log(
+    "Pi API:",
+    PI_API_BASE
+  );
+
+  console.log(
+    "PI_API_KEY loaded:",
+    !!PI_API_KEY
+  );
 });

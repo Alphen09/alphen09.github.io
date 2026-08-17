@@ -1,6 +1,7 @@
 /* =========================================================
    ALBERTO NFT MARKETPLACE
-   MINT NFT SYSTEM
+   MINT NFT SYSTEM — PI SANDBOX
+   SAFE LOCAL STORAGE VERSION
 ========================================================= */
 
 document.addEventListener("DOMContentLoaded", function () {
@@ -11,305 +12,415 @@ document.addEventListener("DOMContentLoaded", function () {
     const description = document.getElementById("description");
     const collection = document.getElementById("collection");
     const category = document.getElementById("category");
-    const royalty = document.getElementById("royalty");
     const price = document.getElementById("price");
     const imageInput = document.getElementById("image");
+
+    /* =====================================================
+       CHECK REQUIRED ELEMENTS
+    ===================================================== */
+
+    if (
+        !mintBtn ||
+        !nftName ||
+        !description ||
+        !collection ||
+        !category ||
+        !price ||
+        !imageInput
+    ) {
+        console.error(
+            "Mint system: required element is missing."
+        );
+
+        return;
+    }
 
 
     /* =====================================================
        MINT BUTTON
     ===================================================== */
 
-    mintBtn.addEventListener("click", async function () {
+    mintBtn.addEventListener(
+        "click",
+        async function () {
 
-        try {
+            try {
 
-            /* -----------------------------
-               CHECK PI USER
-            ----------------------------- */
+                /* =============================
+                   CHECK PI USER
+                ============================= */
 
-            const piUser =
-                localStorage.getItem("piUser");
+                const piUser =
+                    localStorage.getItem("piUser");
 
-            if (!piUser) {
 
-                alert(
-                    "Please connect your Pi account first."
-                );
+                if (!piUser) {
 
-                window.location.href =
-                    "index.html";
+                    alert(
+                        "Please connect your Pi account first."
+                    );
 
-                return;
-            }
+                    window.location.href =
+                        "index.html";
 
+                    return;
+                }
 
-            /* -----------------------------
-               GET VALUES
-            ----------------------------- */
 
-            const name =
-                nftName.value.trim();
+                /* =============================
+                   GET VALUES
+                ============================= */
 
-            const desc =
-                description.value.trim();
+                const name =
+                    nftName.value.trim();
 
-            const selectedCollection =
-                collection.value;
+                const desc =
+                    description.value.trim();
 
-            const selectedCategory =
-                category.value;
+                const selectedCollection =
+                    collection.value;
 
-            const royaltyValue =
-                Number(royalty.value);
+                const selectedCategory =
+                    category.value;
 
-            const priceValue =
-                Number(price.value);
+                const priceValue =
+                    Number(price.value);
 
 
-            /* -----------------------------
-               VALIDATION
-            ----------------------------- */
+                /* =============================
+                   VALIDATION
+                ============================= */
 
-            if (!name) {
+                if (!name) {
 
-                alert(
-                    "Please enter your NFT name."
-                );
+                    alert(
+                        "Please enter your NFT name."
+                    );
 
-                nftName.focus();
+                    nftName.focus();
 
-                return;
-            }
+                    return;
+                }
 
 
-            if (!desc) {
+                if (!desc) {
 
-                alert(
-                    "Please enter an NFT description."
-                );
+                    alert(
+                        "Please enter an NFT description."
+                    );
 
-                description.focus();
+                    description.focus();
 
-                return;
-            }
+                    return;
+                }
 
 
-            if (!priceValue || priceValue <= 0) {
+                if (
+                    !priceValue ||
+                    priceValue <= 0
+                ) {
 
-                alert(
-                    "Please enter a valid Pi price."
-                );
+                    alert(
+                        "Please enter a valid Pi price."
+                    );
 
-                price.focus();
+                    price.focus();
 
-                return;
-            }
+                    return;
+                }
 
 
-            if (
-                royaltyValue < 0 ||
-                royaltyValue > 10
-            ) {
+                if (
+                    !imageInput.files ||
+                    imageInput.files.length === 0
+                ) {
 
-                alert(
-                    "Royalty must be between 0% and 10%."
-                );
+                    alert(
+                        "Please upload your NFT image."
+                    );
 
-                royalty.focus();
+                    imageInput.focus();
 
-                return;
-            }
+                    return;
+                }
 
 
-            if (
-                !imageInput.files ||
-                imageInput.files.length === 0
-            ) {
+                /* =============================
+                   IMAGE VALIDATION
+                ============================= */
 
-                alert(
-                    "Please upload your NFT image."
-                );
+                const imageFile =
+                    imageInput.files[0];
 
-                imageInput.focus();
 
-                return;
-            }
-
-
-            /* -----------------------------
-               IMAGE
-            ----------------------------- */
-
-            const imageFile =
-                imageInput.files[0];
-
-
-            if (
-                !imageFile.type.startsWith("image/")
-            ) {
-
-                alert(
-                    "Please select a valid image file."
-                );
-
-                return;
-            }
-
-
-            /* -----------------------------
-               READ IMAGE
-            ----------------------------- */
-
-            const imageData =
-                await readImage(imageFile);
-
-
-            /* -----------------------------
-               CREATE NFT
-            ----------------------------- */
-
-            const nft = {
-
-                id:
-                    "ALB-" +
-                    Date.now() +
-                    "-" +
-                    Math.random()
-                        .toString(36)
-                        .substring(2, 8),
-
-                name:
-                    name,
-
-                description:
-                    desc,
-
-                collection:
-                    selectedCollection,
-
-                category:
-                    selectedCategory,
-
-                royalty:
-                    royaltyValue,
-
-                price:
-                    priceValue,
-
-                currency:
-                    "Pi",
-
-                image:
-                    imageData,
-
-                owner:
-                    piUser,
-
-                creator:
-                    piUser,
-
-                status:
-                    "Minted",
-
-                minted:
-                    true,
-
-                createdAt:
-                    new Date().toISOString()
-
-            };
-
-
-            /* -----------------------------
-               LOAD COLLECTION
-            ----------------------------- */
-
-            let myCollection =
-                JSON.parse(
-                    localStorage.getItem(
-                        "myCollection"
+                if (
+                    !imageFile.type.startsWith(
+                        "image/"
                     )
-                ) || [];
+                ) {
+
+                    alert(
+                        "Please select a valid image file."
+                    );
+
+                    return;
+                }
 
 
-            /* -----------------------------
-               ADD NFT
-            ----------------------------- */
+                /* =============================
+                   BUTTON STATE
+                ============================= */
 
-            myCollection.push(nft);
+                mintBtn.disabled = true;
 
-
-            /* -----------------------------
-               SAVE COLLECTION
-            ----------------------------- */
-
-            localStorage.setItem(
-                "myCollection",
-                JSON.stringify(
-                    myCollection
-                )
-            );
+                mintBtn.innerText =
+                    "Saving NFT...";
 
 
-            /* -----------------------------
-               SAVE LAST MINT
-            ----------------------------- */
+                /* =============================
+                   READ IMAGE
+                ============================= */
 
-            localStorage.setItem(
-                "lastMintedNFT",
-                JSON.stringify(nft)
-            );
-
-
-            /* -----------------------------
-               SUCCESS
-            ----------------------------- */
-
-            mintBtn.disabled = true;
-
-            mintBtn.innerText =
-                "✓ NFT Minted";
+                const imageData =
+                    await readImage(
+                        imageFile
+                    );
 
 
-            alert(
-                "🎉 NFT Minted Successfully!\n\n" +
-                "NFT: " + name +
-                "\nOwner: @" + piUser +
-                "\nPrice: " + priceValue + " Pi"
-            );
+                /* =============================
+                   CREATE NFT
+                ============================= */
+
+                const nft = {
+
+                    id:
+                        "ALB-" +
+                        Date.now() +
+                        "-" +
+                        Math.random()
+                            .toString(36)
+                            .substring(2, 8),
+
+                    name:
+                        name,
+
+                    description:
+                        desc,
+
+                    collection:
+                        selectedCollection,
+
+                    category:
+                        selectedCategory,
+
+                    rarity:
+                        document.getElementById(
+                            "rarity"
+                        )?.value ||
+                        "Common",
+
+                    level:
+                        Number(
+                            document.getElementById(
+                                "level"
+                            )?.value ||
+                            1
+                        ),
+
+                    royalty:
+                        5,
+
+                    price:
+                        priceValue,
+
+                    currency:
+                        "Pi",
+
+                    image:
+                        imageData,
+
+                    owner:
+                        piUser,
+
+                    creator:
+                        piUser,
+
+                    status:
+                        "Sandbox Minted",
+
+                    minted:
+                        true,
+
+                    network:
+                        "Pi Sandbox",
+
+                    createdAt:
+                        new Date().toISOString()
+
+                };
 
 
-            /* -----------------------------
-               OPEN COLLECTION
-            ----------------------------- */
+                /* =================================================
+                   SAVE TO EXISTING COLLECTION
+                ================================================= */
 
-            setTimeout(function () {
+                let myCollection = [];
 
-                window.location.href =
-                    "collections.html";
+                try {
 
-            }, 800);
+                    myCollection =
+                        JSON.parse(
+                            localStorage.getItem(
+                                "myCollection"
+                            )
+                        ) || [];
+
+                } catch (error) {
+
+                    console.warn(
+                        "Existing collection could not be read."
+                    );
+
+                    myCollection = [];
+
+                }
 
 
-        } catch (error) {
+                myCollection.push(nft);
 
-            console.error(
-                "Mint Error:",
-                error
-            );
 
-            alert(
-                "Mint failed.\n\n" +
-                (
-                    error.message ||
-                    String(error)
-                )
-            );
+                localStorage.setItem(
+                    "myCollection",
+                    JSON.stringify(
+                        myCollection
+                    )
+                );
+
+
+                /* =================================================
+                   SAVE LAST MINT
+                ================================================= */
+
+                localStorage.setItem(
+                    "lastMintedNFT",
+                    JSON.stringify(
+                        nft
+                    )
+                );
+
+
+                /* =================================================
+                   SAVE SHARED ALBERTO NFT LIST
+                ================================================= */
+
+                let albertoNFTs = [];
+
+                try {
+
+                    albertoNFTs =
+                        JSON.parse(
+                            localStorage.getItem(
+                                "albertoMintedNFTs"
+                            )
+                        ) || [];
+
+                } catch (error) {
+
+                    console.warn(
+                        "Alberto NFT list could not be read."
+                    );
+
+                    albertoNFTs = [];
+
+                }
+
+
+                albertoNFTs.push(nft);
+
+
+                localStorage.setItem(
+                    "albertoMintedNFTs",
+                    JSON.stringify(
+                        albertoNFTs
+                    )
+                );
+
+
+                /* =================================================
+                   SUCCESS
+                ================================================= */
+
+                mintBtn.innerText =
+                    "✓ NFT Saved";
+
+                mintBtn.disabled =
+                    true;
+
+
+                alert(
+
+                    "🎉 NFT Saved Successfully!\n\n" +
+
+                    "NFT: " +
+                    name +
+
+                    "\nOwner: @" +
+                    piUser +
+
+                    "\nPrice: " +
+                    priceValue +
+                    " Pi" +
+
+                    "\n\nNetwork: Pi Sandbox"
+
+                );
+
+
+                /* =================================================
+                   REDIRECT
+                ================================================= */
+
+                setTimeout(
+                    function () {
+
+                        window.location.href =
+                            "collections.html";
+
+                    },
+                    800
+                );
+
+
+            } catch (error) {
+
+                console.error(
+                    "Mint Error:",
+                    error
+                );
+
+
+                mintBtn.disabled =
+                    false;
+
+                mintBtn.innerText =
+                    "🔨 Mint NFT";
+
+
+                alert(
+
+                    "Mint failed.\n\n" +
+
+                    (
+                        error.message ||
+                        String(error)
+                    )
+
+                );
+
+            }
 
         }
-
-    });
+    );
 
 
     /* =====================================================
@@ -319,10 +430,14 @@ document.addEventListener("DOMContentLoaded", function () {
     function readImage(file) {
 
         return new Promise(
-            function (resolve, reject) {
+            function (
+                resolve,
+                reject
+            ) {
 
                 const reader =
                     new FileReader();
+
 
                 reader.onload =
                     function (event) {
@@ -332,6 +447,7 @@ document.addEventListener("DOMContentLoaded", function () {
                         );
 
                     };
+
 
                 reader.onerror =
                     function () {
@@ -344,7 +460,10 @@ document.addEventListener("DOMContentLoaded", function () {
 
                     };
 
-                reader.readAsDataURL(file);
+
+                reader.readAsDataURL(
+                    file
+                );
 
             }
         );

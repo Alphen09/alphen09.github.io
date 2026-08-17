@@ -1,7 +1,7 @@
 /* =========================================================
    ALBERTO NFT MARKETPLACE
    MINT NFT SYSTEM — PI SANDBOX
-   SAFE LOCAL STORAGE VERSION
+   QUOTA-SAFE VERSION
 ========================================================= */
 
 document.addEventListener("DOMContentLoaded", function () {
@@ -14,6 +14,10 @@ document.addEventListener("DOMContentLoaded", function () {
     const category = document.getElementById("category");
     const price = document.getElementById("price");
     const imageInput = document.getElementById("image");
+
+    const rarity = document.getElementById("rarity");
+    const level = document.getElementById("level");
+
 
     /* =====================================================
        CHECK REQUIRED ELEMENTS
@@ -28,8 +32,9 @@ document.addEventListener("DOMContentLoaded", function () {
         !price ||
         !imageInput
     ) {
+
         console.error(
-            "Mint system: required element is missing."
+            "Alberto Mint System: Required element missing."
         );
 
         return;
@@ -40,254 +45,321 @@ document.addEventListener("DOMContentLoaded", function () {
        MINT BUTTON
     ===================================================== */
 
-    mintBtn.addEventListener(
-        "click",
-        async function () {
+    mintBtn.addEventListener("click", async function () {
+
+        try {
+
+            /* =================================================
+               PI USER
+            ================================================= */
+
+            const piUser =
+                localStorage.getItem("piUser");
+
+
+            if (!piUser) {
+
+                alert(
+                    "Please connect your Pi account first."
+                );
+
+                window.location.href =
+                    "index.html";
+
+                return;
+            }
+
+
+            /* =================================================
+               GET FORM VALUES
+            ================================================= */
+
+            const name =
+                nftName.value.trim();
+
+            const desc =
+                description.value.trim();
+
+            const selectedCollection =
+                collection.value;
+
+            const selectedCategory =
+                category.value;
+
+            const selectedRarity =
+                rarity
+                    ? rarity.value
+                    : "Common";
+
+            const selectedLevel =
+                level
+                    ? Number(level.value) || 1
+                    : 1;
+
+            const priceValue =
+                Number(price.value);
+
+
+            /* =================================================
+               VALIDATION
+            ================================================= */
+
+            if (!name) {
+
+                alert(
+                    "Please enter your NFT name."
+                );
+
+                nftName.focus();
+
+                return;
+            }
+
+
+            if (!desc) {
+
+                alert(
+                    "Please enter an NFT description."
+                );
+
+                description.focus();
+
+                return;
+            }
+
+
+            if (
+                !priceValue ||
+                priceValue <= 0
+            ) {
+
+                alert(
+                    "Please enter a valid Pi price."
+                );
+
+                price.focus();
+
+                return;
+            }
+
+
+            if (
+                !imageInput.files ||
+                imageInput.files.length === 0
+            ) {
+
+                alert(
+                    "Please upload your NFT image."
+                );
+
+                imageInput.focus();
+
+                return;
+            }
+
+
+            /* =================================================
+               IMAGE CHECK
+            ================================================= */
+
+            const imageFile =
+                imageInput.files[0];
+
+
+            if (
+                !imageFile.type ||
+                !imageFile.type.startsWith("image/")
+            ) {
+
+                alert(
+                    "Please select a valid image file."
+                );
+
+                return;
+            }
+
+
+            /* =================================================
+               BUTTON STATE
+            ================================================= */
+
+            mintBtn.disabled = true;
+
+            mintBtn.innerText =
+                "Saving NFT...";
+
+
+            /* =================================================
+               CREATE SAFE IMAGE INFORMATION
+               
+               IMPORTANT:
+               Hindi natin ise-save ang malaking Base64
+               image sa localStorage.
+            ================================================= */
+
+            const imageInfo = {
+
+                name:
+                    imageFile.name,
+
+                type:
+                    imageFile.type,
+
+                size:
+                    imageFile.size
+
+            };
+
+
+            /* =================================================
+               CREATE NFT
+            ================================================= */
+
+            const nft = {
+
+                id:
+                    "ALB-" +
+                    Date.now() +
+                    "-" +
+                    Math.random()
+                        .toString(36)
+                        .substring(2, 8),
+
+                name:
+                    name,
+
+                description:
+                    desc,
+
+                collection:
+                    selectedCollection,
+
+                category:
+                    selectedCategory,
+
+                rarity:
+                    selectedRarity,
+
+                level:
+                    selectedLevel,
+
+                price:
+                    priceValue,
+
+                currency:
+                    "Pi",
+
+                image:
+                    imageInfo,
+
+                owner:
+                    piUser,
+
+                creator:
+                    piUser,
+
+                status:
+                    "Sandbox Minted",
+
+                minted:
+                    true,
+
+                network:
+                    "Pi Sandbox",
+
+                createdAt:
+                    new Date().toISOString()
+
+            };
+
+
+            /* =================================================
+               LOAD EXISTING COLLECTION
+            ================================================= */
+
+            let myCollection = [];
 
             try {
 
-                /* =============================
-                   CHECK PI USER
-                ============================= */
-
-                const piUser =
-                    localStorage.getItem("piUser");
-
-
-                if (!piUser) {
-
-                    alert(
-                        "Please connect your Pi account first."
+                const saved =
+                    localStorage.getItem(
+                        "myCollection"
                     );
 
-                    window.location.href =
-                        "index.html";
+                if (saved) {
 
-                    return;
-                }
+                    const parsed =
+                        JSON.parse(saved);
 
+                    if (Array.isArray(parsed)) {
 
-                /* =============================
-                   GET VALUES
-                ============================= */
+                        myCollection =
+                            parsed;
 
-                const name =
-                    nftName.value.trim();
-
-                const desc =
-                    description.value.trim();
-
-                const selectedCollection =
-                    collection.value;
-
-                const selectedCategory =
-                    category.value;
-
-                const priceValue =
-                    Number(price.value);
-
-
-                /* =============================
-                   VALIDATION
-                ============================= */
-
-                if (!name) {
-
-                    alert(
-                        "Please enter your NFT name."
-                    );
-
-                    nftName.focus();
-
-                    return;
-                }
-
-
-                if (!desc) {
-
-                    alert(
-                        "Please enter an NFT description."
-                    );
-
-                    description.focus();
-
-                    return;
-                }
-
-
-                if (
-                    !priceValue ||
-                    priceValue <= 0
-                ) {
-
-                    alert(
-                        "Please enter a valid Pi price."
-                    );
-
-                    price.focus();
-
-                    return;
-                }
-
-
-                if (
-                    !imageInput.files ||
-                    imageInput.files.length === 0
-                ) {
-
-                    alert(
-                        "Please upload your NFT image."
-                    );
-
-                    imageInput.focus();
-
-                    return;
-                }
-
-
-                /* =============================
-                   IMAGE VALIDATION
-                ============================= */
-
-                const imageFile =
-                    imageInput.files[0];
-
-
-                if (
-                    !imageFile.type.startsWith(
-                        "image/"
-                    )
-                ) {
-
-                    alert(
-                        "Please select a valid image file."
-                    );
-
-                    return;
-                }
-
-
-                /* =============================
-                   BUTTON STATE
-                ============================= */
-
-                mintBtn.disabled = true;
-
-                mintBtn.innerText =
-                    "Saving NFT...";
-
-
-                /* =============================
-                   READ IMAGE
-                ============================= */
-
-                const imageData =
-                    await readImage(
-                        imageFile
-                    );
-
-
-                /* =============================
-                   CREATE NFT
-                ============================= */
-
-                const nft = {
-
-                    id:
-                        "ALB-" +
-                        Date.now() +
-                        "-" +
-                        Math.random()
-                            .toString(36)
-                            .substring(2, 8),
-
-                    name:
-                        name,
-
-                    description:
-                        desc,
-
-                    collection:
-                        selectedCollection,
-
-                    category:
-                        selectedCategory,
-
-                    rarity:
-                        document.getElementById(
-                            "rarity"
-                        )?.value ||
-                        "Common",
-
-                    level:
-                        Number(
-                            document.getElementById(
-                                "level"
-                            )?.value ||
-                            1
-                        ),
-
-                    royalty:
-                        5,
-
-                    price:
-                        priceValue,
-
-                    currency:
-                        "Pi",
-
-                    image:
-                        imageData,
-
-                    owner:
-                        piUser,
-
-                    creator:
-                        piUser,
-
-                    status:
-                        "Sandbox Minted",
-
-                    minted:
-                        true,
-
-                    network:
-                        "Pi Sandbox",
-
-                    createdAt:
-                        new Date().toISOString()
-
-                };
-
-
-                /* =================================================
-                   SAVE TO EXISTING COLLECTION
-                ================================================= */
-
-                let myCollection = [];
-
-                try {
-
-                    myCollection =
-                        JSON.parse(
-                            localStorage.getItem(
-                                "myCollection"
-                            )
-                        ) || [];
-
-                } catch (error) {
-
-                    console.warn(
-                        "Existing collection could not be read."
-                    );
-
-                    myCollection = [];
+                    }
 
                 }
 
+            } catch (error) {
 
-                myCollection.push(nft);
+                console.warn(
+                    "Old collection data could not be loaded.",
+                    error
+                );
 
+                myCollection = [];
+
+            }
+
+
+            /* =================================================
+               REMOVE OLD LARGE IMAGE DATA
+               
+               Ito ang safety cleanup para hindi na
+               bumalik ang quota error.
+            ================================================= */
+
+            myCollection =
+                myCollection.map(function (item) {
+
+                    if (
+                        item &&
+                        typeof item.image === "string" &&
+                        item.image.length > 1000
+                    ) {
+
+                        return {
+                            ...item,
+                            image:
+                                {
+                                    name:
+                                        "previous-image",
+                                    type:
+                                        "image/unknown",
+                                    size:
+                                        0
+                                }
+                        };
+
+                    }
+
+                    return item;
+
+                });
+
+
+            /* =================================================
+               ADD NEW NFT
+            ================================================= */
+
+            myCollection.push(nft);
+
+
+            /* =================================================
+               SAVE COLLECTION SAFELY
+            ================================================= */
+
+            try {
 
                 localStorage.setItem(
                     "myCollection",
@@ -296,47 +368,124 @@ document.addEventListener("DOMContentLoaded", function () {
                     )
                 );
 
+            } catch (storageError) {
 
-                /* =================================================
-                   SAVE LAST MINT
-                ================================================= */
-
-                localStorage.setItem(
-                    "lastMintedNFT",
-                    JSON.stringify(
-                        nft
-                    )
+                console.error(
+                    "Collection storage error:",
+                    storageError
                 );
 
-
-                /* =================================================
-                   SAVE SHARED ALBERTO NFT LIST
-                ================================================= */
-
-                let albertoNFTs = [];
+                /*
+                 * Kung may lumang sobrang laki pa rin,
+                 * ise-save natin ang latest NFT lamang.
+                 */
 
                 try {
 
-                    albertoNFTs =
-                        JSON.parse(
-                            localStorage.getItem(
-                                "albertoMintedNFTs"
-                            )
-                        ) || [];
-
-                } catch (error) {
-
-                    console.warn(
-                        "Alberto NFT list could not be read."
+                    localStorage.setItem(
+                        "myCollection",
+                        JSON.stringify([
+                            nft
+                        ])
                     );
 
-                    albertoNFTs = [];
+                } catch (finalError) {
+
+                    throw new Error(
+                        "Browser storage is full. Please clear the old NFT data from this site and try again."
+                    );
 
                 }
 
+            }
 
-                albertoNFTs.push(nft);
 
+            /* =================================================
+               SAVE LAST MINT
+            ================================================= */
+
+            try {
+
+                localStorage.setItem(
+                    "lastMintedNFT",
+                    JSON.stringify(nft)
+                );
+
+            } catch (error) {
+
+                console.warn(
+                    "Last minted NFT could not be saved.",
+                    error
+                );
+
+            }
+
+
+            /* =================================================
+               SAVE SHARED NFT METADATA
+            ================================================= */
+
+            let albertoNFTs = [];
+
+            try {
+
+                const savedNFTs =
+                    localStorage.getItem(
+                        "albertoMintedNFTs"
+                    );
+
+                if (savedNFTs) {
+
+                    const parsedNFTs =
+                        JSON.parse(savedNFTs);
+
+                    if (
+                        Array.isArray(parsedNFTs)
+                    ) {
+
+                        albertoNFTs =
+                            parsedNFTs;
+
+                    }
+
+                }
+
+            } catch (error) {
+
+                albertoNFTs = [];
+
+            }
+
+
+            /*
+             * Keep only metadata-safe records.
+             */
+
+            albertoNFTs =
+                albertoNFTs.map(function (item) {
+
+                    if (
+                        item &&
+                        typeof item.image === "string" &&
+                        item.image.length > 1000
+                    ) {
+
+                        return {
+                            ...item,
+                            image: null
+                        };
+
+                    }
+
+                    return item;
+
+                });
+
+
+            albertoNFTs.push(nft);
+
+
+            try {
 
                 localStorage.setItem(
                     "albertoMintedNFTs",
@@ -345,129 +494,82 @@ document.addEventListener("DOMContentLoaded", function () {
                     )
                 );
 
-
-                /* =================================================
-                   SUCCESS
-                ================================================= */
-
-                mintBtn.innerText =
-                    "✓ NFT Saved";
-
-                mintBtn.disabled =
-                    true;
-
-
-                alert(
-
-                    "🎉 NFT Saved Successfully!\n\n" +
-
-                    "NFT: " +
-                    name +
-
-                    "\nOwner: @" +
-                    piUser +
-
-                    "\nPrice: " +
-                    priceValue +
-                    " Pi" +
-
-                    "\n\nNetwork: Pi Sandbox"
-
-                );
-
-
-                /* =================================================
-                   REDIRECT
-                ================================================= */
-
-                setTimeout(
-                    function () {
-
-                        window.location.href =
-                            "collections.html";
-
-                    },
-                    800
-                );
-
-
             } catch (error) {
 
-                console.error(
-                    "Mint Error:",
+                console.warn(
+                    "Shared NFT list could not be saved.",
                     error
                 );
 
-
-                mintBtn.disabled =
-                    false;
-
-                mintBtn.innerText =
-                    "🔨 Mint NFT";
-
-
-                alert(
-
-                    "Mint failed.\n\n" +
-
-                    (
-                        error.message ||
-                        String(error)
-                    )
-
-                );
-
             }
+
+
+            /* =================================================
+               SUCCESS
+            ================================================= */
+
+            mintBtn.innerText =
+                "✓ NFT Saved";
+
+            alert(
+
+                "🎉 NFT Saved Successfully!\n\n" +
+
+                "NFT: " +
+                name +
+
+                "\nOwner: @" +
+                piUser +
+
+                "\nPrice: " +
+                priceValue +
+                " Pi" +
+
+                "\n\nNetwork: Pi Sandbox"
+
+            );
+
+
+            /* =================================================
+               GO TO COLLECTION
+            ================================================= */
+
+            setTimeout(function () {
+
+                window.location.href =
+                    "collections.html";
+
+            }, 800);
+
+
+        } catch (error) {
+
+            console.error(
+                "Mint Error:",
+                error
+            );
+
+
+            mintBtn.disabled =
+                false;
+
+            mintBtn.innerText =
+                "🔨 Mint NFT";
+
+
+            alert(
+
+                "Mint failed:\n\n" +
+
+                (
+                    error.message ||
+                    String(error)
+                )
+
+            );
 
         }
-    );
 
-
-    /* =====================================================
-       IMAGE READER
-    ===================================================== */
-
-    function readImage(file) {
-
-        return new Promise(
-            function (
-                resolve,
-                reject
-            ) {
-
-                const reader =
-                    new FileReader();
-
-
-                reader.onload =
-                    function (event) {
-
-                        resolve(
-                            event.target.result
-                        );
-
-                    };
-
-
-                reader.onerror =
-                    function () {
-
-                        reject(
-                            new Error(
-                                "Unable to read NFT image."
-                            )
-                        );
-
-                    };
-
-
-                reader.readAsDataURL(
-                    file
-                );
-
-            }
-        );
-
-    }
+    });
 
 });

@@ -1470,8 +1470,173 @@ function closePetModal(){
 document.getElementById("petModal").style.display="none";
 
 }
+<script>
 
+const petNFTs = [
+
+{
+name:"Golden Tiger",
+image:"golden-tiger.png",
+element:"Light",
+rarity:"Legendary",
+hp:450,
+atk:90,
+skill:"Golden Roar"
+},
+
+{
+name:"Inferno Dragon",
+image:"inferno-dragon.png",
+element:"Fire",
+rarity:"Mythic",
+hp:600,
+atk:120,
+skill:"Inferno Breath"
+},
+
+{
+name:"Nature Mantis",
+image:"nature-mantis.png",
+element:"Nature",
+rarity:"Epic",
+hp:280,
+atk:70,
+skill:"Blade Strike"
+},
+
+{
+name:"Ocean Shark",
+image:"ocean-shark.png",
+element:"Water",
+rarity:"Epic",
+hp:320,
+atk:75,
+skill:"Tidal Bite"
+},
+
+{
+name:"Phoenix",
+image:"phoenix.png",
+element:"Fire",
+rarity:"Legendary",
+hp:500,
+atk:100,
+skill:"Rebirth Flame"
+},
+
+{
+name:"Shadow Spider",
+image:"shadow-spider.png",
+element:"Dark",
+rarity:"Rare",
+hp:250,
+atk:60,
+skill:"Venom Web"
+},
+
+{
+name:"Storm Eagle",
+image:"storm-eagle.png",
+element:"Lightning",
+rarity:"Epic",
+hp:310,
+atk:85,
+skill:"Thunder Dive"
+},
+
+{
+name:"Swamp Crocodile",
+image:"swamp-crocodile.png",
+element:"Earth",
+rarity:"Rare",
+hp:380,
+atk:65,
+skill:"Mud Crush"
+},
+
+{
+name:"Thunder Bee",
+image:"thunder-bee.png",
+element:"Lightning",
+rarity:"Rare",
+hp:180,
+atk:55,
+skill:"Shock Sting"
+},
+
+{
+name:"Void Wolf",
+image:"void-wolf.png",
+element:"Void",
+rarity:"Mythic",
+hp:520,
+atk:115,
+skill:"Void Howl"
+}
+
+];
+
+document.addEventListener("DOMContentLoaded", ()=>{
+
+const marketGrid=document.querySelector(".market-grid");
+
+petNFTs.forEach(pet=>{
+
+const card=document.createElement("div");
+
+card.className="card";
+card.dataset.category="pet";
+
+card.innerHTML=`
+
+<div class="nft-image">
+
+<img src="${pet.image}" alt="${pet.name}">
+
+<span class="rarity">${pet.rarity}</span>
+
+</div>
+
+<div class="card-body">
+
+<p class="collection">Pet NFT</p>
+
+<h2>${pet.name}</h2>
+
+<p class="description">
+${pet.element} Element Pet
+</p>
+
+<div class="card-bottom">
+
+<div>
+
+<small>Price</small>
+
+<strong>10 Pi</strong>
+
+</div>
+
+<button
+type="button"
+class="buy-btn"
+onclick="openPetModal('${pet.image}')">
+
+View Pet
+
+</button>
+
+</div>
+
+</div>
+
+`;
+
+marketGrid.appendChild(card);
+
+});
+
+});
 </script>
-
 </body>
 </html>

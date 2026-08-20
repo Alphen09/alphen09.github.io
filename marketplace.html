@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+I'm<!DOCTYPE html>
 <html lang="en">
 <head>
 
@@ -1426,7 +1426,52 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 </script>
+<div id="petModal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.85);z-index:9999;align-items:center;justify-content:center;">
+    <div style="background:#130b1c;border:1px solid #8c5bd1;border-radius:20px;padding:25px;max-width:420px;width:90%;color:white;text-align:center;">
+        <img id="petImage" src="" style="width:180px;height:180px;object-fit:cover;border-radius:15px;">
+        
+        <h2 id="petName"></h2>
 
+        <p><strong>Element:</strong> <span id="petElement"></span></p>
+        <p><strong>Rarity:</strong> <span id="petRarity"></span></p>
+        <p><strong>HP:</strong> <span id="petHP"></span></p>
+        <p><strong>ATK:</strong> <span id="petATK"></span></p>
+
+        <p>
+            <strong>Ability:</strong><br>
+            <span id="petSkill"></span>
+        </p>
+
+        <button onclick="closePetModal()" class="buy-btn">
+            Close
+        </button>
+    </div>
+</div>
+
+<script>
+
+function openPetModal(imageFile){
+
+document.getElementById("petImage").src=imageFile;
+document.getElementById("petName").innerText=imageFile;
+
+document.getElementById("petElement").innerText="Unknown";
+document.getElementById("petRarity").innerText="Common";
+document.getElementById("petHP").innerText="100";
+document.getElementById("petATK").innerText="20";
+document.getElementById("petSkill").innerText="Basic Ability";
+
+document.getElementById("petModal").style.display="flex";
+
+}
+
+function closePetModal(){
+
+document.getElementById("petModal").style.display="none";
+
+}
+
+</script>
 
 </body>
 </html>

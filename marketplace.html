@@ -10,6 +10,11 @@
 <script src="https://sdk.minepi.com/pi-sdk.js"></script>
 
 <style>
+
+/* =========================================================
+   RESET
+========================================================= */
+
 *{
     box-sizing:border-box;
     margin:0;
@@ -23,27 +28,37 @@ html{
 body{
     min-height:100vh;
     background:
-        radial-gradient(circle at top,#321050 0%,#13091f 42%,#060409 100%);
+        radial-gradient(
+            circle at top,
+            #321050 0%,
+            #13091f 42%,
+            #060409 100%
+        );
     color:#fff;
     font-family:Arial,Helvetica,sans-serif;
     overflow-x:hidden;
 }
 
-/* =========================
+
+/* =========================================================
    HEADER
-========================= */
+========================================================= */
 
 .topbar{
     min-height:74px;
     padding:10px 16px;
+
     display:flex;
     align-items:center;
     gap:12px;
+
     background:rgba(7,4,12,.97);
     border-bottom:1px solid rgba(168,94,255,.3);
+
     position:sticky;
     top:0;
     z-index:100;
+
     box-shadow:0 8px 30px rgba(0,0,0,.35);
 }
 
@@ -57,9 +72,12 @@ body{
 .brand-logo-fixed{
     width:45px;
     height:45px;
+
     border-radius:12px;
     overflow:hidden;
+
     border:1px solid #9b55ed;
+
     flex-shrink:0;
 }
 
@@ -93,8 +111,10 @@ body{
     border:1px solid #8147bb;
     background:#160c22;
     color:#fff;
+
     padding:10px 13px;
     border-radius:11px;
+
     cursor:pointer;
     font-weight:bold;
 }
@@ -103,23 +123,42 @@ body{
     background:#241039;
 }
 
-/* =========================
+
+/* =========================================================
    HERO
-========================= */
+========================================================= */
 
 .hero{
     position:relative;
     overflow:hidden;
+
     min-height:460px;
     padding:55px 7%;
+
     display:flex;
     align-items:center;
     justify-content:space-between;
+
     gap:30px;
+
     background:
-        radial-gradient(circle at 78% 45%,rgba(140,55,255,.22),transparent 32%),
-        radial-gradient(circle at 20% 20%,rgba(80,25,150,.2),transparent 35%),
-        linear-gradient(145deg,#08050d,#180b29 50%,#060509);
+        radial-gradient(
+            circle at 78% 45%,
+            rgba(140,55,255,.22),
+            transparent 32%
+        ),
+        radial-gradient(
+            circle at 20% 20%,
+            rgba(80,25,150,.2),
+            transparent 35%
+        ),
+        linear-gradient(
+            145deg,
+            #08050d,
+            #180b29 50%,
+            #060509
+        );
+
     border-bottom:1px solid rgba(145,70,220,.4);
 }
 
@@ -131,31 +170,40 @@ body{
 
 .eyebrow{
     display:inline-block;
+
     padding:8px 13px;
+
     border:1px solid #9655d0;
     border-radius:999px;
+
     color:#d5a7ff;
     font-size:11px;
     font-weight:bold;
     letter-spacing:2px;
+
     background:rgba(25,10,40,.7);
 }
 
 .hero h1{
     margin:18px 0 15px;
+
     font-size:clamp(42px,7vw,76px);
     line-height:1;
 }
 
 .hero h1 span{
     color:#a5ff52;
-    text-shadow:0 0 25px rgba(150,255,80,.35);
+
+    text-shadow:
+        0 0 25px rgba(150,255,80,.35);
 }
 
 .hero-copy{
     color:#c9c0d2;
+
     font-size:17px;
     line-height:1.7;
+
     max-width:540px;
 }
 
@@ -163,24 +211,29 @@ body{
     display:flex;
     flex-wrap:wrap;
     gap:12px;
+
     margin-top:25px;
 }
 
 .hero-action{
     padding:14px 18px;
+
     border-radius:13px;
+
     font-weight:bold;
     cursor:pointer;
 }
 
 .hero-action.primary{
     border:none;
+
     background:#a5ff52;
     color:#071006;
 }
 
 .hero-action.secondary{
     border:1px solid #8150ad;
+
     background:#140b1d;
     color:#fff;
 }
@@ -188,8 +241,10 @@ body{
 .hero-pet{
     position:relative;
     z-index:3;
+
     width:330px;
     height:330px;
+
     display:flex;
     align-items:center;
     justify-content:center;
@@ -197,62 +252,93 @@ body{
 
 .hero-ring{
     position:absolute;
+
     width:310px;
     height:310px;
+
     border-radius:50%;
+
     border:1px solid rgba(190,115,255,.6);
+
     box-shadow:
         0 0 50px rgba(150,55,255,.35),
         inset 0 0 40px rgba(150,55,255,.2);
+
     animation:spin 12s linear infinite;
 }
 
 .hero-pet img{
     position:relative;
+
     width:230px;
     height:230px;
+
     object-fit:contain;
-    filter:drop-shadow(0 0 30px rgba(190,100,255,.55));
+
+    filter:
+        drop-shadow(
+            0 0 30px rgba(190,100,255,.55)
+        );
+
     animation:floatPet 3s ease-in-out infinite;
 }
 
 @keyframes spin{
-    to{transform:rotate(360deg);}
+    to{
+        transform:rotate(360deg);
+    }
 }
 
 @keyframes floatPet{
-    0%,100%{transform:translateY(0);}
-    50%{transform:translateY(-13px);}
+
+    0%,100%{
+        transform:translateY(0);
+    }
+
+    50%{
+        transform:translateY(-13px);
+    }
 }
 
-/* =========================
+
+/* =========================================================
    CONTROLS
-========================= */
+========================================================= */
 
 .market-controls{
     max-width:1250px;
+
     margin:0 auto;
+
     padding:28px 18px 10px;
 }
 
 .search-box{
     max-width:650px;
+
     margin:0 auto 18px;
+
     display:flex;
     align-items:center;
     gap:10px;
+
     padding:13px 16px;
+
     border:1px solid rgba(160,90,235,.3);
     border-radius:14px;
+
     background:rgba(14,8,22,.9);
 }
 
 .search-box input{
     width:100%;
+
     border:none;
     outline:none;
+
     background:transparent;
     color:white;
+
     font-size:14px;
 }
 
@@ -269,10 +355,13 @@ body{
 
 .category{
     padding:10px 15px;
+
     border:1px solid #633a84;
     border-radius:999px;
+
     background:#12091b;
     color:#cdbadd;
+
     cursor:pointer;
     font-weight:bold;
 }
@@ -284,13 +373,16 @@ body{
     border-color:#9b5ae5;
 }
 
-/* =========================
+
+/* =========================================================
    MARKET
-========================= */
+========================================================= */
 
 .market-container{
     max-width:1250px;
+
     margin:auto;
+
     padding:25px 18px 60px;
 }
 
@@ -298,7 +390,9 @@ body{
     display:flex;
     align-items:center;
     justify-content:space-between;
+
     gap:15px;
+
     margin-bottom:22px;
 }
 
@@ -308,77 +402,143 @@ body{
 
 .market-heading p{
     margin-top:5px;
+
     color:#8f849b;
     font-size:13px;
 }
 
 .network{
     color:#9dff68;
+
     font-size:12px;
     font-weight:bold;
 }
 
 .market-grid{
     display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+
+    grid-template-columns:
+        repeat(
+            auto-fit,
+            minmax(260px,1fr)
+        );
+
     gap:20px;
 }
 
-/* =========================
+
+/* =========================================================
    PET CARD
-========================= */
+========================================================= */
 
 .card{
     overflow:hidden;
+
     border:1px solid rgba(157,86,235,.28);
     border-radius:20px;
+
     background:
-        linear-gradient(145deg,rgba(32,17,47,.98),rgba(10,6,15,.98));
-    box-shadow:0 14px 35px rgba(0,0,0,.38);
+        linear-gradient(
+            145deg,
+            rgba(32,17,47,.98),
+            rgba(10,6,15,.98)
+        );
+
+    box-shadow:
+        0 14px 35px rgba(0,0,0,.38);
+
     transition:.25s ease;
+
     cursor:pointer;
 }
 
 .card:hover{
     transform:translateY(-6px);
+
     border-color:#9c57e7;
+
     box-shadow:
         0 18px 45px rgba(125,50,220,.2);
 }
 
+
+/* =========================================================
+   PET IMAGE
+   FIXED / RESPONSIVE IMAGE FRAME
+========================================================= */
+
 .nft-image{
     position:relative;
-    height:270px;
+
+    width:100%;
+    height:320px;
+
     background:
-        radial-gradient(circle,#32124f,#09050e);
+        radial-gradient(
+            circle at center,
+            #351357 0%,
+            #160922 55%,
+            #09050e 100%
+        );
+
     overflow:hidden;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
 }
 
 .nft-image img{
     width:100%;
     height:100%;
+
     object-fit:contain;
+    object-position:center;
+
     display:block;
-    padding:12px;
-    transition:.3s ease;
+
+    padding:10px;
+
+    transition:
+        transform .3s ease,
+        opacity .3s ease;
 }
 
 .card:hover .nft-image img{
-    transform:scale(1.05);
+    transform:scale(1.04);
 }
+
+
+/* =========================================================
+   RARITY
+========================================================= */
 
 .rarity{
     position:absolute;
+
     top:12px;
     right:12px;
+
     padding:7px 10px;
+
     border-radius:999px;
+
     background:rgba(10,5,15,.82);
+
     border:1px solid rgba(201,130,255,.55);
+
     color:#e0bcff;
+
     font-size:10px;
     font-weight:bold;
+
+    z-index:3;
 }
+
+
+/* =========================================================
+   CARD BODY
+========================================================= */
 
 .card-body{
     padding:17px;
@@ -386,61 +546,89 @@ body{
 
 .collection{
     color:#a87bd2;
+
     font-size:11px;
     font-weight:bold;
+
     text-transform:uppercase;
+
     letter-spacing:1px;
 }
 
 .card h2{
     margin-top:7px;
+
     font-size:20px;
 }
 
 .description{
     color:#9990a3;
+
     font-size:12px;
     line-height:1.5;
+
     margin-top:8px;
 }
 
 .card-bottom{
     margin-top:17px;
+
     padding-top:14px;
-    border-top:1px solid rgba(145,85,200,.15);
+
+    border-top:
+        1px solid rgba(145,85,200,.15);
+
     display:flex;
     align-items:center;
     justify-content:space-between;
+
     gap:10px;
 }
 
 .card-bottom small{
     display:block;
+
     color:#777080;
     font-size:10px;
 }
 
 .card-bottom strong{
     display:block;
+
     margin-top:4px;
+
     color:#d8b7ff;
     font-size:17px;
 }
 
 .buy-area{
     display:flex;
+
     flex-direction:column;
+
     gap:7px;
+
     min-width:135px;
 }
 
 .buy-btn{
     border:none;
+
     border-radius:10px;
+
     padding:11px 12px;
-    background:linear-gradient(135deg,#7138c8,#a653f0);
+
+    background:
+        linear-gradient(
+            135deg,
+            #7138c8,
+            #a653f0
+        );
+
     color:white;
+
     font-weight:bold;
+
     cursor:pointer;
 }
 
@@ -450,164 +638,241 @@ body{
 
 .amt-btn{
     border:1px solid #5e8c4c;
+
     border-radius:10px;
+
     padding:9px 10px;
+
     background:rgba(65,110,40,.13);
+
     color:#9eea7d;
+
     font-size:10px;
     font-weight:bold;
+
     cursor:not-allowed;
+
     opacity:.65;
 }
 
-/* =========================
+
+/* =========================================================
    PET MODAL
-========================= */
+========================================================= */
 
 .pet-modal{
     display:none;
+
     position:fixed;
     inset:0;
+
     z-index:9999;
+
     align-items:center;
     justify-content:center;
+
     padding:18px;
+
     background:rgba(0,0,0,.82);
+
     backdrop-filter:blur(6px);
 }
 
 .pet-box{
     position:relative;
+
     width:100%;
     max-width:390px;
     max-height:90vh;
+
     overflow:auto;
+
     padding:20px;
+
     border:1px solid #9754e5;
+
     border-radius:22px;
+
     background:
-        linear-gradient(145deg,#26113b,#0c0711);
-    box-shadow:0 20px 70px rgba(0,0,0,.7);
+        linear-gradient(
+            145deg,
+            #26113b,
+            #0c0711
+        );
+
+    box-shadow:
+        0 20px 70px rgba(0,0,0,.7);
+
     text-align:center;
 }
 
 .close-pet{
     position:absolute;
+
     top:12px;
     right:15px;
+
     width:34px;
     height:34px;
+
     border:1px solid #7542a0;
+
     border-radius:50%;
+
     background:#160b20;
     color:white;
+
     cursor:pointer;
+
+    z-index:5;
 }
 
 .pet-modal-image{
     width:220px;
-    height:220px;
+    height:300px;
+
     object-fit:contain;
+
+    object-position:center;
+
+    display:block;
+
     margin:15px auto 5px;
 }
 
 .pet-box h2{
     font-size:26px;
+
     margin:8px 0;
 }
 
 .pet-rarity{
     color:#cba1ef;
+
     font-size:12px;
     font-weight:bold;
 }
 
 .stats-grid{
     display:grid;
+
     grid-template-columns:1fr 1fr;
+
     gap:9px;
+
     margin-top:18px;
 }
 
 .stat{
     padding:12px;
+
     border:1px solid rgba(154,85,225,.2);
+
     border-radius:12px;
+
     background:rgba(10,6,16,.6);
 }
 
 .stat span{
     display:block;
+
     color:#827889;
+
     font-size:10px;
 }
 
 .stat strong{
     display:block;
+
     margin-top:4px;
+
     color:#e2c7ff;
+
     font-size:16px;
 }
 
 .ability{
     margin-top:13px;
+
     padding:14px;
+
     border-radius:13px;
+
     border:1px solid rgba(159,91,237,.3);
+
     background:rgba(105,45,170,.12);
 }
 
 .ability span{
     display:block;
+
     color:#827889;
+
     font-size:10px;
 }
 
 .ability strong{
     display:block;
+
     margin-top:5px;
+
     color:#b9ff83;
 }
 
-/* =========================
+
+/* =========================================================
    FOOTER
-========================= */
+========================================================= */
 
 .footer{
     padding:30px 15px;
+
     text-align:center;
-    border-top:1px solid rgba(130,75,190,.2);
+
+    border-top:
+        1px solid rgba(130,75,190,.2);
+
     color:#77717d;
+
     font-size:11px;
 }
 
 .footer strong{
     display:block;
+
     margin-bottom:7px;
+
     color:#bca0d5;
+
     font-size:14px;
 }
 
-/* =========================
+
+/* =========================================================
    MOBILE
-========================= */
+========================================================= */
 
 @media(max-width:760px){
 
     .topbar{
         flex-wrap:wrap;
+
         padding:9px 10px;
     }
 
     .pi-user{
         order:3;
+
         width:100%;
+
         text-align:center;
+
         margin:0;
     }
 
     .profile-btn{
         padding:9px 10px;
+
         font-size:11px;
     }
 
@@ -617,13 +882,17 @@ body{
 
     .hero{
         min-height:650px;
+
         display:block;
+
         text-align:center;
+
         padding:40px 20px 20px;
     }
 
     .hero-copy{
         margin:auto;
+
         font-size:15px;
     }
 
@@ -634,6 +903,7 @@ body{
     .hero-pet{
         width:100%;
         height:300px;
+
         margin-top:15px;
     }
 
@@ -649,6 +919,7 @@ body{
 
     .market-heading{
         align-items:flex-start;
+
         flex-direction:column;
     }
 
@@ -661,9 +932,19 @@ body{
     }
 
     .nft-image{
-        height:300px;
+        height:320px;
+    }
+
+    .pet-modal-image{
+        width:210px;
+        height:290px;
     }
 }
+
+
+/* =========================================================
+   SMALL PHONE
+========================================================= */
 
 @media(max-width:380px){
 
@@ -678,35 +959,56 @@ body{
     .hero-action{
         width:100%;
     }
+
+    .nft-image{
+        height:300px;
+    }
 }
+
 </style>
 </head>
 
+
 <body>
 
-<!-- =========================
+
+<!-- =========================================================
      HEADER
-========================= -->
+========================================================= -->
 
 <header class="topbar">
 
     <div class="brand">
 
         <div class="brand-logo-fixed">
+
             <img
                 src="alberto%20nft%20marketplace.jpg"
                 alt="Alberto NFT Marketplace"
             >
+
         </div>
 
         <div class="brand-text">
-            <strong>Alberto NFT</strong>
-            <span>Pet Marketplace</span>
+
+            <strong>
+                Alberto NFT
+            </strong>
+
+            <span>
+                Pet Marketplace
+            </span>
+
         </div>
 
     </div>
 
-    <div id="pi-user" class="pi-user"></div>
+
+    <div
+        id="pi-user"
+        class="pi-user"
+    ></div>
+
 
     <button
         class="profile-btn"
@@ -715,6 +1017,7 @@ body{
     >
         👤 Profile
     </button>
+
 
     <button
         class="profile-btn"
@@ -727,9 +1030,9 @@ body{
 </header>
 
 
-<!-- =========================
+<!-- =========================================================
      HERO
-========================= -->
+========================================================= -->
 
 <section class="hero">
 
@@ -739,16 +1042,26 @@ body{
             ✦ ALBERTO PET MARKETPLACE
         </p>
 
+
         <h1>
+
             Discover
-            <span>Legendary Pets</span>
+
+            <span>
+                Legendary Pets
+            </span>
+
         </h1>
 
+
         <p class="hero-copy">
+
             Collect powerful digital pets inside the
             Alberto ecosystem. Choose your companion,
             inspect its abilities and trade using Pi.
+
         </p>
+
 
         <div class="hero-actions">
 
@@ -759,6 +1072,7 @@ body{
             >
                 🐾 EXPLORE PETS
             </button>
+
 
             <button
                 class="hero-action secondary"
@@ -787,15 +1101,17 @@ body{
 </section>
 
 
-<!-- =========================
+<!-- =========================================================
      SEARCH / FILTER
-========================= -->
+========================================================= -->
 
 <section class="market-controls">
 
     <div class="search-box">
 
-        <span>🔎</span>
+        <span>
+            🔎
+        </span>
 
         <input
             id="searchNFT"
@@ -816,6 +1132,7 @@ body{
             🐾 All Pets
         </button>
 
+
         <button
             class="category"
             type="button"
@@ -823,6 +1140,7 @@ body{
         >
             ⭐ Legendary
         </button>
+
 
         <button
             class="category"
@@ -832,6 +1150,7 @@ body{
             👑 Mythic
         </button>
 
+
         <button
             class="category"
             type="button"
@@ -839,6 +1158,7 @@ body{
         >
             💜 Epic
         </button>
+
 
         <button
             class="category"
@@ -853,20 +1173,27 @@ body{
 </section>
 
 
-<!-- =========================
+<!-- =========================================================
      MARKETPLACE
-========================= -->
+========================================================= -->
 
 <main class="market-container">
+
 
     <div class="market-heading">
 
         <div>
-            <h2>🐾 Explore Pets</h2>
+
+            <h2>
+                🐾 Explore Pets
+            </h2>
+
             <p>
                 Alberto digital companions
             </p>
+
         </div>
+
 
         <span class="network">
             ● Pi Sandbox
@@ -878,7 +1205,9 @@ body{
     <div class="market-grid">
 
 
-        <!-- GOLDEN TIGER -->
+        <!-- =================================================
+             GOLDEN TIGER
+        ================================================= -->
 
         <div
             class="card"
@@ -888,8 +1217,10 @@ body{
             <div class="nft-image">
 
                 <img
-                    src="Golden-tiger.png"
+                    src="golden-tiger.png"
                     alt="Golden Tiger"
+                    loading="lazy"
+                    onerror="this.onerror=null;this.src='Golden-tiger.png';"
                 >
 
                 <span class="rarity">
@@ -898,25 +1229,37 @@ body{
 
             </div>
 
+
             <div class="card-body">
 
                 <p class="collection">
                     Alberto Pets
                 </p>
 
-                <h2>Golden Tiger</h2>
+                <h2>
+                    Golden Tiger
+                </h2>
 
                 <p class="description">
                     A powerful golden predator
                     with devastating critical attacks.
                 </p>
 
+
                 <div class="card-bottom">
 
                     <div>
-                        <small>Price</small>
-                        <strong>18 Pi</strong>
+
+                        <small>
+                            Price
+                        </small>
+
+                        <strong>
+                            18 Pi
+                        </strong>
+
                     </div>
+
 
                     <div class="buy-area">
 
@@ -929,6 +1272,7 @@ body{
                             Buy with Pi
                         </button>
 
+
                         <button
                             type="button"
                             class="amt-btn"
@@ -946,7 +1290,9 @@ body{
         </div>
 
 
-        <!-- INFERNO DRAGON -->
+        <!-- =================================================
+             INFERNO DRAGON
+        ================================================= -->
 
         <div
             class="card"
@@ -958,6 +1304,7 @@ body{
                 <img
                     src="inferno-dragon.png"
                     alt="Inferno Dragon"
+                    loading="lazy"
                 >
 
                 <span class="rarity">
@@ -966,25 +1313,37 @@ body{
 
             </div>
 
+
             <div class="card-body">
 
                 <p class="collection">
                     Alberto Pets
                 </p>
 
-                <h2>Inferno Dragon</h2>
+                <h2>
+                    Inferno Dragon
+                </h2>
 
                 <p class="description">
                     Ancient fire dragon with
                     overwhelming flame power.
                 </p>
 
+
                 <div class="card-bottom">
 
                     <div>
-                        <small>Price</small>
-                        <strong>50 Pi</strong>
+
+                        <small>
+                            Price
+                        </small>
+
+                        <strong>
+                            50 Pi
+                        </strong>
+
                     </div>
+
 
                     <div class="buy-area">
 
@@ -997,6 +1356,7 @@ body{
                             Buy with Pi
                         </button>
 
+
                         <button
                             type="button"
                             class="amt-btn"
@@ -1014,7 +1374,9 @@ body{
         </div>
 
 
-        <!-- NATURE MANTIS -->
+        <!-- =================================================
+             NATURE MANTIS
+        ================================================= -->
 
         <div
             class="card"
@@ -1026,6 +1388,7 @@ body{
                 <img
                     src="nature-mantis.png"
                     alt="Nature Mantis"
+                    loading="lazy"
                 >
 
                 <span class="rarity">
@@ -1034,25 +1397,37 @@ body{
 
             </div>
 
+
             <div class="card-body">
 
                 <p class="collection">
                     Alberto Pets
                 </p>
 
-                <h2>Nature Mantis</h2>
+                <h2>
+                    Nature Mantis
+                </h2>
 
                 <p class="description">
                     Swift forest hunter with
                     nature-enhanced attacks.
                 </p>
 
+
                 <div class="card-bottom">
 
                     <div>
-                        <small>Price</small>
-                        <strong>12 Pi</strong>
+
+                        <small>
+                            Price
+                        </small>
+
+                        <strong>
+                            12 Pi
+                        </strong>
+
                     </div>
+
 
                     <div class="buy-area">
 
@@ -1065,6 +1440,7 @@ body{
                             Buy with Pi
                         </button>
 
+
                         <button
                             type="button"
                             class="amt-btn"
@@ -1082,7 +1458,9 @@ body{
         </div>
 
 
-        <!-- OCEAN SHARK -->
+        <!-- =================================================
+             OCEAN SHARK
+        ================================================= -->
 
         <div
             class="card"
@@ -1094,6 +1472,7 @@ body{
                 <img
                     src="ocean-shark.png"
                     alt="Ocean Shark"
+                    loading="lazy"
                 >
 
                 <span class="rarity">
@@ -1102,25 +1481,37 @@ body{
 
             </div>
 
+
             <div class="card-body">
 
                 <p class="collection">
                     Alberto Pets
                 </p>
 
-                <h2>Ocean Shark</h2>
+                <h2>
+                    Ocean Shark
+                </h2>
 
                 <p class="description">
                     Deep-sea predator carrying
                     devastating water attacks.
                 </p>
 
+
                 <div class="card-bottom">
 
                     <div>
-                        <small>Price</small>
-                        <strong>22 Pi</strong>
+
+                        <small>
+                            Price
+                        </small>
+
+                        <strong>
+                            22 Pi
+                        </strong>
+
                     </div>
+
 
                     <div class="buy-area">
 
@@ -1133,6 +1524,7 @@ body{
                             Buy with Pi
                         </button>
 
+
                         <button
                             type="button"
                             class="amt-btn"
@@ -1150,7 +1542,9 @@ body{
         </div>
 
 
-        <!-- PHOENIX -->
+        <!-- =================================================
+             PHOENIX
+        ================================================= -->
 
         <div
             class="card"
@@ -1162,6 +1556,7 @@ body{
                 <img
                     src="phoenix.png"
                     alt="Phoenix"
+                    loading="lazy"
                 >
 
                 <span class="rarity">
@@ -1170,25 +1565,37 @@ body{
 
             </div>
 
+
             <div class="card-body">
 
                 <p class="collection">
                     Alberto Pets
                 </p>
 
-                <h2>Phoenix</h2>
+                <h2>
+                    Phoenix
+                </h2>
 
                 <p class="description">
                     Celestial fire bird blessed
                     with the power of rebirth.
                 </p>
 
+
                 <div class="card-bottom">
 
                     <div>
-                        <small>Price</small>
-                        <strong>60 Pi</strong>
+
+                        <small>
+                            Price
+                        </small>
+
+                        <strong>
+                            60 Pi
+                        </strong>
+
                     </div>
+
 
                     <div class="buy-area">
 
@@ -1201,6 +1608,7 @@ body{
                             Buy with Pi
                         </button>
 
+
                         <button
                             type="button"
                             class="amt-btn"
@@ -1218,7 +1626,9 @@ body{
         </div>
 
 
-        <!-- SHADOW SPIDER -->
+        <!-- =================================================
+             SHADOW SPIDER
+        ================================================= -->
 
         <div
             class="card"
@@ -1230,6 +1640,7 @@ body{
                 <img
                     src="shadow-spider.png"
                     alt="Shadow Spider"
+                    loading="lazy"
                 >
 
                 <span class="rarity">
@@ -1238,25 +1649,37 @@ body{
 
             </div>
 
+
             <div class="card-body">
 
                 <p class="collection">
                     Alberto Pets
                 </p>
 
-                <h2>Shadow Spider</h2>
+                <h2>
+                    Shadow Spider
+                </h2>
 
                 <p class="description">
                     Silent shadow hunter with
                     venomous attacks.
                 </p>
 
+
                 <div class="card-bottom">
 
                     <div>
-                        <small>Price</small>
-                        <strong>15 Pi</strong>
+
+                        <small>
+                            Price
+                        </small>
+
+                        <strong>
+                            15 Pi
+                        </strong>
+
                     </div>
+
 
                     <div class="buy-area">
 
@@ -1269,6 +1692,7 @@ body{
                             Buy with Pi
                         </button>
 
+
                         <button
                             type="button"
                             class="amt-btn"
@@ -1286,7 +1710,9 @@ body{
         </div>
 
 
-        <!-- STORM EAGLE -->
+        <!-- =================================================
+             STORM EAGLE
+        ================================================= -->
 
         <div
             class="card"
@@ -1298,6 +1724,7 @@ body{
                 <img
                     src="storm-eagle.png"
                     alt="Storm Eagle"
+                    loading="lazy"
                 >
 
                 <span class="rarity">
@@ -1306,25 +1733,37 @@ body{
 
             </div>
 
+
             <div class="card-body">
 
                 <p class="collection">
                     Alberto Pets
                 </p>
 
-                <h2>Storm Eagle</h2>
+                <h2>
+                    Storm Eagle
+                </h2>
 
                 <p class="description">
                     Sky predator powered by
                     lightning and storm energy.
                 </p>
 
+
                 <div class="card-bottom">
 
                     <div>
-                        <small>Price</small>
-                        <strong>25 Pi</strong>
+
+                        <small>
+                            Price
+                        </small>
+
+                        <strong>
+                            25 Pi
+                        </strong>
+
                     </div>
+
 
                     <div class="buy-area">
 
@@ -1337,6 +1776,7 @@ body{
                             Buy with Pi
                         </button>
 
+
                         <button
                             type="button"
                             class="amt-btn"
@@ -1354,7 +1794,9 @@ body{
         </div>
 
 
-        <!-- SWAMP CROCODILE -->
+        <!-- =================================================
+             SWAMP CROCODILE
+        ================================================= -->
 
         <div
             class="card"
@@ -1366,6 +1808,7 @@ body{
                 <img
                     src="swamp-crocodile.png"
                     alt="Swamp Crocodile"
+                    loading="lazy"
                 >
 
                 <span class="rarity">
@@ -1374,25 +1817,37 @@ body{
 
             </div>
 
+
             <div class="card-body">
 
                 <p class="collection">
                     Alberto Pets
                 </p>
 
-                <h2>Swamp Crocodile</h2>
+                <h2>
+                    Swamp Crocodile
+                </h2>
 
                 <p class="description">
                     Heavy swamp predator with
                     extreme defensive strength.
                 </p>
 
+
                 <div class="card-bottom">
 
                     <div>
-                        <small>Price</small>
-                        <strong>10 Pi</strong>
+
+                        <small>
+                            Price
+                        </small>
+
+                        <strong>
+                            10 Pi
+                        </strong>
+
                     </div>
+
 
                     <div class="buy-area">
 
@@ -1405,6 +1860,7 @@ body{
                             Buy with Pi
                         </button>
 
+
                         <button
                             type="button"
                             class="amt-btn"
@@ -1422,7 +1878,9 @@ body{
         </div>
 
 
-        <!-- THUNDER BEE -->
+        <!-- =================================================
+             THUNDER BEE
+        ================================================= -->
 
         <div
             class="card"
@@ -1434,6 +1892,7 @@ body{
                 <img
                     src="thunder-bee.png"
                     alt="Thunder Bee"
+                    loading="lazy"
                 >
 
                 <span class="rarity">
@@ -1442,25 +1901,37 @@ body{
 
             </div>
 
+
             <div class="card-body">
 
                 <p class="collection">
                     Alberto Pets
                 </p>
 
-                <h2>Thunder Bee</h2>
+                <h2>
+                    Thunder Bee
+                </h2>
 
                 <p class="description">
                     Tiny lightning attacker with
                     incredible movement speed.
                 </p>
 
+
                 <div class="card-bottom">
 
                     <div>
-                        <small>Price</small>
-                        <strong>8 Pi</strong>
+
+                        <small>
+                            Price
+                        </small>
+
+                        <strong>
+                            8 Pi
+                        </strong>
+
                     </div>
+
 
                     <div class="buy-area">
 
@@ -1473,6 +1944,7 @@ body{
                             Buy with Pi
                         </button>
 
+
                         <button
                             type="button"
                             class="amt-btn"
@@ -1490,7 +1962,9 @@ body{
         </div>
 
 
-        <!-- VOID WOLF -->
+        <!-- =================================================
+             VOID WOLF
+        ================================================= -->
 
         <div
             class="card"
@@ -1502,6 +1976,7 @@ body{
                 <img
                     src="void-wolf.png"
                     alt="Void Wolf"
+                    loading="lazy"
                 >
 
                 <span class="rarity">
@@ -1510,25 +1985,37 @@ body{
 
             </div>
 
+
             <div class="card-body">
 
                 <p class="collection">
                     Alberto Pets
                 </p>
 
-                <h2>Void Wolf</h2>
+                <h2>
+                    Void Wolf
+                </h2>
 
                 <p class="description">
                     Mysterious void companion with
                     powerful dimensional abilities.
                 </p>
 
+
                 <div class="card-bottom">
 
                     <div>
-                        <small>Price</small>
-                        <strong>45 Pi</strong>
+
+                        <small>
+                            Price
+                        </small>
+
+                        <strong>
+                            45 Pi
+                        </strong>
+
                     </div>
+
 
                     <div class="buy-area">
 
@@ -1540,6 +2027,7 @@ body{
                         >
                             Buy with Pi
                         </button>
+
 
                         <button
                             type="button"
@@ -1563,9 +2051,9 @@ body{
 </main>
 
 
-<!-- =========================
+<!-- =========================================================
      PET DETAILS MODAL
-========================= -->
+========================================================= -->
 
 <div
     id="petModal"
@@ -1588,15 +2076,18 @@ body{
             ✕
         </button>
 
+
         <img
             id="petModalImage"
             class="pet-modal-image"
             alt="Pet"
         >
 
+
         <h2 id="petModalName">
             Pet
         </h2>
+
 
         <div
             id="petModalRarity"
@@ -1607,23 +2098,54 @@ body{
         <div class="stats-grid">
 
             <div class="stat">
-                <span>❤️ HP</span>
-                <strong id="petHP">—</strong>
+
+                <span>
+                    ❤️ HP
+                </span>
+
+                <strong id="petHP">
+                    —
+                </strong>
+
             </div>
 
-            <div class="stat">
-                <span>⚔️ Attack</span>
-                <strong id="petAttack">—</strong>
-            </div>
 
             <div class="stat">
-                <span>🛡️ Defense</span>
-                <strong id="petDefense">—</strong>
+
+                <span>
+                    ⚔️ Attack
+                </span>
+
+                <strong id="petAttack">
+                    —
+                </strong>
+
             </div>
 
+
             <div class="stat">
-                <span>⚡ Speed</span>
-                <strong id="petSpeed">—</strong>
+
+                <span>
+                    🛡️ Defense
+                </span>
+
+                <strong id="petDefense">
+                    —
+                </strong>
+
+            </div>
+
+
+            <div class="stat">
+
+                <span>
+                    ⚡ Speed
+                </span>
+
+                <strong id="petSpeed">
+                    —
+                </strong>
+
             </div>
 
         </div>
@@ -1646,9 +2168,9 @@ body{
 </div>
 
 
-<!-- =========================
+<!-- =========================================================
      FOOTER
-========================= -->
+========================================================= -->
 
 <footer class="footer">
 
@@ -1664,17 +2186,17 @@ body{
 </footer>
 
 
-<!-- =========================
+<!-- =========================================================
      EXISTING PAYMENT JAVASCRIPT
-     DO NOT REMOVE
-========================= -->
+     HINDI GINALAW
+========================================================= -->
 
 <script src="marketplace.js"></script>
 
 
-<!-- =========================
+<!-- =========================================================
      PET MARKETPLACE FUNCTIONS
-========================= -->
+========================================================= -->
 
 <script>
 
@@ -1682,9 +2204,9 @@ document.addEventListener(
     "DOMContentLoaded",
     function(){
 
-        /* =========================
+        /* =====================================================
            CATEGORY FILTER
-        ========================= */
+        ===================================================== */
 
         const categoryButtons =
             document.querySelectorAll(".category");
@@ -1702,14 +2224,23 @@ document.addEventListener(
 
                         categoryButtons.forEach(
                             function(btn){
-                                btn.classList.remove("active");
+
+                                btn.classList.remove(
+                                    "active"
+                                );
+
                             }
                         );
 
-                        this.classList.add("active");
+
+                        this.classList.add(
+                            "active"
+                        );
+
 
                         const selectedCategory =
                             this.dataset.category;
+
 
                         nftCards.forEach(
                             function(card){
@@ -1719,9 +2250,13 @@ document.addEventListener(
                                     card.dataset.category ===
                                     selectedCategory
                                 ){
+
                                     card.style.display = "";
+
                                 }else{
+
                                     card.style.display = "none";
+
                                 }
 
                             }
@@ -1734,9 +2269,9 @@ document.addEventListener(
         );
 
 
-        /* =========================
+        /* =====================================================
            PET DATA
-        ========================= */
+        ===================================================== */
 
         const petStats = {
 
@@ -1833,44 +2368,64 @@ document.addEventListener(
         };
 
 
-        /* =========================
+        /* =====================================================
            MODAL ELEMENTS
-        ========================= */
+        ===================================================== */
 
         const modal =
-            document.getElementById("petModal");
+            document.getElementById(
+                "petModal"
+            );
 
         const closeButton =
-            document.getElementById("closePet");
+            document.getElementById(
+                "closePet"
+            );
 
         const modalImage =
-            document.getElementById("petModalImage");
+            document.getElementById(
+                "petModalImage"
+            );
 
         const modalName =
-            document.getElementById("petModalName");
+            document.getElementById(
+                "petModalName"
+            );
 
         const modalRarity =
-            document.getElementById("petModalRarity");
+            document.getElementById(
+                "petModalRarity"
+            );
 
         const modalHP =
-            document.getElementById("petHP");
+            document.getElementById(
+                "petHP"
+            );
 
         const modalAttack =
-            document.getElementById("petAttack");
+            document.getElementById(
+                "petAttack"
+            );
 
         const modalDefense =
-            document.getElementById("petDefense");
+            document.getElementById(
+                "petDefense"
+            );
 
         const modalSpeed =
-            document.getElementById("petSpeed");
+            document.getElementById(
+                "petSpeed"
+            );
 
         const modalAbility =
-            document.getElementById("petAbility");
+            document.getElementById(
+                "petAbility"
+            );
 
 
-        /* =========================
+        /* =====================================================
            OPEN PET DETAILS
-        ========================= */
+        ===================================================== */
 
         nftCards.forEach(
             function(card){
@@ -1880,45 +2435,57 @@ document.addEventListener(
                     function(event){
 
                         /*
-                         * Do not open the details window
-                         * when the user clicks Buy with Pi.
+                         * Huwag buksan ang pet details
+                         * kapag Buy with Pi ang pinindot.
                          */
 
                         if(
-                            event.target.closest(".buy-btn") ||
-                            event.target.closest(".amt-btn")
+                            event.target.closest(
+                                ".buy-btn"
+                            ) ||
+                            event.target.closest(
+                                ".amt-btn"
+                            )
                         ){
+
                             return;
+
                         }
 
 
                         const nameElement =
-                            card.querySelector("h2");
+                            card.querySelector(
+                                "h2"
+                            );
 
                         const imageElement =
-                            card.querySelector(".nft-image img");
-
-                        const rarityElement =
-                            card.querySelector(".rarity");
+                            card.querySelector(
+                                ".nft-image img"
+                            );
 
 
                         if(
                             !nameElement ||
                             !imageElement
                         ){
+
                             return;
+
                         }
 
 
                         const petName =
                             nameElement.textContent.trim();
 
+
                         const stats =
                             petStats[petName];
 
 
                         if(!stats){
+
                             return;
+
                         }
 
 
@@ -1953,6 +2520,7 @@ document.addEventListener(
                         modal.style.display =
                             "flex";
 
+
                         modal.setAttribute(
                             "aria-hidden",
                             "false"
@@ -1965,9 +2533,9 @@ document.addEventListener(
         );
 
 
-        /* =========================
+        /* =====================================================
            CLOSE MODAL
-        ========================= */
+        ===================================================== */
 
         function closePetModal(){
 
@@ -1995,7 +2563,9 @@ document.addEventListener(
                 if(
                     event.target === modal
                 ){
+
                     closePetModal();
+
                 }
 
             }
@@ -2009,11 +2579,62 @@ document.addEventListener(
                 if(
                     event.key === "Escape"
                 ){
+
                     closePetModal();
+
                 }
 
             }
         );
+
+
+        /* =====================================================
+           PET IMAGE ERROR HANDLER
+        ===================================================== */
+
+        document
+            .querySelectorAll(".nft-image img")
+            .forEach(
+                function(img){
+
+                    img.addEventListener(
+                        "error",
+                        function(){
+
+                            if(
+                                img.dataset.failed === "true"
+                            ){
+
+                                return;
+
+                            }
+
+                            /*
+                             * Kung hindi makita ang image,
+                             * subukan muna ang filename
+                             * na may capital letter.
+                             */
+
+                            if(
+                                img.src.toLowerCase()
+                                .includes(
+                                    "golden-tiger.png"
+                                )
+                            ){
+
+                                img.dataset.failed =
+                                    "true";
+
+                                img.src =
+                                    "Golden-tiger.png";
+
+                            }
+
+                        }
+                    );
+
+                }
+            );
 
 
     }

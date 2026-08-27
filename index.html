@@ -1,83 +1,869 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Alberto Pet Marketplace</title>
-    <!-- Pi SDK -->
-    <script src="https://sdk.minepi.com/pi-sdk.js"></script>
-    <style>
-        body { font-family: 'Segoe UI', sans-serif; background-color: #f4f4f9; margin: 0; padding: 20px; text-align: center; }
-        #pi-user { font-size: 1.2rem; color: #5c3b88; margin-bottom: 20px; }
-        
-        /* Marketplace Grid */
-        #pet-container { display: flex; flex-wrap: wrap; justify-content: center; gap: 20px; }
-        .card { background: white; border-radius: 15px; padding: 15px; width: 220px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); cursor: pointer; transition: transform 0.2s; }
-        .card:hover { transform: scale(1.05); }
-        .nft-image img { width: 100%; height: 150px; object-fit: cover; border-radius: 10px; }
-        
-        /* Modal Styling */
-        #petModal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); justify-content: center; align-items: center; z-index: 1000; }
-        .modal-content { background: white; padding: 30px; border-radius: 20px; width: 90%; max-width: 400px; position: relative; }
-        #closePet { position: absolute; top: 10px; right: 20px; font-size: 24px; cursor: pointer; }
-        .stats { text-align: left; margin-top: 15px; }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Alberto Pet Marketplace</title>
+
+<script src="https://sdk.minepi.com/pi-sdk.js"></script>
+
+<style>
+
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+}
+
+html{
+    scroll-behavior:smooth;
+}
+
+body{
+    min-height:100vh;
+    overflow-x:hidden;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    padding:20px;
+
+    font-family:
+        Arial,
+        Helvetica,
+        sans-serif;
+
+    color:#fff;
+
+    background:
+        radial-gradient(
+            circle at 50% 15%,
+            #421566 0%,
+            #190b28 35%,
+            #07040b 78%,
+            #030206 100%
+        );
+}
+
+
+/* =========================================================
+   BACKGROUND EFFECT
+========================================================= */
+
+.background-glow{
+    position:fixed;
+    inset:0;
+
+    pointer-events:none;
+
+    background:
+        radial-gradient(
+            circle at 15% 80%,
+            rgba(111,45,190,.16),
+            transparent 30%
+        ),
+        radial-gradient(
+            circle at 85% 25%,
+            rgba(170,70,255,.13),
+            transparent 30%
+        );
+}
+
+
+/* =========================================================
+   MAIN CARD
+========================================================= */
+
+.login-card{
+
+    position:relative;
+    z-index:2;
+
+    width:100%;
+    max-width:520px;
+
+    padding:38px 28px 32px;
+
+    text-align:center;
+
+    border:1px solid rgba(177,101,255,.38);
+
+    border-radius:28px;
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(37,17,54,.96),
+            rgba(9,5,14,.98)
+        );
+
+    box-shadow:
+        0 25px 80px rgba(0,0,0,.65),
+        0 0 50px rgba(130,50,220,.12);
+}
+
+
+/* =========================================================
+   LOGO
+========================================================= */
+
+.logo-wrap{
+
+    width:105px;
+    height:105px;
+
+    margin:0 auto 20px;
+
+    padding:5px;
+
+    border-radius:24px;
+
+    border:1px solid #9b55ed;
+
+    background:#10081a;
+
+    box-shadow:
+        0 0 35px rgba(160,75,240,.3);
+
+}
+
+.logo-wrap img{
+
+    width:100%;
+    height:100%;
+
+    object-fit:cover;
+
+    border-radius:19px;
+
+}
+
+
+/* =========================================================
+   TITLE
+========================================================= */
+
+.eyebrow{
+
+    display:inline-block;
+
+    margin-bottom:13px;
+
+    padding:7px 12px;
+
+    border:1px solid #75449d;
+
+    border-radius:999px;
+
+    color:#d4a7f8;
+
+    background:rgba(50,20,70,.55);
+
+    font-size:10px;
+    font-weight:bold;
+
+    letter-spacing:2px;
+
+}
+
+h1{
+
+    font-size:
+        clamp(
+            35px,
+            9vw,
+            58px
+        );
+
+    line-height:1;
+
+    margin-bottom:15px;
+
+}
+
+h1 span{
+
+    color:#a5ff52;
+
+    text-shadow:
+        0 0 25px
+        rgba(165,255,82,.3);
+
+}
+
+
+/* =========================================================
+   DESCRIPTION
+========================================================= */
+
+.description{
+
+    max-width:420px;
+
+    margin:0 auto;
+
+    color:#bcb2c7;
+
+    font-size:15px;
+
+    line-height:1.7;
+
+}
+
+
+/* =========================================================
+   PET PREVIEW
+========================================================= */
+
+.pet-preview{
+
+    position:relative;
+
+    width:250px;
+    height:250px;
+
+    margin:28px auto 25px;
+
+    display:flex;
+
+    align-items:center;
+    justify-content:center;
+
+}
+
+.pet-ring{
+
+    position:absolute;
+
+    width:225px;
+    height:225px;
+
+    border-radius:50%;
+
+    border:1px solid
+        rgba(191,117,255,.55);
+
+    box-shadow:
+        0 0 45px
+        rgba(140,50,255,.25),
+
+        inset 0 0 35px
+        rgba(140,50,255,.12);
+
+    animation:
+        rotateRing
+        12s
+        linear
+        infinite;
+
+}
+
+.pet-preview img{
+
+    position:relative;
+    z-index:2;
+
+    width:185px;
+    height:185px;
+
+    object-fit:contain;
+
+    filter:
+        drop-shadow(
+            0 0 25px
+            rgba(190,100,255,.5)
+        );
+
+    animation:
+        floatPet
+        3s
+        ease-in-out
+        infinite;
+
+}
+
+@keyframes rotateRing{
+
+    to{
+        transform:rotate(360deg);
+    }
+
+}
+
+@keyframes floatPet{
+
+    0%,100%{
+        transform:translateY(0);
+    }
+
+    50%{
+        transform:translateY(-10px);
+    }
+
+}
+
+
+/* =========================================================
+   LOGIN BUTTON
+========================================================= */
+
+.login-btn{
+
+    width:100%;
+
+    max-width:360px;
+
+    padding:16px 20px;
+
+    border:none;
+
+    border-radius:14px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #a5ff52,
+            #7fdf36
+        );
+
+    color:#071006;
+
+    font-size:16px;
+
+    font-weight:900;
+
+    cursor:pointer;
+
+    box-shadow:
+        0 10px 30px
+        rgba(130,220,55,.2);
+
+    transition:
+        transform .2s ease,
+        filter .2s ease;
+
+}
+
+.login-btn:hover{
+
+    transform:
+        translateY(-2px);
+
+    filter:
+        brightness(1.08);
+
+}
+
+.login-btn:active{
+
+    transform:
+        translateY(0);
+
+}
+
+.login-btn:disabled{
+
+    cursor:not-allowed;
+
+    opacity:.65;
+
+    transform:none;
+
+}
+
+
+/* =========================================================
+   STATUS
+========================================================= */
+
+#status{
+
+    min-height:20px;
+
+    margin-top:15px;
+
+    color:#9f91ad;
+
+    font-size:12px;
+
+    line-height:1.5;
+
+}
+
+
+/* =========================================================
+   FEATURES
+========================================================= */
+
+.features{
+
+    display:grid;
+
+    grid-template-columns:
+        repeat(3,1fr);
+
+    gap:10px;
+
+    margin-top:25px;
+
+}
+
+.feature{
+
+    padding:13px 8px;
+
+    border:
+        1px solid
+        rgba(151,82,215,.18);
+
+    border-radius:13px;
+
+    background:
+        rgba(15,8,23,.6);
+
+}
+
+.feature-icon{
+
+    display:block;
+
+    margin-bottom:6px;
+
+    font-size:20px;
+
+}
+
+.feature span{
+
+    color:#918697;
+
+    font-size:10px;
+
+}
+
+
+/* =========================================================
+   FOOTER
+========================================================= */
+
+.footer{
+
+    margin-top:25px;
+
+    color:#665d6d;
+
+    font-size:10px;
+
+    line-height:1.6;
+
+}
+
+.footer strong{
+
+    display:block;
+
+    margin-bottom:4px;
+
+    color:#9d88ad;
+
+    font-size:12px;
+
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media(max-width:480px){
+
+    body{
+        padding:12px;
+    }
+
+    .login-card{
+        padding:
+            30px
+            18px
+            25px;
+
+        border-radius:23px;
+    }
+
+    .logo-wrap{
+        width:90px;
+        height:90px;
+    }
+
+    .description{
+        font-size:14px;
+    }
+
+    .pet-preview{
+        width:220px;
+        height:220px;
+    }
+
+    .pet-ring{
+        width:200px;
+        height:200px;
+    }
+
+    .pet-preview img{
+        width:165px;
+        height:165px;
+    }
+
+    .features{
+        gap:7px;
+    }
+
+}
+
+
+/* =========================================================
+   VERY SMALL PHONE
+========================================================= */
+
+@media(max-width:350px){
+
+    h1{
+        font-size:34px;
+    }
+
+    .features{
+        grid-template-columns:1fr;
+    }
+
+}
+
+</style>
 </head>
+
+
 <body>
 
-    <h1 id="pi-user">Loading Pi...</h1>
 
-    <input type="text" id="searchNFT" placeholder="Search pets..." style="padding: 10px; width: 80%; max-width: 400px; margin-bottom: 20px;">
+<div class="background-glow"></div>
 
-    <div id="pet-container">
-        <!-- Ang mga cards ay automatic na lalabas dito base sa script mo -->
+
+<main class="login-card">
+
+
+    <!-- =====================================================
+         LOGO
+    ====================================================== -->
+
+    <div class="logo-wrap">
+
+        <img
+            src="alberto%20nft%20marketplace.jpg"
+            alt="Alberto NFT Marketplace"
+            onerror="
+                this.onerror=null;
+                this.style.display='none';
+            "
+        >
+
     </div>
 
-    <!-- Pet Details Modal -->
-    <div id="petModal" aria-hidden="true">
-        <div class="modal-content">
-            <span id="closePet">&times;</span>
-            <img id="petModalImage" src="" alt="Pet" style="width: 150px; height: 150px;">
-            <h2 id="petModalName"></h2>
-            <p>Rarity: <strong id="petModalRarity"></strong></p>
-            <div class="stats">
-                <p>❤️ HP: <span id="petHP"></span></p>
-                <p>⚔️ Attack: <span id="petAttack"></span></p>
-                <p>🛡️ Defense: <span id="petDefense"></span></p>
-                <p>⚡ Speed: <span id="petSpeed"></span></p>
-                <p>✨ Ability: <span id="petAbility"></span></p>
-            </div>
+
+    <!-- =====================================================
+         TITLE
+    ====================================================== -->
+
+    <div class="eyebrow">
+        ✦ ALBERTO PET MARKETPLACE
+    </div>
+
+
+    <h1>
+        Enter the
+        <span>Pet World</span>
+    </h1>
+
+
+    <p class="description">
+
+        Discover legendary digital companions,
+        explore their abilities and collect pets
+        inside the Alberto ecosystem.
+
+    </p>
+
+
+    <!-- =====================================================
+         FEATURE PET
+    ====================================================== -->
+
+    <div class="pet-preview">
+
+        <div class="pet-ring"></div>
+
+        <img
+            src="inferno-dragon.png"
+            alt="Inferno Dragon"
+        >
+
+    </div>
+
+
+    <!-- =====================================================
+         LOGIN
+    ====================================================== -->
+
+    <button
+        id="loginBtn"
+        class="login-btn"
+        type="button"
+    >
+        🔐 LOGIN WITH PI
+    </button>
+
+
+    <div id="status">
+        Pi Sandbox • Ready for login
+    </div>
+
+
+    <!-- =====================================================
+         FEATURES
+    ====================================================== -->
+
+    <div class="features">
+
+        <div class="feature">
+
+            <span class="feature-icon">
+                🐾
+            </span>
+
+            <span>
+                Legendary Pets
+            </span>
+
         </div>
+
+
+        <div class="feature">
+
+            <span class="feature-icon">
+                🔥
+            </span>
+
+            <span>
+                Pet Abilities
+            </span>
+
+        </div>
+
+
+        <div class="feature">
+
+            <span class="feature-icon">
+                🪙
+            </span>
+
+            <span>
+                Pi Sandbox
+            </span>
+
+        </div>
+
     </div>
 
-    <!-- I-link ang iyong logic -->
-    <script src="app.js"></script>
-    
-    <!-- Script para i-generate ang cards base sa PET_DATA mo -->
-    <script>
-        window.addEventListener('load', () => {
-            const container = document.getElementById('pet-container');
-            const data = AlbertoPets.getAllPetData();
-            
-            Object.keys(data).forEach(name => {
-                const pet = data[name];
-                const card = document.createElement('div');
-                card.className = 'card';
-                card.innerHTML = `
-                    <div class="nft-image"><img src="${pet.image}" alt="${name}"></div>
-                    <h2>${name}</h2>
-                    <p>${pet.rarity}</p>
-                    <button class="buy-btn" data-nft="${name}" data-price="${pet.price}">Buy for ${pet.price} Pi</button>
-                `;
-                container.appendChild(card);
+
+    <!-- =====================================================
+         FOOTER
+    ====================================================== -->
+
+    <footer class="footer">
+
+        <strong>
+            Alberto Pet Marketplace
+        </strong>
+
+        © 2026 Alberto Digital Art Work Studio
+        • Pi Sandbox
+
+    </footer>
+
+
+</main>
+
+
+<!-- =========================================================
+     PI LOGIN
+========================================================= -->
+
+<script>
+
+document.addEventListener(
+    "DOMContentLoaded",
+    function(){
+
+        const loginBtn =
+            document.getElementById(
+                "loginBtn"
+            );
+
+        const status =
+            document.getElementById(
+                "status"
+            );
+
+
+        /* =====================================================
+           PI INITIALIZATION
+        ===================================================== */
+
+        try{
+
+            Pi.init({
+                version:"2.0",
+                sandbox:true
             });
-            
-            // Re-initialize listeners after generating HTML
-            // (Tawagin ang functions mula sa app.js mo)
-            if (typeof initializeMarketplace === 'function') {
-                initializeMarketplace();
+
+        }catch(error){
+
+            console.error(
+                "Pi initialization error:",
+                error
+            );
+
+            status.textContent =
+                "Pi SDK initialization failed.";
+
+            return;
+
+        }
+
+
+        /* =====================================================
+           LOGIN
+        ===================================================== */
+
+        loginBtn.addEventListener(
+            "click",
+            async function(){
+
+                loginBtn.disabled =
+                    true;
+
+                loginBtn.textContent =
+                    "⏳ CONNECTING TO PI...";
+
+                status.textContent =
+                    "Please approve the Pi login request.";
+
+
+                try{
+
+                    const auth =
+                        await Pi.authenticate(
+                            ["username"],
+                            function(payment){
+
+                                console.log(
+                                    "Incomplete payment:",
+                                    payment
+                                );
+
+                            }
+                        );
+
+
+                    if(
+                        !auth ||
+                        !auth.user ||
+                        !auth.user.username
+                    ){
+
+                        throw new Error(
+                            "Pi username was not returned."
+                        );
+
+                    }
+
+
+                    const username =
+                        auth.user.username;
+
+
+                    localStorage.setItem(
+                        "piUser",
+                        username
+                    );
+
+
+                    status.textContent =
+                        "Welcome, " +
+                        username +
+                        "! Opening marketplace...";
+
+
+                    loginBtn.textContent =
+                        "✓ LOGIN SUCCESSFUL";
+
+
+                    /*
+                     * Give the browser a short moment
+                     * to display the successful login
+                     * before opening marketplace.
+                     */
+
+                    setTimeout(
+                        function(){
+
+                            window.location.href =
+                                "marketplace.html";
+
+                        },
+                        700
+                    );
+
+
+                }catch(error){
+
+                    console.error(
+                        "Pi login error:",
+                        error
+                    );
+
+
+                    status.textContent =
+                        "Pi login was cancelled or failed.";
+
+
+                    loginBtn.disabled =
+                        false;
+
+                    loginBtn.textContent =
+                        "🔐 LOGIN WITH PI";
+
+
+                    alert(
+                        "Pi Login Error:\n\n" +
+                        (
+                            error &&
+                            error.message
+                                ? error.message
+                                : String(error)
+                        )
+                    );
+
+                }
+
             }
-        });
-    </script>
+        );
+
+    }
+
+);
+
+</script>
+
 </body>
 </html>

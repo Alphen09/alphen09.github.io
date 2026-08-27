@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -8,50 +7,77 @@
     <!-- Pi SDK -->
     <script src="https://sdk.minepi.com/pi-sdk.js"></script>
     <style>
-        /* Basic Styling - I-adjust mo na lang ayon sa gusto mong design */
-        body { font-family: sans-serif; padding: 20px; }
-        #pi-user { font-weight: bold; margin-bottom: 20px; color: #5c3b88; }
-        .card { border: 1px solid #ccc; padding: 15px; margin: 10px; display: inline-block; width: 200px; text-align: center; }
-        .nft-image img { width: 100px; height: 100px; }
-        .category.active { background: #5c3b88; color: white; }
-        #petModal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); justify-content: center; align-items: center; }
-        .modal-content { background: white; padding: 20px; border-radius: 10px; }
+        body { font-family: 'Segoe UI', sans-serif; background-color: #f4f4f9; margin: 0; padding: 20px; text-align: center; }
+        #pi-user { font-size: 1.2rem; color: #5c3b88; margin-bottom: 20px; }
+        
+        /* Marketplace Grid */
+        #pet-container { display: flex; flex-wrap: wrap; justify-content: center; gap: 20px; }
+        .card { background: white; border-radius: 15px; padding: 15px; width: 220px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); cursor: pointer; transition: transform 0.2s; }
+        .card:hover { transform: scale(1.05); }
+        .nft-image img { width: 100%; height: 150px; object-fit: cover; border-radius: 10px; }
+        
+        /* Modal Styling */
+        #petModal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); justify-content: center; align-items: center; z-index: 1000; }
+        .modal-content { background: white; padding: 30px; border-radius: 20px; width: 90%; max-width: 400px; position: relative; }
+        #closePet { position: absolute; top: 10px; right: 20px; font-size: 24px; cursor: pointer; }
+        .stats { text-align: left; margin-top: 15px; }
     </style>
 </head>
 <body>
 
-    <div id="pi-user">Logging in to Pi...</div>
+    <h1 id="pi-user">Loading Pi...</h1>
 
-    <!-- Search at Filters -->
-    <input type="text" id="searchNFT" placeholder="Search pets...">
-    <div>
-        <button class="category" data-category="all">All</button>
-        <!-- Magdagdag ka pa ng buttons dito base sa categories mo -->
-    </div>
+    <input type="text" id="searchNFT" placeholder="Search pets..." style="padding: 10px; width: 80%; max-width: 400px; margin-bottom: 20px;">
 
-    <!-- Container kung saan lalabas ang mga pets -->
     <div id="pet-container">
-        <!-- Halimbawa ng Card (Dapat ganito ang structure na hinahanap ng app.js) -->
-        <div class="card" data-category="mythic">
-            <div class="nft-image"><img src="inferno-dragon.png" alt="Inferno Dragon"></div>
-            <h2>Inferno Dragon</h2>
-            <button class="buy-btn" data-nft="Inferno Dragon" data-price="50">Buy with Pi</button>
-        </div>
+        <!-- Ang mga cards ay automatic na lalabas dito base sa script mo -->
     </div>
 
-    <!-- Modal for Pet Details -->
-    <div id="petModal">
+    <!-- Pet Details Modal -->
+    <div id="petModal" aria-hidden="true">
         <div class="modal-content">
-            <span id="closePet" style="cursor:pointer; float:right;">&times;</span>
-            <img id="petModalImage" src="" alt="Pet">
+            <span id="closePet">&times;</span>
+            <img id="petModalImage" src="" alt="Pet" style="width: 150px; height: 150px;">
             <h2 id="petModalName"></h2>
-            <p>Rarity: <span id="petModalRarity"></span></p>
-            <p>HP: <span id="petHP"></span></p>
-            <p>Ability: <span id="petAbility"></span></p>
+            <p>Rarity: <strong id="petModalRarity"></strong></p>
+            <div class="stats">
+                <p>❤️ HP: <span id="petHP"></span></p>
+                <p>⚔️ Attack: <span id="petAttack"></span></p>
+                <p>🛡️ Defense: <span id="petDefense"></span></p>
+                <p>⚡ Speed: <span id="petSpeed"></span></p>
+                <p>✨ Ability: <span id="petAbility"></span></p>
+            </div>
         </div>
     </div>
 
-    <!-- I-link ang iyong logic file -->
+    <!-- I-link ang iyong logic -->
     <script src="app.js"></script>
+    
+    <!-- Script para i-generate ang cards base sa PET_DATA mo -->
+    <script>
+        window.addEventListener('load', () => {
+            const container = document.getElementById('pet-container');
+            const data = AlbertoPets.getAllPetData();
+            
+            Object.keys(data).forEach(name => {
+                const pet = data[name];
+                const card = document.createElement('div');
+                card.className = 'card';
+                card.innerHTML = `
+                    <div class="nft-image"><img src="${pet.image}" alt="${name}"></div>
+                    <h2>${name}</h2>
+                    <p>${pet.rarity}</p>
+                    <button class="buy-btn" data-nft="${name}" data-price="${pet.price}">Buy for ${pet.price} Pi</button>
+                `;
+                container.appendChild(card);
+            });
+            
+            // Re-initialize listeners after generating HTML
+            // (Tawagin ang functions mula sa app.js mo)
+            if (typeof initializeMarketplace === 'function') {
+                initializeMarketplace();
+            }
+        });
+    </script>
 </body>
 </html>

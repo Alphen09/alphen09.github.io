@@ -1,12 +1,16 @@
 // ============================================================
 // ALBERTO NFT MARKETPLACE
 // Pi Sandbox + Pet Ownership System
+// CLEAN MARKETPLACE.JS
 // ============================================================
+
+"use strict";
 
 let currentUser = null;
 
 const PET_STORAGE_KEY = "alberto_owned_pets";
 const REPUTATION_STORAGE_KEY = "alberto_reputation";
+
 
 // ============================================================
 // PET DATABASE
@@ -128,93 +132,42 @@ const PET_DATA = {
 
 
 // ============================================================
-// PI SDK INIT
+// MARKETPLACE START
+// IMPORTANT:
+// UI FUNCTIONS START IMMEDIATELY.
+// PI LOGIN RUNS SEPARATELY.
 // ============================================================
 
-Pi.init({
-    version: "2.0",
-    sandbox: true
-});
+document.addEventListener("DOMContentLoaded", function () {
 
+    console.log("Alberto Pet Marketplace starting...");
 
-// ============================================================
-// PI LOGIN
-// ============================================================
+    initializeMarketplaceUI();
 
-window.addEventListener("load", async function () {
+    initializePetImages();
 
-    try {
-
-        const auth = await Pi.authenticate(
-            ["username", "payments"],
-            onIncompletePaymentFound
-        );
-
-        currentUser = auth.user;
-
-        const userBox =
-            document.getElementById("pi-user");
-
-        if (userBox) {
-
-            userBox.textContent =
-                "👤 Welcome, " +
-                currentUser.username;
-
-        }
-
-        console.log(
-            "Pi user authenticated:",
-            currentUser.username
-        );
-
-        initializeMarketplace();
-
-    } catch (error) {
-
-        console.error(
-            "Pi authentication error:",
-            error
-        );
-
-        alert(
-            "Pi Login Error:\n\n" +
-            (
-                error && error.message
-                    ? error.message
-                    : String(error)
-            )
-        );
-
-    }
+    initializePi();
 
 });
 
 
 // ============================================================
-// INCOMPLETE PAYMENT
+// MARKETPLACE UI
 // ============================================================
 
-function onIncompletePaymentFound(payment) {
-
-    console.log(
-        "Incomplete payment found:",
-        payment
-    );
-
-}
-
-
-// ============================================================
-// MARKETPLACE INITIALIZATION
-// ============================================================
-
-function initializeMarketplace() {
+function initializeMarketplaceUI() {
 
     setupSearch();
+
     setupCategories();
+
     setupPetCards();
+
     setupBuyButtons();
+
+    setupPetModal();
+
+    console.log("Marketplace UI ready.");
 
 }
 
@@ -235,32 +188,27 @@ function setupSearch() {
         return;
     }
 
-    search.addEventListener(
-        "input",
-        function () {
+    search.addEventListener("input", function () {
 
-            const value =
-                this.value
-                    .toLowerCase()
-                    .trim();
+        const value =
+            this.value
+                .toLowerCase()
+                .trim();
 
-            cards.forEach(
-                function (card) {
+        cards.forEach(function (card) {
 
-                    const text =
-                        card.innerText
-                            .toLowerCase();
+            const text =
+                card.innerText
+                    .toLowerCase();
 
-                    card.style.display =
-                        text.includes(value)
-                            ? ""
-                            : "none";
+            card.style.display =
+                text.includes(value)
+                    ? ""
+                    : "none";
 
-                }
-            );
+        });
 
-        }
-    );
+    });
 
 }
 
@@ -277,54 +225,47 @@ function setupCategories() {
     const cards =
         document.querySelectorAll(".card");
 
-    buttons.forEach(
-        function (button) {
+    buttons.forEach(function (button) {
 
-            button.addEventListener(
-                "click",
-                function () {
+        button.addEventListener("click", function () {
 
-                    buttons.forEach(
-                        function (btn) {
-                            btn.classList.remove("active");
-                        }
-                    );
+            buttons.forEach(function (btn) {
 
-                    this.classList.add("active");
+                btn.classList.remove("active");
 
-                    const category =
-                        this.dataset.category;
+            });
 
-                    cards.forEach(
-                        function (card) {
+            this.classList.add("active");
 
-                            if (
-                                category === "all" ||
-                                card.dataset.category === category
-                            ) {
+            const category =
+                this.dataset.category;
 
-                                card.style.display = "";
+            cards.forEach(function (card) {
 
-                            } else {
+                if (
+                    category === "all" ||
+                    card.dataset.category === category
+                ) {
 
-                                card.style.display = "none";
+                    card.style.display = "";
 
-                            }
+                } else {
 
-                        }
-                    );
+                    card.style.display = "none";
 
                 }
-            );
 
-        }
-    );
+            });
+
+        });
+
+    });
 
 }
 
 
 // ============================================================
-// PET CARDS / DETAILS
+// PET CARDS
 // ============================================================
 
 function setupPetCards() {
@@ -332,60 +273,96 @@ function setupPetCards() {
     const cards =
         document.querySelectorAll(".card");
 
-    cards.forEach(
-        function (card) {
+    cards.forEach(function (card) {
 
-            card.addEventListener(
-                "click",
-                function (event) {
+        card.addEventListener("click", function (event) {
 
-                    if (
-                        event.target.closest(".buy-btn") ||
-                        event.target.closest(".amt-btn")
-                    ) {
-                        return;
-                    }
+            if (
+                event.target.closest(".buy-btn") ||
+                event.target.closest(".amt-btn")
+            ) {
+                return;
+            }
 
-                    const nameElement =
-                        card.querySelector("h2");
+            const nameElement =
+                card.querySelector("h2");
 
-                    const imageElement =
-                        card.querySelector(
-                            ".nft-image img"
-                        );
+            const imageElement =
+                card.querySelector(".nft-image img");
 
-                    if (
-                        !nameElement ||
-                        !imageElement
-                    ) {
-                        return;
-                    }
+            if (
+                !nameElement ||
+                !imageElement
+            ) {
+                return;
+            }
 
-                    const petName =
-                        nameElement.textContent.trim();
+            const petName =
+                nameElement.textContent.trim();
 
-                    const pet =
-                        PET_DATA[petName];
+            const pet =
+                PET_DATA[petName];
 
-                    if (!pet) {
-                        console.warn(
-                            "Pet data not found:",
-                            petName
-                        );
-                        return;
-                    }
+            if (!pet) {
 
-                    openPetModal(
-                        petName,
-                        pet,
-                        imageElement.src
-                    );
+                console.warn(
+                    "Pet data not found:",
+                    petName
+                );
 
-                }
+                return;
+            }
+
+            openPetModal(
+                petName,
+                pet,
+                imageElement.src
             );
 
-        }
-    );
+        });
+
+    });
+
+}
+
+
+// ============================================================
+// PET MODAL
+// ============================================================
+
+function setupPetModal() {
+
+    const modal =
+        document.getElementById("petModal");
+
+    const close =
+        document.getElementById("closePet");
+
+    if (close) {
+
+        close.addEventListener(
+            "click",
+            closePetModal
+        );
+
+    }
+
+    if (modal) {
+
+        modal.addEventListener(
+            "click",
+            function (event) {
+
+                if (event.target === modal) {
+
+                    closePetModal();
+
+                }
+
+            }
+        );
+
+    }
 
 }
 
@@ -408,49 +385,38 @@ function openPetModal(
     }
 
     const image =
-        document.getElementById(
-            "petModalImage"
-        );
+        document.getElementById("petModalImage");
 
     const name =
-        document.getElementById(
-            "petModalName"
-        );
+        document.getElementById("petModalName");
 
     const rarity =
-        document.getElementById(
-            "petModalRarity"
-        );
+        document.getElementById("petModalRarity");
 
     const hp =
-        document.getElementById(
-            "petHP"
-        );
+        document.getElementById("petHP");
 
     const attack =
-        document.getElementById(
-            "petAttack"
-        );
+        document.getElementById("petAttack");
 
     const defense =
-        document.getElementById(
-            "petDefense"
-        );
+        document.getElementById("petDefense");
 
     const speed =
-        document.getElementById(
-            "petSpeed"
-        );
+        document.getElementById("petSpeed");
 
     const ability =
-        document.getElementById(
-            "petAbility"
-        );
+        document.getElementById("petAbility");
 
 
     if (image) {
-        image.src = imageSource || pet.image;
-        image.alt = petName;
+
+        image.src =
+            imageSource || pet.image;
+
+        image.alt =
+            petName;
+
     }
 
     if (name) {
@@ -458,27 +424,33 @@ function openPetModal(
     }
 
     if (rarity) {
-        rarity.textContent = pet.rarity;
+        rarity.textContent =
+            pet.rarity;
     }
 
     if (hp) {
-        hp.textContent = pet.hp;
+        hp.textContent =
+            pet.hp;
     }
 
     if (attack) {
-        attack.textContent = pet.attack;
+        attack.textContent =
+            pet.attack;
     }
 
     if (defense) {
-        defense.textContent = pet.defense;
+        defense.textContent =
+            pet.defense;
     }
 
     if (speed) {
-        speed.textContent = pet.speed;
+        speed.textContent =
+            pet.speed;
     }
 
     if (ability) {
-        ability.textContent = pet.ability;
+        ability.textContent =
+            pet.ability;
     }
 
 
@@ -495,46 +467,6 @@ function openPetModal(
 // ============================================================
 // CLOSE PET MODAL
 // ============================================================
-
-document.addEventListener(
-    "DOMContentLoaded",
-    function () {
-
-        const modal =
-            document.getElementById("petModal");
-
-        const close =
-            document.getElementById("closePet");
-
-        if (close) {
-
-            close.addEventListener(
-                "click",
-                closePetModal
-            );
-
-        }
-
-        if (modal) {
-
-            modal.addEventListener(
-                "click",
-                function (event) {
-
-                    if (
-                        event.target === modal
-                    ) {
-                        closePetModal();
-                    }
-
-                }
-            );
-
-        }
-
-    }
-);
-
 
 function closePetModal() {
 
@@ -555,18 +487,70 @@ function closePetModal() {
 }
 
 
-document.addEventListener(
-    "keydown",
-    function (event) {
+document.addEventListener("keydown", function (event) {
 
-        if (
-            event.key === "Escape"
-        ) {
-            closePetModal();
-        }
+    if (event.key === "Escape") {
+
+        closePetModal();
 
     }
-);
+
+});
+
+
+// ============================================================
+// PET IMAGE INITIALIZATION
+// ============================================================
+
+function initializePetImages() {
+
+    const images =
+        document.querySelectorAll(".nft-image img");
+
+    images.forEach(function (img) {
+
+        img.addEventListener(
+            "error",
+            function () {
+
+                const original =
+                    img.getAttribute("src");
+
+                console.error(
+                    "Pet image failed:",
+                    original
+                );
+
+                /*
+                 * Golden Tiger has a capitalized
+                 * filename in the repository root.
+                 */
+
+                if (
+                    original &&
+                    original.toLowerCase() ===
+                    "golden-tiger.png"
+                ) {
+
+                    if (
+                        original !==
+                        "Golden-tiger.png"
+                    ) {
+
+                        img.src =
+                            "Golden-tiger.png";
+
+                    }
+
+                }
+
+            },
+            { once: false }
+        );
+
+    });
+
+}
 
 
 // ============================================================
@@ -578,21 +562,207 @@ function setupBuyButtons() {
     const buttons =
         document.querySelectorAll(".buy-btn");
 
-    buttons.forEach(
-        function (button) {
+    buttons.forEach(function (button) {
 
-            button.addEventListener(
-                "click",
-                function (event) {
+        button.addEventListener(
+            "click",
+            function (event) {
 
-                    event.stopPropagation();
+                event.stopPropagation();
 
-                    buyNFT(this);
+                buyNFT(this);
 
-                }
+            }
+        );
+
+    });
+
+}
+
+
+// ============================================================
+// PI SDK INITIALIZATION
+// ============================================================
+
+function initializePi() {
+
+    if (
+        typeof window.Pi === "undefined"
+    ) {
+
+        console.warn(
+            "Pi SDK is not available."
+        );
+
+        showPiStatus(
+            "⚠️ Pi Browser required"
+        );
+
+        return;
+
+    }
+
+
+    try {
+
+        Pi.init({
+
+            version: "2.0",
+
+            sandbox: true
+
+        });
+
+        console.log(
+            "Pi SDK initialized."
+        );
+
+        showPiStatus(
+            "🔐 Connecting to Pi..."
+        );
+
+        loginWithPi();
+
+    } catch (error) {
+
+        console.error(
+            "Pi SDK initialization error:",
+            error
+        );
+
+        showPiStatus(
+            "⚠️ Pi connection unavailable"
+        );
+
+    }
+
+}
+
+
+// ============================================================
+// PI LOGIN
+// ============================================================
+
+async function loginWithPi() {
+
+    if (
+        typeof window.Pi === "undefined"
+    ) {
+
+        return;
+
+    }
+
+
+    try {
+
+        const auth =
+            await Pi.authenticate(
+                ["username", "payments"],
+                onIncompletePaymentFound
+            );
+
+
+        if (
+            !auth ||
+            !auth.user
+        ) {
+
+            throw new Error(
+                "Pi authentication returned no user."
             );
 
         }
+
+
+        currentUser =
+            auth.user;
+
+
+        const userBox =
+            document.getElementById("pi-user");
+
+
+        if (userBox) {
+
+            userBox.textContent =
+                "👤 Welcome, " +
+                currentUser.username;
+
+        }
+
+
+        console.log(
+            "Pi user authenticated:",
+            currentUser.username
+        );
+
+
+        initializeReputation(
+            currentUser.username
+        );
+
+
+    } catch (error) {
+
+        console.error(
+            "Pi authentication error:",
+            error
+        );
+
+
+        /*
+         * IMPORTANT:
+         * Marketplace stays visible.
+         * We do NOT block the pets.
+         */
+
+        showPiStatus(
+            "🔐 Login with Pi to buy"
+        );
+
+    }
+
+}
+
+
+// ============================================================
+// PI USER STATUS
+// ============================================================
+
+function showPiStatus(message) {
+
+    const userBox =
+        document.getElementById("pi-user");
+
+    if (!userBox) {
+        return;
+    }
+
+    /*
+     * Do not overwrite an already
+     * authenticated username.
+     */
+
+    if (!currentUser) {
+
+        userBox.textContent =
+            message;
+
+    }
+
+}
+
+
+// ============================================================
+// INCOMPLETE PAYMENT
+// ============================================================
+
+function onIncompletePaymentFound(payment) {
+
+    console.log(
+        "Incomplete payment found:",
+        payment
     );
 
 }
@@ -607,10 +777,15 @@ function buyNFT(button) {
     if (!currentUser) {
 
         alert(
-            "Please login with Pi first."
+            "🔐 Please login with Pi first.\n\n" +
+            "Open this marketplace inside Pi Browser " +
+            "and complete Pi authentication."
         );
 
+        loginWithPi();
+
         return;
+
     }
 
 
@@ -636,6 +811,7 @@ function buyNFT(button) {
         );
 
         return;
+
     }
 
 
@@ -655,18 +831,24 @@ function buyNFT(button) {
 
         metadata: {
 
-            nftName: nftName,
+            nftName:
+
+                nftName,
 
             buyer:
+
                 currentUser.username,
 
             type:
+
                 "PET_PURCHASE",
 
             rarity:
+
                 pet.rarity,
 
             ability:
+
                 pet.ability
 
         }
@@ -674,408 +856,436 @@ function buyNFT(button) {
     };
 
 
-    Pi.createPayment(
+    try {
 
-        paymentData,
+        Pi.createPayment(
 
-        {
+            paymentData,
 
-            // ==================================================
-            // SERVER APPROVAL
-            // ==================================================
+            {
 
-            onReadyForServerApproval:
-                function (paymentId) {
+                // ==================================================
+                // SERVER APPROVAL
+                // ==================================================
 
-                    console.log(
-                        "Payment created:",
-                        paymentId
-                    );
+                onReadyForServerApproval:
+                    function (paymentId) {
+
+                        console.log(
+                            "Payment created:",
+                            paymentId
+                        );
 
 
-                    fetch(
-                        "https://alphen09-github-io.onrender.com/approve-payment",
-                        {
+                        fetch(
+                            "https://alphen09-github-io.onrender.com/approve-payment",
+                            {
 
-                            method: "POST",
+                                method: "POST",
 
-                            headers: {
-                                "Content-Type":
-                                    "application/json"
-                            },
+                                headers: {
 
-                            body:
-                                JSON.stringify({
+                                    "Content-Type":
+                                        "application/json"
 
-                                    paymentId:
-                                        paymentId,
+                                },
 
-                                    nftName:
-                                        nftName,
+                                body:
+                                    JSON.stringify({
 
-                                    buyer:
-                                        currentUser.username,
+                                        paymentId:
+                                            paymentId,
 
-                                    price:
-                                        price,
+                                        nftName:
+                                            nftName,
 
-                                    petData:
-                                        pet
+                                        buyer:
+                                            currentUser.username,
 
-                                })
+                                        price:
+                                            price,
 
-                        }
-                    )
+                                        petData:
+                                            pet
 
-                    .then(
-                        async function (response) {
+                                    })
 
-                            const data =
-                                await response.json();
+                            }
+                        )
 
-                            if (!response.ok) {
+                        .then(
+                            async function (response) {
 
-                                throw new Error(
-                                    data.message ||
-                                    "Payment approval failed."
+                                const data =
+                                    await response.json();
+
+
+                                if (!response.ok) {
+
+                                    throw new Error(
+                                        data.message ||
+                                        "Payment approval failed."
+                                    );
+
+                                }
+
+
+                                console.log(
+                                    "Server approval:",
+                                    data
                                 );
 
                             }
-
-                            console.log(
-                                "Server approval:",
-                                data
-                            );
-
-                        }
-                    )
-
-                    .catch(
-                        function (error) {
-
-                            console.error(
-                                "Approval error:",
-                                error
-                            );
-
-                            alert(
-                                "Payment Approval Error:\n\n" +
-                                error.message
-                            );
-
-                            button.disabled =
-                                false;
-
-                            button.innerText =
-                                "Buy with Pi";
-
-                        }
-                    );
-
-                },
-
-
-            // ==================================================
-            // SERVER COMPLETION
-            // ==================================================
-
-            onReadyForServerCompletion:
-                function (
-                    paymentId,
-                    txid
-                ) {
-
-                    console.log(
-                        "Payment completed:",
-                        paymentId,
-                        txid
-                    );
-
-
-                    const completedPet = {
-
-                        id:
-                            "pet_" +
-                            Date.now() +
-                            "_" +
-                            Math.random()
-                                .toString(36)
-                                .substring(2, 8),
-
-                        name:
-                            nftName,
-
-                        image:
-                            pet.image,
-
-                        rarity:
-                            pet.rarity,
-
-                        hp:
-                            pet.hp,
-
-                        attack:
-                            pet.attack,
-
-                        defense:
-                            pet.defense,
-
-                        speed:
-                            pet.speed,
-
-                        ability:
-                            pet.ability,
-
-                        price:
-                            price,
-
-                        owner:
-                            currentUser.username,
-
-                        paymentId:
-                            paymentId,
-
-                        txid:
-                            txid,
-
-                        purchasedAt:
-                            new Date().toISOString(),
-
-                        status:
-                            "owned"
-
-                    };
-
-
-                    // ==========================================
-                    // SEND COMPLETE PAYMENT TO SERVER
-                    // ==========================================
-
-                    fetch(
-                        "https://alphen09-github-io.onrender.com/complete-payment",
-                        {
-
-                            method: "POST",
-
-                            headers: {
-                                "Content-Type":
-                                    "application/json"
-                            },
-
-                            body:
-                                JSON.stringify({
-
-                                    paymentId:
-                                        paymentId,
-
-                                    txid:
-                                        txid,
-
-                                    nftName:
-                                        nftName,
-
-                                    buyer:
-                                        currentUser.username,
-
-                                    price:
-                                        price,
-
-                                    petData:
-                                        completedPet,
-
-                                    type:
-                                        "PET_PURCHASE"
-
-                                })
-
-                        }
-                    )
-
-                    .then(
-                        async function (response) {
-
-                            const data =
-                                await response.json();
-
-                            console.log(
-                                "Server completion:",
-                                data
-                            );
-
-
-                            // ==================================
-                            // SAVE OWNERSHIP
-                            // ==================================
-
-                            saveOwnedPet(
-                                completedPet
-                            );
-
-
-                            // ==================================
-                            // SUCCESS MESSAGE
-                            // ==================================
-
-                            alert(
-
-                                "🎉 PET PURCHASE SUCCESSFUL!\n\n" +
-
-                                "🐾 Pet: " +
-                                nftName +
-
-                                "\n⭐ Rarity: " +
-                                pet.rarity +
-
-                                "\n\n❤️ HP: " +
-                                pet.hp +
-
-                                "\n⚔️ Attack: " +
-                                pet.attack +
-
-                                "\n🛡️ Defense: " +
-                                pet.defense +
-
-                                "\n⚡ Speed: " +
-                                pet.speed +
-
-                                "\n✨ Ability: " +
-                                pet.ability +
-
-                                "\n\n💰 Price: " +
-                                price +
-                                " Pi" +
-
-                                "\n\nTransaction ID:\n" +
-                                txid
-
-                            );
-
-
-                            console.log(
-                                "OWNED PET:",
-                                completedPet
-                            );
-
-
-                            button.disabled =
-                                false;
-
-                            button.innerText =
-                                "Buy with Pi";
-
-                        }
-                    )
-
-                    .catch(
-                        function (error) {
-
-                            console.error(
-                                "Completion error:",
-                                error
-                            );
-
-
-                            /*
-                             * Payment itself was completed.
-                             * We do NOT pretend it failed.
-                             */
-
-                            alert(
-
-                                "⚠️ Pi payment completed.\n\n" +
-
-                                "Pet: " +
-                                nftName +
-
-                                "\n\n" +
-
-                                "TXID:\n" +
-                                txid +
-
-                                "\n\n" +
-
-                                "Server confirmation is pending."
-
-                            );
-
-
-                            button.disabled =
-                                false;
-
-                            button.innerText =
-                                "Buy with Pi";
-
-                        }
-                    );
-
-                },
-
-
-            // ==================================================
-            // CANCEL
-            // ==================================================
-
-            onCancel:
-                function (paymentId) {
-
-                    console.log(
-                        "Payment cancelled:",
-                        paymentId
-                    );
-
-
-                    alert(
-                        "Payment Cancelled."
-                    );
-
-
-                    button.disabled =
-                        false;
-
-                    button.innerText =
-                        "Buy with Pi";
-
-                },
-
-
-            // ==================================================
-            // ERROR
-            // ==================================================
-
-            onError:
-                function (error) {
-
-                    console.error(
-                        "Pi payment error:",
-                        error
-                    );
-
-
-                    alert(
-
-                        "Pi Payment Error:\n\n" +
-
-                        (
-                            error &&
-                            error.message
-                                ? error.message
-                                : String(error)
                         )
 
-                    );
+                        .catch(
+                            function (error) {
+
+                                console.error(
+                                    "Approval error:",
+                                    error
+                                );
 
 
-                    button.disabled =
-                        false;
+                                alert(
+                                    "Payment Approval Error:\n\n" +
+                                    error.message
+                                );
 
-                    button.innerText =
-                        "Buy with Pi";
 
-                }
+                                button.disabled =
+                                    false;
 
-        }
+                                button.innerText =
+                                    "Buy with Pi";
 
-    );
+                            }
+                        );
+
+                    },
+
+
+                // ==================================================
+                // SERVER COMPLETION
+                // ==================================================
+
+                onReadyForServerCompletion:
+                    function (
+                        paymentId,
+                        txid
+                    ) {
+
+                        console.log(
+                            "Payment completed:",
+                            paymentId,
+                            txid
+                        );
+
+
+                        const completedPet = {
+
+                            id:
+                                "pet_" +
+                                Date.now() +
+                                "_" +
+                                Math.random()
+                                    .toString(36)
+                                    .substring(2, 8),
+
+                            name:
+                                nftName,
+
+                            image:
+                                pet.image,
+
+                            rarity:
+                                pet.rarity,
+
+                            hp:
+                                pet.hp,
+
+                            attack:
+                                pet.attack,
+
+                            defense:
+                                pet.defense,
+
+                            speed:
+                                pet.speed,
+
+                            ability:
+                                pet.ability,
+
+                            price:
+                                price,
+
+                            owner:
+                                currentUser.username,
+
+                            paymentId:
+                                paymentId,
+
+                            txid:
+                                txid,
+
+                            purchasedAt:
+                                new Date()
+                                    .toISOString(),
+
+                            status:
+                                "owned"
+
+                        };
+
+
+                        fetch(
+                            "https://alphen09-github-io.onrender.com/complete-payment",
+                            {
+
+                                method: "POST",
+
+                                headers: {
+
+                                    "Content-Type":
+                                        "application/json"
+
+                                },
+
+                                body:
+                                    JSON.stringify({
+
+                                        paymentId:
+                                            paymentId,
+
+                                        txid:
+                                            txid,
+
+                                        nftName:
+                                            nftName,
+
+                                        buyer:
+                                            currentUser.username,
+
+                                        price:
+                                            price,
+
+                                        petData:
+                                            completedPet,
+
+                                        type:
+                                            "PET_PURCHASE"
+
+                                    })
+
+                            }
+                        )
+
+                        .then(
+                            async function (response) {
+
+                                const data =
+                                    await response.json();
+
+
+                                if (!response.ok) {
+
+                                    throw new Error(
+                                        data.message ||
+                                        "Server completion failed."
+                                    );
+
+                                }
+
+
+                                console.log(
+                                    "Server completion:",
+                                    data
+                                );
+
+
+                                saveOwnedPet(
+                                    completedPet
+                                );
+
+
+                                alert(
+
+                                    "🎉 PET PURCHASE SUCCESSFUL!\n\n" +
+
+                                    "🐾 Pet: " +
+                                    nftName +
+
+                                    "\n⭐ Rarity: " +
+                                    pet.rarity +
+
+                                    "\n\n❤️ HP: " +
+                                    pet.hp +
+
+                                    "\n⚔️ Attack: " +
+                                    pet.attack +
+
+                                    "\n🛡️ Defense: " +
+                                    pet.defense +
+
+                                    "\n⚡ Speed: " +
+                                    pet.speed +
+
+                                    "\n✨ Ability: " +
+                                    pet.ability +
+
+                                    "\n\n💰 Price: " +
+                                    price +
+                                    " Pi" +
+
+                                    "\n\nTransaction ID:\n" +
+                                    txid
+
+                                );
+
+
+                                button.disabled =
+                                    false;
+
+                                button.innerText =
+                                    "Buy with Pi";
+
+                            }
+                        )
+
+                        .catch(
+                            function (error) {
+
+                                console.error(
+                                    "Completion error:",
+                                    error
+                                );
+
+
+                                /*
+                                 * Payment completed.
+                                 * Never tell the user that
+                                 * the payment failed.
+                                 */
+
+                                alert(
+
+                                    "⚠️ Pi payment completed.\n\n" +
+
+                                    "Pet: " +
+                                    nftName +
+
+                                    "\n\nTXID:\n" +
+                                    txid +
+
+                                    "\n\n" +
+
+                                    "Server confirmation is pending."
+
+                                );
+
+
+                                button.disabled =
+                                    false;
+
+                                button.innerText =
+                                    "Buy with Pi";
+
+                            }
+                        );
+
+                    },
+
+
+                // ==================================================
+                // CANCEL
+                // ==================================================
+
+                onCancel:
+                    function (paymentId) {
+
+                        console.log(
+                            "Payment cancelled:",
+                            paymentId
+                        );
+
+
+                        alert(
+                            "Payment Cancelled."
+                        );
+
+
+                        button.disabled =
+                            false;
+
+                        button.innerText =
+                            "Buy with Pi";
+
+                    },
+
+
+                // ==================================================
+                // ERROR
+                // ==================================================
+
+                onError:
+                    function (error) {
+
+                        console.error(
+                            "Pi payment error:",
+                            error
+                        );
+
+
+                        alert(
+
+                            "Pi Payment Error:\n\n" +
+
+                            (
+                                error &&
+                                error.message
+                                    ? error.message
+                                    : String(error)
+                            )
+
+                        );
+
+
+                        button.disabled =
+                            false;
+
+                        button.innerText =
+                            "Buy with Pi";
+
+                    }
+
+            }
+
+        );
+
+    } catch (error) {
+
+        console.error(
+            "Pi.createPayment error:",
+            error
+        );
+
+
+        alert(
+            "Unable to open Pi Payment.\n\n" +
+            (
+                error.message ||
+                String(error)
+            )
+        );
+
+
+        button.disabled =
+            false;
+
+        button.innerText =
+            "Buy with Pi";
+
+    }
 
 }
 
@@ -1110,17 +1320,14 @@ function saveOwnedPet(pet) {
     }
 
 
-    /*
-     * Prevent duplicate ownership
-     * for the same payment.
-     */
-
     const alreadyExists =
         allOwners[username].some(
             function (item) {
 
-                return item.paymentId ===
-                    pet.paymentId;
+                return (
+                    item.paymentId ===
+                    pet.paymentId
+                );
 
             }
         );
@@ -1177,7 +1384,7 @@ function getMyPets() {
 
 
 // ============================================================
-// REPUTATION SYSTEM FOUNDATION
+// REPUTATION
 // ============================================================
 
 function getReputation(username) {
@@ -1215,7 +1422,7 @@ function getReputation(username) {
 
 
 // ============================================================
-// CREATE INITIAL REPUTATION
+// INITIALIZE REPUTATION
 // ============================================================
 
 function initializeReputation(username) {
@@ -1261,52 +1468,23 @@ function initializeReputation(username) {
 
 
 // ============================================================
-// INITIALIZE REPUTATION AFTER LOGIN
-// ============================================================
-
-window.addEventListener(
-    "load",
-    function () {
-
-        const checkUser =
-            setInterval(
-                function () {
-
-                    if (currentUser) {
-
-                        initializeReputation(
-                            currentUser.username
-                        );
-
-                        clearInterval(
-                            checkUser
-                        );
-
-                    }
-
-                },
-                500
-            );
-
-    }
-);
-
-
-// ============================================================
-// GLOBAL PET API
-// Future My Pets / Sell Pet pages can use this
+// GLOBAL ALBERTO PET API
 // ============================================================
 
 window.AlbertoPets = {
 
     getAllPetData:
         function () {
+
             return PET_DATA;
+
         },
 
     getPet:
         function (name) {
+
             return PET_DATA[name] || null;
+
         },
 
     getMyPets:
@@ -1319,3 +1497,8 @@ window.AlbertoPets = {
         saveOwnedPet
 
 };
+
+
+console.log(
+    "🐾 Alberto Pet Marketplace JS loaded."
+);
